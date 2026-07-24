@@ -9,11 +9,12 @@ if (!exists("source_project_file")) {
 }
 source_project_file("05_analysis.R")
 
-# Consistent color palette for the three devices.
+# Consistent, high-contrast palette for the three devices.
+# Red = Whoop, Blue = Oura, Orange = Withings (easy to tell apart in all plot types).
 DEVICE_COLORS <- c(
-  "Whoop" = "#44a1a0",
-  "Oura Ring 4" = "#274156",
-  "Withings ScanWatch" = "#605a52"
+  "Whoop"              = "#D62828",
+  "Oura Ring 4"        = "#1D4ED8",
+  "Withings ScanWatch" = "#EA580C"
 )
 
 # -----------------------------------------------------------------------------
@@ -99,10 +100,13 @@ plot_scatter_pair <- function(wide_df, metric, device_a, device_b, label_a, labe
   pair <- get_pairwise_data(wide_df, metric, device_a, device_b)
   if (is.null(pair) || nrow(pair) < 2) return(NULL)
 
+  point_color <- DEVICE_COLORS[[label_b]] %||% "#333333"
+  line_color  <- DEVICE_COLORS[[label_a]] %||% "#666666"
+
   ggplot2::ggplot(pair, ggplot2::aes(x = a, y = b)) +
     ggplot2::geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
-    ggplot2::geom_point(size = 3, alpha = 0.8, color = "#274156") +
-    ggplot2::geom_smooth(method = "lm", se = TRUE, color = "#44a1a0", fill = "#44a1a0", alpha = 0.15) +
+    ggplot2::geom_point(size = 3, alpha = 0.85, color = point_color) +
+    ggplot2::geom_smooth(method = "lm", se = TRUE, color = line_color, fill = line_color, alpha = 0.15) +
     ggplot2::labs(
       x = paste(label_a, "—", METRIC_LABELS[[metric]]),
       y = paste(label_b, "—", METRIC_LABELS[[metric]]),
@@ -120,6 +124,9 @@ plot_bland_altman <- function(wide_df, metric, device_a, device_b, label_a, labe
   pair <- get_pairwise_data(wide_df, metric, device_a, device_b)
   if (is.null(pair) || nrow(pair) < 2) return(NULL)
 
+  point_color <- DEVICE_COLORS[[label_b]] %||% "#333333"
+  bias_color  <- DEVICE_COLORS[[label_a]] %||% "#666666"
+
   pair <- pair |>
     dplyr::mutate(
       mean_val = (a + b) / 2,
@@ -129,10 +136,10 @@ plot_bland_altman <- function(wide_df, metric, device_a, device_b, label_a, labe
   ba <- bland_altman_stats(pair)
 
   ggplot2::ggplot(pair, ggplot2::aes(x = mean_val, y = diff_val)) +
-    ggplot2::geom_hline(yintercept = ba$mean_bias, color = "#44a1a0", linewidth = 0.8) +
+    ggplot2::geom_hline(yintercept = ba$mean_bias, color = bias_color, linewidth = 0.8) +
     ggplot2::geom_hline(yintercept = c(ba$loa_lower, ba$loa_upper),
                         linetype = "dashed", color = "gray50") +
-    ggplot2::geom_point(size = 3, alpha = 0.8, color = "#274156") +
+    ggplot2::geom_point(size = 3, alpha = 0.85, color = point_color) +
     ggplot2::labs(
       x = paste("Mean of", label_a, "&", label_b),
       y = paste("Difference (", label_b, "−", label_a, ")", sep = ""),
@@ -160,7 +167,7 @@ plot_correlation_heatmap <- function(agreement_df) {
     ggplot2::geom_tile(color = "white", linewidth = 0.5) +
     ggplot2::geom_text(ggplot2::aes(label = sprintf("%.2f\n(n=%d)", pearson_r, n)),
                        size = 3.5, color = "white") +
-    ggplot2::scale_fill_gradient2(low = "#605a52", mid = "gray70", high = "#44a1a0",
+    ggplot2::scale_fill_gradient2(low = "#93C5FD", mid = "gray85", high = "#D62828",
                                   midpoint = 0.5, limits = c(0, 1)) +
     ggplot2::labs(x = "Device pair", y = "Metric", fill = "Pearson r",
                   title = "Correlation matrix across device pairs") +
