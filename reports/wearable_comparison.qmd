@@ -1,0 +1,238 @@
+---
+title: "Wearable Device Comparative Analysis"
+subtitle: "Whoop vs Oura Ring 4 vs Withings ScanWatch"
+author: "Wearable Comparative Analysis"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    theme: cosmo
+execute:
+  echo: true
+  message: false
+  warning: false
+---
+
+```{r setup}
+# Set working directory to project root so sourced scripts find data files.
+knitr::opts_chunk$set(fig.width = 9, fig.height = 5, dpi = 120)
+
+if (!file.exists("physiological_cycles.csv") && file.exists("../physiological_cycles.csv")) {
+  setwd("..")
+}
+
+source("R/00_packages.R")
+source("R/source_project.R")
+source("R/06_plots.R")
+
+# Run the full pipeline: load, clean, harmonize, save processed files.
+harmonized <- save_harmonized()
+long_df  <- harmonized$long
+wide_df  <- harmonized$wide
+overlap  <- harmonized$overlap
+qc_log   <- harmonized$qc
+
+desc_stats    <- descriptive_stats(long_df)
+agreement     <- run_all_agreement(wide_df)
+overlap_tbl   <- overlap_counts(overlap)
+ww_stats      <- weekday_weekend_stats(long_df)
+```
+
+## Introduction
+
+This report compares daily health metrics from three wearable devices worn by the same person over approximately 33 days (June 20 – July 22, 2026, US Pacific time):
+
+- **Whoop** bracelet
+- **Oura Ring 4**
+- **Withings ScanWatch**
+
+We examine four metrics: **resting heart rate (RHR)**, **heart rate variability (HRV)**, **sleep duration**, and **daily steps**. The analysis window is anchored to Whoop coverage. All code is shown inline so the workflow is fully transparent.
+
+## Data sources and analysis window
+
+| Device | Primary files | Metrics extracted |
+|--------|---------------|-------------------|
+| Whoop | `physiological_cycles.csv`, `whoop.rtf` | RHR, HRV, sleep; steps manually logged |
+| Oura Ring 4 | `oura_2026-05-22_2026-07-23_trends.csv` | RHR, HRV, sleep, steps |
+| Withings ScanWatch | `sleep.csv`, `aggregates_steps.csv` | RHR (nightly avg), sleep, steps; **HRV not available in 2026 export** |
+
+```{r window-info}
+window_info <- tibble::tibble(
+  Setting = c("Timezone", "Window start", "Window end", "Calendar days"),
+  Value = c(TZ, as.character(WINDOW_START), as.character(WINDOW_END),
+            as.character(as.integer(WINDOW_END - WINDOW_START) + 1))
+)
+knitr::kable(window_info, caption = "Analysis configuration")
+```
+
+### Sleep date alignment
+
+All three devices naturally align to the **wake date in Pacific time**:
+
+| Device | Rule |
+|--------|------|
+| Whoop | Date of `Wake onset` |
+| Oura | `date` column (summary / wake calendar day) |
+| Withings | Date of sleep end timestamp (`to`) |
+
+## Data quality and exclusions
+
+Known issues handled in the pipeline:
+
+- Whoop steps are **manually transcribed** from the app (not exported)
+- Withings sleep on 2026-06-20 is corrupt (zero stages) — excluded
+- Withings duplicate sleep on 2026-06-26 — kept longest session
+- Withings HRV absent in 2026 — HRV comparisons are Whoop vs Oura only
+- Withings sleep data ends 2026-07-18 (no Jul 19–22 nights)
+- Low step counts flagged (not dropped) for sensitivity analysis
+
+```{r qc-table}
+if (nrow(qc_log) > 0) {
+  knitr::kable(head(qc_log, 20), caption = "QC exclusions and flags (first 20 rows)")
+} else {
+  cat("No hard exclusions beyond missing values.")
+}
+```
+
+## Overlap and coverage
+
+How many days does each device contribute per metric?
+
+```{r overlap-table}
+knitr::kable(overlap_tbl, caption = "Days by device-combination category")
+```
+
+```{r overlap-heatmaps, fig.height=8}
+#| fig-cap: "Calendar heatmaps showing which devices recorded each metric on each day."
+plots <- lapply(METRICS, function(m) plot_overlap_heatmap(overlap, m))
+patchwork::wrap_plots(plots, ncol = 1)
+```
+
+## Descriptive statistics
+
+```{r desc-table}
+desc_display <- desc_stats |>
+  dplyr::mutate(
+    metric = METRIC_LABELS[as.character(metric)],
+    dplyr::across(where(is.numeric), ~ round(.x, 2))
+  ) |>
+  dplyr::select(device, metric, n, mean, sd, median, q25, q75, cv_pct)
+
+knitr::kable(desc_display, caption = "Summary statistics by device and metric")
+```
+
+```{r timeseries, fig.height=10}
+#| fig-cap: "Daily time series for each metric, colored by device."
+ts_plots <- lapply(METRICS, function(m) plot_timeseries(long_df, m))
+patchwork::wrap_plots(ts_plots, ncol = 2)
+```
+
+```{r density, fig.height=10}
+#| fig-cap: "Distribution of daily values per device."
+dens_plots <- lapply(METRICS, function(m) plot_density(long_df, m))
+patchwork::wrap_plots(dens_plots, ncol = 2)
+```
+
+## Correlation and agreement
+
+Pairwise comparisons on days where both devices recorded the metric. HRV includes only Whoop and Oura (Withings has no HRV in this export).
+
+```{r agreement-table}
+if (!is.null(agreement)) {
+  agree_display <- agreement |>
+    dplyr::mutate(
+      metric = METRIC_LABELS[metric],
+      dplyr::across(where(is.numeric), ~ round(.x, 3))
+    )
+  knitr::kable(agree_display, caption = "Pairwise agreement statistics")
+}
+```
+
+```{r corr-heatmap, fig.height=5}
+#| fig-cap: "Pearson correlation heatmap across device pairs."
+if (!is.null(agreement)) plot_correlation_heatmap(agreement)
+```
+
+### Scatter plots and Bland–Altman diagrams
+
+```{r scatter-ba-rhr, fig.height=10}
+#| fig-cap: "RHR: scatter and Bland–Altman plots for each device pair."
+p1 <- plot_scatter_pair(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
+p2 <- plot_bland_altman(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
+p3 <- plot_scatter_pair(wide_df, "rhr", "whoop", "withings", "Whoop", "Withings ScanWatch")
+p4 <- plot_bland_altman(wide_df, "rhr", "whoop", "withings", "Whoop", "Withings ScanWatch")
+patchwork::wrap_plots(list(p1, p2, p3, p4), ncol = 2)
+```
+
+```{r scatter-ba-sleep, fig.height=10}
+#| fig-cap: "Sleep duration: scatter and Bland–Altman plots."
+s1 <- plot_scatter_pair(wide_df, "sleep_min", "whoop", "oura", "Whoop", "Oura Ring 4")
+s2 <- plot_bland_altman(wide_df, "sleep_min", "whoop", "oura", "Whoop", "Oura Ring 4")
+s3 <- plot_scatter_pair(wide_df, "sleep_min", "whoop", "withings", "Whoop", "Withings ScanWatch")
+s4 <- plot_bland_altman(wide_df, "sleep_min", "whoop", "withings", "Whoop", "Withings ScanWatch")
+patchwork::wrap_plots(list(s1, s2, s3, s4), ncol = 2)
+```
+
+```{r scatter-ba-steps, fig.height=10}
+#| fig-cap: "Steps: scatter and Bland–Altman plots (Whoop steps are manually logged)."
+t1 <- plot_scatter_pair(wide_df, "steps", "whoop", "oura", "Whoop", "Oura Ring 4")
+t2 <- plot_bland_altman(wide_df, "steps", "whoop", "oura", "Whoop", "Oura Ring 4")
+t3 <- plot_scatter_pair(wide_df, "steps", "oura", "withings", "Oura Ring 4", "Withings ScanWatch")
+t4 <- plot_bland_altman(wide_df, "steps", "oura", "withings", "Oura Ring 4", "Withings ScanWatch")
+patchwork::wrap_plots(list(t1, t2, t3, t4), ncol = 2)
+```
+
+```{r scatter-ba-hrv, fig.height=5}
+#| fig-cap: "HRV: Whoop vs Oura only (Withings HRV unavailable)."
+h1 <- plot_scatter_pair(wide_df, "hrv", "whoop", "oura", "Whoop", "Oura Ring 4")
+h2 <- plot_bland_altman(wide_df, "hrv", "whoop", "oura", "Whoop", "Oura Ring 4")
+patchwork::wrap_plots(list(h1, h2), ncol = 2)
+```
+
+## Extended analyses
+
+### Weekday vs weekend
+
+```{r weekday-weekend}
+knitr::kable(
+  ww_stats |> dplyr::mutate(metric = METRIC_LABELS[as.character(metric)],
+                            mean = round(mean, 2)),
+  caption = "Mean values on weekdays vs weekends"
+)
+```
+
+### Rank consistency
+
+On days where all three devices recorded a metric, do they rank days similarly (Spearman correlation of ranks)?
+
+```{r rank-consistency}
+rank_rhr   <- rank_consistency(wide_df, "rhr", c("whoop", "oura", "withings"))
+rank_sleep <- rank_consistency(wide_df, "sleep_min", c("whoop", "oura", "withings"))
+rank_steps <- rank_consistency(wide_df, "steps", c("whoop", "oura", "withings"))
+rank_all <- dplyr::bind_rows(rank_rhr, rank_sleep, rank_steps)
+
+if (!is.null(rank_all) && nrow(rank_all) > 0) {
+  knitr::kable(
+    rank_all |> dplyr::mutate(metric = METRIC_LABELS[metric], spearman = round(spearman, 3)),
+    caption = "Rank correlation between devices (Spearman)"
+  )
+}
+```
+
+## Limitations
+
+- **Single participant**, ~33-day window — correlations are exploratory, not population-level inference.
+- **Whoop steps** were manually typed into an RTF note; gaps and low values reduce reliability.
+- **Withings HRV** is not present in the 2026 export; only Whoop–Oura HRV comparison is possible.
+- **Withings sleep** stops after July 18, shortening three-way sleep overlap.
+- Devices use **proprietary algorithms**; disagreement does not imply clinical inaccuracy without a reference standard (e.g., polysomnography, ECG).
+- All timestamps interpreted in **`r TZ`**.
+
+## Appendix
+
+```{r session-info}
+sessionInfo()
+```
