@@ -1,0 +1,2099 @@
+type,date,value,unit,position
+VO2MAX,"2026-07-13 18:24:00",37,
+"Training Duration","2026-07-13 18:24:00","1,020",
+"Training load","2026-07-13 18:24:00",5,
+"Vascular age","2026-07-08 11:58:38",28,
+FAT_FREE_MASS,"2026-07-08 11:58:38",45,
+"Visceral Fat","2026-07-08 11:58:38",2.1,
+"Impedence 50kHz for segments","2026-07-08 11:58:38",686.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-07-08 11:58:38",604.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-07-08 11:58:38",808.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-07-08 11:58:38",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-07-08 11:58:38",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-07-08 11:58:38",-0.1,,"Between Legs"
+"BIA Error","2026-07-08 11:58:38",0,
+"Basal Metabolic Rate (BMR)","2026-07-08 11:58:38","1,356",
+"Metabolic Age","2026-07-08 11:58:38",29,
+FAT_PERCENT,"2026-07-08 11:58:38",34,
+"Fat Free Percent","2026-07-08 11:58:38",66,
+MUSCLE_PERCENT,"2026-07-08 11:58:38",63,
+BONE_PERCENT,"2026-07-08 11:58:38",3,
+WATER_PERCENT,"2026-07-08 11:58:38",44,
+"Vascular age","2026-06-26 10:53:43",28,
+"Electrodermal activity feet","2026-06-26 10:53:43",87,
+"Max Nerve Response Score (NRS) feet","2026-06-26 10:53:43",87,
+FAT_FREE_MASS,"2026-06-26 10:53:43",45,
+"Visceral Fat","2026-06-26 10:53:43",2.1,
+"Impedence 50kHz for segments","2026-06-26 10:53:43",675.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-06-26 10:53:43",594.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-06-26 10:53:43",809.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-06-26 10:53:43",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-06-26 10:53:43",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-06-26 10:53:43",-0.1,,"Between Legs"
+"BIA Error","2026-06-26 10:53:43",0,
+"Basal Metabolic Rate (BMR)","2026-06-26 10:53:43","1,366",
+"Metabolic Age","2026-06-26 10:53:43",29,
+FAT_PERCENT,"2026-06-26 10:53:43",34,
+"Fat Free Percent","2026-06-26 10:53:43",66,
+MUSCLE_PERCENT,"2026-06-26 10:53:43",63,
+BONE_PERCENT,"2026-06-26 10:53:43",3,
+WATER_PERCENT,"2026-06-26 10:53:43",44,
+VO2MAX,"2026-06-20 19:27:00",36,
+"Training Duration","2026-06-20 19:27:00","1,020",
+"Training load","2026-06-20 19:27:00",8,
+VO2MAX,"2026-06-20 19:26:34",37,
+"Training Duration","2026-06-20 19:26:34","1,617",
+"Training load","2026-06-20 19:26:34",11,
+"PWV Reached count","2026-06-20 11:14:43","1,284",
+"VA Reached count","2026-06-20 11:14:43","1,284",
+"Electrodermal activity feet","2026-06-20 11:14:43",80,
+"Max Nerve Response Score (NRS) feet","2026-06-20 11:14:43",87,
+FAT_FREE_MASS,"2026-06-20 11:14:43",45,
+"Visceral Fat","2026-06-20 11:14:43",2.1,
+"Impedence 50kHz for segments","2026-06-20 11:14:43",669.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-06-20 11:14:43",605.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-06-20 11:14:43",767.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-06-20 11:14:43",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-06-20 11:14:43",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-06-20 11:14:43",-0.1,,"Between Legs"
+"BIA Error","2026-06-20 11:14:43",0,
+"Basal Metabolic Rate (BMR)","2026-06-20 11:14:43","1,365",
+"Metabolic Age","2026-06-20 11:14:43",29,
+FAT_PERCENT,"2026-06-20 11:14:43",34,
+"Fat Free Percent","2026-06-20 11:14:43",66,
+MUSCLE_PERCENT,"2026-06-20 11:14:43",62,
+BONE_PERCENT,"2026-06-20 11:14:43",3,
+WATER_PERCENT,"2026-06-20 11:14:43",44,
+"PWV Reached count","2026-06-11 12:25:39","1,283",
+"VA Reached count","2026-06-11 12:25:39","1,283",
+FAT_FREE_MASS,"2026-06-11 12:25:39",45,
+"Visceral Fat","2026-06-11 12:25:39",2.1,
+"Impedence 50kHz for segments","2026-06-11 12:25:39",689.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-06-11 12:25:39",622.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-06-11 12:25:39",806.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-06-11 12:25:39",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-06-11 12:25:39",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-06-11 12:25:39",-0.1,,"Between Legs"
+"BIA Error","2026-06-11 12:25:39",0,
+"Basal Metabolic Rate (BMR)","2026-06-11 12:25:39","1,362",
+"Metabolic Age","2026-06-11 12:25:39",29,
+FAT_PERCENT,"2026-06-11 12:25:39",34,
+"Fat Free Percent","2026-06-11 12:25:39",66,
+MUSCLE_PERCENT,"2026-06-11 12:25:39",62,
+BONE_PERCENT,"2026-06-11 12:25:39",3,
+WATER_PERCENT,"2026-06-11 12:25:39",43,
+"PWV Reached count","2026-06-06 11:17:20","1,282",
+"VA Reached count","2026-06-06 11:17:20","1,282",
+"Electrodermal activity feet","2026-06-06 11:17:20",54,
+"Max Nerve Response Score (NRS) feet","2026-06-06 11:17:20",87,
+FAT_FREE_MASS,"2026-06-06 11:17:20",45,
+"Visceral Fat","2026-06-06 11:17:20",2.1,
+"Impedence 50kHz for segments","2026-06-06 11:17:20",655.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-06-06 11:17:20",595.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-06-06 11:17:20",750.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-06-06 11:17:20",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-06-06 11:17:20",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-06-06 11:17:20",-0.1,,"Between Legs"
+"BIA Error","2026-06-06 11:17:20",0,
+"Basal Metabolic Rate (BMR)","2026-06-06 11:17:20","1,371",
+"Metabolic Age","2026-06-06 11:17:20",29,
+FAT_PERCENT,"2026-06-06 11:17:20",34,
+"Fat Free Percent","2026-06-06 11:17:20",66,
+MUSCLE_PERCENT,"2026-06-06 11:17:20",62,
+BONE_PERCENT,"2026-06-06 11:17:20",3,
+WATER_PERCENT,"2026-06-06 11:17:20",44,
+"PWV Reached count","2026-05-31 11:45:31","1,281",
+"VA Reached count","2026-05-31 11:45:31","1,281",
+FAT_FREE_MASS,"2026-05-31 11:45:31",46,
+"Visceral Fat","2026-05-31 11:45:31",2.1,
+"Impedence 50kHz for segments","2026-05-31 11:45:31",609.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-05-31 11:45:31",554.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-05-31 11:45:31",719.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-05-31 11:45:31",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-05-31 11:45:31",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-05-31 11:45:31",-0.1,,"Between Legs"
+"BIA Error","2026-05-31 11:45:31",0,
+"Basal Metabolic Rate (BMR)","2026-05-31 11:45:31","1,395",
+"Metabolic Age","2026-05-31 11:45:31",28,
+FAT_PERCENT,"2026-05-31 11:45:31",33,
+"Fat Free Percent","2026-05-31 11:45:31",67,
+MUSCLE_PERCENT,"2026-05-31 11:45:31",63,
+BONE_PERCENT,"2026-05-31 11:45:31",3,
+WATER_PERCENT,"2026-05-31 11:45:31",45,
+"Electrodermal activity feet","2026-05-30 21:39:30",87,
+"Max Nerve Response Score (NRS) feet","2026-05-30 21:39:30",87,
+FAT_FREE_MASS,"2026-05-30 21:39:30",46,
+"Visceral Fat","2026-05-30 21:39:30",2.1,
+"Impedence 50kHz for segments","2026-05-30 21:39:30",616.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-05-30 21:39:30",544.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-05-30 21:39:30",721.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-05-30 21:39:30",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-05-30 21:39:30",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-05-30 21:39:30",-0.1,,"Between Legs"
+"BIA Error","2026-05-30 21:39:30",0,
+"Basal Metabolic Rate (BMR)","2026-05-30 21:39:30","1,392",
+"Metabolic Age","2026-05-30 21:39:30",28,
+FAT_PERCENT,"2026-05-30 21:39:30",34,
+"Fat Free Percent","2026-05-30 21:39:30",66,
+MUSCLE_PERCENT,"2026-05-30 21:39:30",63,
+BONE_PERCENT,"2026-05-30 21:39:30",3,
+WATER_PERCENT,"2026-05-30 21:39:30",44,
+FAT_FREE_MASS,"2026-05-18 10:28:32",45,
+"Visceral Fat","2026-05-18 10:28:32",2.2,
+"Impedence 50kHz for segments","2026-05-18 10:28:32",666.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-05-18 10:28:32",595.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-05-18 10:28:32",775.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-05-18 10:28:32",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-05-18 10:28:32",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-05-18 10:28:32",-0.1,,"Between Legs"
+"BIA Error","2026-05-18 10:28:32",0,
+"Basal Metabolic Rate (BMR)","2026-05-18 10:28:32","1,373",
+"Metabolic Age","2026-05-18 10:28:32",29,
+FAT_PERCENT,"2026-05-18 10:28:32",34,
+"Fat Free Percent","2026-05-18 10:28:32",66,
+MUSCLE_PERCENT,"2026-05-18 10:28:32",62,
+BONE_PERCENT,"2026-05-18 10:28:32",3,
+WATER_PERCENT,"2026-05-18 10:28:32",44,
+"Menstruation flow","2026-05-11 17:00:00",1,
+"Menstruation flow","2026-05-10 17:00:00",1,
+"Menstruation flow","2026-05-09 17:00:00",1,
+"Menstruation flow","2026-05-08 17:00:00",1,
+"Menstruation flow","2026-05-07 17:00:00",1,
+"Menstruation flow","2026-05-06 17:00:00",1,
+"Menstruation flow","2026-05-05 17:00:00",1,
+FAT_FREE_MASS,"2026-04-29 10:28:06",45,
+"Visceral Fat","2026-04-29 10:28:06",2.1,
+"Impedence 50kHz for segments","2026-04-29 10:28:06",673.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-04-29 10:28:06",611.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-04-29 10:28:06",783.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-04-29 10:28:06",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-04-29 10:28:06",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-04-29 10:28:06",-0.1,,"Between Legs"
+"BIA Error","2026-04-29 10:28:06",0,
+"Basal Metabolic Rate (BMR)","2026-04-29 10:28:06","1,365",
+"Metabolic Age","2026-04-29 10:28:06",29,
+FAT_PERCENT,"2026-04-29 10:28:06",34,
+"Fat Free Percent","2026-04-29 10:28:06",66,
+MUSCLE_PERCENT,"2026-04-29 10:28:06",62,
+BONE_PERCENT,"2026-04-29 10:28:06",3,
+WATER_PERCENT,"2026-04-29 10:28:06",44,
+FAT_FREE_MASS,"2026-04-24 07:57:46",45,
+"Visceral Fat","2026-04-24 07:57:46",2.1,
+"Impedence 50kHz for segments","2026-04-24 07:57:46",634.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-04-24 07:57:46",575.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-04-24 07:57:46",726.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-04-24 07:57:46",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-04-24 07:57:46",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-04-24 07:57:46",-0.1,,"Between Legs"
+"BIA Error","2026-04-24 07:57:46",0,
+"Basal Metabolic Rate (BMR)","2026-04-24 07:57:46","1,374",
+"Metabolic Age","2026-04-24 07:57:46",28,
+FAT_PERCENT,"2026-04-24 07:57:46",34,
+"Fat Free Percent","2026-04-24 07:57:46",66,
+MUSCLE_PERCENT,"2026-04-24 07:57:46",63,
+BONE_PERCENT,"2026-04-24 07:57:46",3,
+WATER_PERCENT,"2026-04-24 07:57:46",44,
+FAT_FREE_MASS,"2026-04-03 11:34:23",44,
+"Visceral Fat","2026-04-03 11:34:23",2.1,
+"Impedence 50kHz for segments","2026-04-03 11:34:23",688.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-04-03 11:34:23",624.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-04-03 11:34:23",795.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-04-03 11:34:23",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-04-03 11:34:23",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-04-03 11:34:23",-0.1,,"Between Legs"
+"BIA Error","2026-04-03 11:34:23",0,
+"Basal Metabolic Rate (BMR)","2026-04-03 11:34:23","1,353",
+"Metabolic Age","2026-04-03 11:34:23",28,
+FAT_PERCENT,"2026-04-03 11:34:23",34,
+"Fat Free Percent","2026-04-03 11:34:23",66,
+MUSCLE_PERCENT,"2026-04-03 11:34:23",63,
+BONE_PERCENT,"2026-04-03 11:34:23",3,
+WATER_PERCENT,"2026-04-03 11:34:23",44,
+FAT_FREE_MASS,"2026-03-22 14:02:23",44,
+"Visceral Fat","2026-03-22 14:02:23",2.0,
+"Impedence 50kHz for segments","2026-03-22 14:02:23",691.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-03-22 14:02:23",610.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-03-22 14:02:23",808.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-03-22 14:02:23",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-03-22 14:02:23",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-03-22 14:02:23",-0.1,,"Between Legs"
+"BIA Error","2026-03-22 14:02:23",0,
+"Basal Metabolic Rate (BMR)","2026-03-22 14:02:23","1,348",
+"Metabolic Age","2026-03-22 14:02:23",28,
+FAT_PERCENT,"2026-03-22 14:02:23",34,
+"Fat Free Percent","2026-03-22 14:02:23",66,
+MUSCLE_PERCENT,"2026-03-22 14:02:23",63,
+BONE_PERCENT,"2026-03-22 14:02:23",3,
+WATER_PERCENT,"2026-03-22 14:02:23",44,
+FAT_FREE_MASS,"2026-02-20 11:58:14",44,
+"Visceral Fat","2026-02-20 11:58:14",2.1,
+"Impedence 50kHz for segments","2026-02-20 11:58:14",698.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-02-20 11:58:14",629.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-02-20 11:58:14",809.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-02-20 11:58:14",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-02-20 11:58:14",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-02-20 11:58:14",-0.1,,"Between Legs"
+"BIA Error","2026-02-20 11:58:14",0,
+"Basal Metabolic Rate (BMR)","2026-02-20 11:58:14","1,348",
+"Metabolic Age","2026-02-20 11:58:14",28,
+FAT_PERCENT,"2026-02-20 11:58:14",34,
+"Fat Free Percent","2026-02-20 11:58:14",66,
+MUSCLE_PERCENT,"2026-02-20 11:58:14",63,
+BONE_PERCENT,"2026-02-20 11:58:14",3,
+WATER_PERCENT,"2026-02-20 11:58:14",44,
+FAT_FREE_MASS,"2026-01-19 09:57:07",45,
+"Visceral Fat","2026-01-19 09:57:07",2.1,
+"Impedence 50kHz for segments","2026-01-19 09:57:07",667.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-01-19 09:57:07",585.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-01-19 09:57:07",789.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-01-19 09:57:07",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-01-19 09:57:07",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-01-19 09:57:07",-0.1,,"Between Legs"
+"BIA Error","2026-01-19 09:57:07",0,
+"Basal Metabolic Rate (BMR)","2026-01-19 09:57:07","1,366",
+"Metabolic Age","2026-01-19 09:57:07",28,
+FAT_PERCENT,"2026-01-19 09:57:07",34,
+"Fat Free Percent","2026-01-19 09:57:07",66,
+MUSCLE_PERCENT,"2026-01-19 09:57:07",63,
+BONE_PERCENT,"2026-01-19 09:57:07",3,
+WATER_PERCENT,"2026-01-19 09:57:07",44,
+"Electrodermal activity feet","2026-01-14 12:43:26",75,
+"Max Nerve Response Score (NRS) feet","2026-01-14 12:43:26",75,
+FAT_FREE_MASS,"2026-01-14 12:43:26",45,
+"Visceral Fat","2026-01-14 12:43:26",2.1,
+"Impedence 50kHz for segments","2026-01-14 12:43:26",662.0,,"Between Legs"
+"Impedence 250kHz for segments","2026-01-14 12:43:26",596.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2026-01-14 12:43:26",757.0,,"Between Legs"
+"Phase  6.25kHz segment","2026-01-14 12:43:26",-0.1,,"Between Legs"
+"Phase  50kHz segment","2026-01-14 12:43:26",-0.1,,"Between Legs"
+"Phase  250kHz segment","2026-01-14 12:43:26",-0.1,,"Between Legs"
+"BIA Error","2026-01-14 12:43:26",0,
+"Basal Metabolic Rate (BMR)","2026-01-14 12:43:26","1,366",
+"Metabolic Age","2026-01-14 12:43:26",29,
+FAT_PERCENT,"2026-01-14 12:43:26",34,
+"Fat Free Percent","2026-01-14 12:43:26",66,
+MUSCLE_PERCENT,"2026-01-14 12:43:26",62,
+BONE_PERCENT,"2026-01-14 12:43:26",3,
+WATER_PERCENT,"2026-01-14 12:43:26",44,
+"Electrodermal activity feet","2025-12-26 11:42:01",22,
+"Max Nerve Response Score (NRS) feet","2025-12-26 11:42:01",22,
+FAT_FREE_MASS,"2025-12-26 11:42:01",45,
+"Visceral Fat","2025-12-26 11:42:01",2.1,
+"Impedence 50kHz for segments","2025-12-26 11:42:01",674.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-12-26 11:42:01",592.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-12-26 11:42:01",791.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-12-26 11:42:01",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-12-26 11:42:01",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-12-26 11:42:01",-0.1,,"Between Legs"
+"BIA Error","2025-12-26 11:42:01",0,
+"Basal Metabolic Rate (BMR)","2025-12-26 11:42:01","1,364",
+"Metabolic Age","2025-12-26 11:42:01",28,
+FAT_PERCENT,"2025-12-26 11:42:01",34,
+"Fat Free Percent","2025-12-26 11:42:01",66,
+MUSCLE_PERCENT,"2025-12-26 11:42:01",63,
+BONE_PERCENT,"2025-12-26 11:42:01",3,
+WATER_PERCENT,"2025-12-26 11:42:01",44,
+FAT_FREE_MASS,"2025-12-22 11:11:06",45,
+"Visceral Fat","2025-12-22 11:11:06",2.1,
+"Impedence 50kHz for segments","2025-12-22 11:11:06",659.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-12-22 11:11:06",595.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-12-22 11:11:06",784.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-12-22 11:11:06",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-12-22 11:11:06",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-12-22 11:11:06",-0.1,,"Between Legs"
+"BIA Error","2025-12-22 11:11:06",0,
+"Basal Metabolic Rate (BMR)","2025-12-22 11:11:06","1,374",
+"Metabolic Age","2025-12-22 11:11:06",28,
+FAT_PERCENT,"2025-12-22 11:11:06",34,
+"Fat Free Percent","2025-12-22 11:11:06",66,
+MUSCLE_PERCENT,"2025-12-22 11:11:06",63,
+BONE_PERCENT,"2025-12-22 11:11:06",3,
+WATER_PERCENT,"2025-12-22 11:11:06",44,
+"PWV Reached count","2025-12-12 11:57:23","1,283",
+"VA Reached count","2025-12-12 11:57:23","1,283",
+FAT_FREE_MASS,"2025-12-12 11:57:23",45,
+"Visceral Fat","2025-12-12 11:57:23",2.1,
+"Impedence 50kHz for segments","2025-12-12 11:57:23",678.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-12-12 11:57:23",605.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-12-12 11:57:23",796.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-12-12 11:57:23",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-12-12 11:57:23",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-12-12 11:57:23",-0.1,,"Between Legs"
+"BIA Error","2025-12-12 11:57:23",0,
+"Basal Metabolic Rate (BMR)","2025-12-12 11:57:23","1,365",
+"Metabolic Age","2025-12-12 11:57:23",28,
+FAT_PERCENT,"2025-12-12 11:57:23",34,
+"Fat Free Percent","2025-12-12 11:57:23",66,
+MUSCLE_PERCENT,"2025-12-12 11:57:23",63,
+BONE_PERCENT,"2025-12-12 11:57:23",3,
+WATER_PERCENT,"2025-12-12 11:57:23",44,
+FAT_FREE_MASS,"2025-12-02 11:00:26",45,
+"Visceral Fat","2025-12-02 11:00:26",2.1,
+"Impedence 50kHz for segments","2025-12-02 11:00:26",703.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-12-02 11:00:26",628.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-12-02 11:00:26",828.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-12-02 11:00:26",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-12-02 11:00:26",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-12-02 11:00:26",-0.1,,"Between Legs"
+"BIA Error","2025-12-02 11:00:26",0,
+"Basal Metabolic Rate (BMR)","2025-12-02 11:00:26","1,364",
+"Metabolic Age","2025-12-02 11:00:26",29,
+FAT_PERCENT,"2025-12-02 11:00:26",35,
+"Fat Free Percent","2025-12-02 11:00:26",65,
+MUSCLE_PERCENT,"2025-12-02 11:00:26",62,
+BONE_PERCENT,"2025-12-02 11:00:26",3,
+WATER_PERCENT,"2025-12-02 11:00:26",43,
+"PWV Reached count","2025-11-27 12:25:20","1,283",
+"VA Reached count","2025-11-27 12:25:20","1,283",
+FAT_FREE_MASS,"2025-11-27 12:25:20",45,
+"Visceral Fat","2025-11-27 12:25:20",2.2,
+"Impedence 50kHz for segments","2025-11-27 12:25:20",705.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-11-27 12:25:20",633.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-11-27 12:25:20",819.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-11-27 12:25:20",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-11-27 12:25:20",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-11-27 12:25:20",-0.1,,"Between Legs"
+"BIA Error","2025-11-27 12:25:20",0,
+"Basal Metabolic Rate (BMR)","2025-11-27 12:25:20","1,361",
+"Metabolic Age","2025-11-27 12:25:20",29,
+FAT_PERCENT,"2025-11-27 12:25:20",35,
+"Fat Free Percent","2025-11-27 12:25:20",65,
+MUSCLE_PERCENT,"2025-11-27 12:25:20",62,
+BONE_PERCENT,"2025-11-27 12:25:20",3,
+WATER_PERCENT,"2025-11-27 12:25:20",43,
+FAT_FREE_MASS,"2025-11-13 10:36:54",46,
+"Visceral Fat","2025-11-13 10:36:54",2.1,
+"Impedence 50kHz for segments","2025-11-13 10:36:54",647.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-11-13 10:36:54",566.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-11-13 10:36:54",768.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-11-13 10:36:54",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-11-13 10:36:54",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-11-13 10:36:54",-0.1,,"Between Legs"
+"BIA Error","2025-11-13 10:36:54",0,
+"Basal Metabolic Rate (BMR)","2025-11-13 10:36:54","1,390",
+"Metabolic Age","2025-11-13 10:36:54",28,
+FAT_PERCENT,"2025-11-13 10:36:54",34,
+"Fat Free Percent","2025-11-13 10:36:54",66,
+MUSCLE_PERCENT,"2025-11-13 10:36:54",62,
+BONE_PERCENT,"2025-11-13 10:36:54",3,
+WATER_PERCENT,"2025-11-13 10:36:54",44,
+VO2MAX,"2025-11-10 17:18:32",37,
+"Training Duration","2025-11-10 17:18:32","2,479",
+"Training load","2025-11-10 17:18:32",42,
+"PWV Reached count","2025-11-01 11:48:59","1,283",
+"VA Reached count","2025-11-01 11:48:59","1,283",
+FAT_FREE_MASS,"2025-11-01 11:48:59",46,
+"Visceral Fat","2025-11-01 11:48:59",2.1,
+"Impedence 50kHz for segments","2025-11-01 11:48:59",635.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-11-01 11:48:59",555.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-11-01 11:48:59",741.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-11-01 11:48:59",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-11-01 11:48:59",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-11-01 11:48:59",-0.1,,"Between Legs"
+"BIA Error","2025-11-01 11:48:59",0,
+"Basal Metabolic Rate (BMR)","2025-11-01 11:48:59","1,388",
+"Metabolic Age","2025-11-01 11:48:59",28,
+FAT_PERCENT,"2025-11-01 11:48:59",34,
+"Fat Free Percent","2025-11-01 11:48:59",66,
+MUSCLE_PERCENT,"2025-11-01 11:48:59",63,
+BONE_PERCENT,"2025-11-01 11:48:59",3,
+WATER_PERCENT,"2025-11-01 11:48:59",44,
+FAT_FREE_MASS,"2025-10-03 11:20:15",45,
+"Visceral Fat","2025-10-03 11:20:15",2.2,
+"Impedence 50kHz for segments","2025-10-03 11:20:15",670.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-10-03 11:20:15",594.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-10-03 11:20:15",793.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-10-03 11:20:15",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-10-03 11:20:15",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-10-03 11:20:15",-0.1,,"Between Legs"
+"BIA Error","2025-10-03 11:20:15",0,
+"Basal Metabolic Rate (BMR)","2025-10-03 11:20:15","1,383",
+"Metabolic Age","2025-10-03 11:20:15",28,
+FAT_PERCENT,"2025-10-03 11:20:15",35,
+"Fat Free Percent","2025-10-03 11:20:15",65,
+MUSCLE_PERCENT,"2025-10-03 11:20:15",62,
+BONE_PERCENT,"2025-10-03 11:20:15",3,
+WATER_PERCENT,"2025-10-03 11:20:15",43,
+"PWV Reached count","2025-09-12 09:47:40","1,284",
+"VA Reached count","2025-09-12 09:47:40","1,284",
+FAT_FREE_MASS,"2025-09-12 09:47:40",46,
+"Visceral Fat","2025-09-12 09:47:40",2.1,
+"Impedence 50kHz for segments","2025-09-12 09:47:40",625.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-09-12 09:47:40",553.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-09-12 09:47:40",758.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-09-12 09:47:40",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-09-12 09:47:40",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-09-12 09:47:40",-0.1,,"Between Legs"
+"BIA Error","2025-09-12 09:47:40",8,
+"Basal Metabolic Rate (BMR)","2025-09-12 09:47:40","1,405",
+"Metabolic Age","2025-09-12 09:47:40",28,
+FAT_PERCENT,"2025-09-12 09:47:40",34,
+"Fat Free Percent","2025-09-12 09:47:40",66,
+MUSCLE_PERCENT,"2025-09-12 09:47:40",63,
+BONE_PERCENT,"2025-09-12 09:47:40",3,
+WATER_PERCENT,"2025-09-12 09:47:40",44,
+FAT_FREE_MASS,"2025-08-14 11:35:10",45,
+"Visceral Fat","2025-08-14 11:35:10",2.2,
+"Impedence 50kHz for segments","2025-08-14 11:35:10",688.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-08-14 11:35:10",623.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-08-14 11:35:10",798.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-08-14 11:35:10",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-08-14 11:35:10",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-08-14 11:35:10",-0.1,,"Between Legs"
+"BIA Error","2025-08-14 11:35:10",0,
+"Basal Metabolic Rate (BMR)","2025-08-14 11:35:10","1,373",
+"Metabolic Age","2025-08-14 11:35:10",28,
+FAT_PERCENT,"2025-08-14 11:35:10",35,
+"Fat Free Percent","2025-08-14 11:35:10",65,
+MUSCLE_PERCENT,"2025-08-14 11:35:10",62,
+BONE_PERCENT,"2025-08-14 11:35:10",3,
+WATER_PERCENT,"2025-08-14 11:35:10",43,
+FAT_FREE_MASS,"2025-08-13 10:54:37",45,
+"Visceral Fat","2025-08-13 10:54:37",2.2,
+"Impedence 50kHz for segments","2025-08-13 10:54:37",698.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-08-13 10:54:37",618.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-08-13 10:54:37",820.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-08-13 10:54:37",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-08-13 10:54:37",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-08-13 10:54:37",-0.1,,"Between Legs"
+"BIA Error","2025-08-13 10:54:37",0,
+"Basal Metabolic Rate (BMR)","2025-08-13 10:54:37","1,373",
+"Metabolic Age","2025-08-13 10:54:37",28,
+FAT_PERCENT,"2025-08-13 10:54:37",35,
+"Fat Free Percent","2025-08-13 10:54:37",65,
+MUSCLE_PERCENT,"2025-08-13 10:54:37",62,
+BONE_PERCENT,"2025-08-13 10:54:37",3,
+WATER_PERCENT,"2025-08-13 10:54:37",43,
+"Vascular age","2025-08-10 12:26:58",27,
+FAT_FREE_MASS,"2025-08-10 12:26:58",45,
+"Visceral Fat","2025-08-10 12:26:58",2.1,
+"Impedence 50kHz for segments","2025-08-10 12:26:58",665.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-08-10 12:26:58",592.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-08-10 12:26:58",803.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-08-10 12:26:58",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-08-10 12:26:58",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-08-10 12:26:58",-0.1,,"Between Legs"
+"BIA Error","2025-08-10 12:26:58",0,
+"Basal Metabolic Rate (BMR)","2025-08-10 12:26:58","1,383",
+"Metabolic Age","2025-08-10 12:26:58",28,
+FAT_PERCENT,"2025-08-10 12:26:58",34,
+"Fat Free Percent","2025-08-10 12:26:58",66,
+MUSCLE_PERCENT,"2025-08-10 12:26:58",63,
+BONE_PERCENT,"2025-08-10 12:26:58",3,
+WATER_PERCENT,"2025-08-10 12:26:58",44,
+FAT_FREE_MASS,"2025-08-02 12:33:11",45,
+"Visceral Fat","2025-08-02 12:33:11",2.1,
+"Impedence 50kHz for segments","2025-08-02 12:33:11",688.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-08-02 12:33:11",613.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-08-02 12:33:11",834.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-08-02 12:33:11",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-08-02 12:33:11",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-08-02 12:33:11",-0.1,,"Between Legs"
+"BIA Error","2025-08-02 12:33:11",8,
+"Basal Metabolic Rate (BMR)","2025-08-02 12:33:11","1,380",
+"Metabolic Age","2025-08-02 12:33:11",28,
+FAT_PERCENT,"2025-08-02 12:33:11",35,
+"Fat Free Percent","2025-08-02 12:33:11",65,
+MUSCLE_PERCENT,"2025-08-02 12:33:11",62,
+BONE_PERCENT,"2025-08-02 12:33:11",3,
+WATER_PERCENT,"2025-08-02 12:33:11",43,
+"PWV Reached count","2025-07-25 10:20:16","1,284",
+"VA Reached count","2025-07-25 10:20:16","1,284",
+FAT_FREE_MASS,"2025-07-25 10:20:16",45,
+"Visceral Fat","2025-07-25 10:20:16",2.2,
+"Impedence 50kHz for segments","2025-07-25 10:20:16",697.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-07-25 10:20:16",623.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-07-25 10:20:16",816.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-07-25 10:20:16",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-07-25 10:20:16",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-07-25 10:20:16",-0.1,,"Between Legs"
+"BIA Error","2025-07-25 10:20:16",0,
+"Basal Metabolic Rate (BMR)","2025-07-25 10:20:16","1,371",
+"Metabolic Age","2025-07-25 10:20:16",28,
+FAT_PERCENT,"2025-07-25 10:20:16",35,
+"Fat Free Percent","2025-07-25 10:20:16",65,
+MUSCLE_PERCENT,"2025-07-25 10:20:16",62,
+BONE_PERCENT,"2025-07-25 10:20:16",3,
+WATER_PERCENT,"2025-07-25 10:20:16",43,
+FAT_FREE_MASS,"2025-07-23 10:16:16",45,
+"Visceral Fat","2025-07-23 10:16:16",2.1,
+"Impedence 50kHz for segments","2025-07-23 10:16:16",668.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-07-23 10:16:16",592.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-07-23 10:16:16",806.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-07-23 10:16:16",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-07-23 10:16:16",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-07-23 10:16:16",-0.1,,"Between Legs"
+"BIA Error","2025-07-23 10:16:16",0,
+"Basal Metabolic Rate (BMR)","2025-07-23 10:16:16","1,386",
+"Metabolic Age","2025-07-23 10:16:16",28,
+FAT_PERCENT,"2025-07-23 10:16:16",34,
+"Fat Free Percent","2025-07-23 10:16:16",66,
+MUSCLE_PERCENT,"2025-07-23 10:16:16",62,
+BONE_PERCENT,"2025-07-23 10:16:16",3,
+WATER_PERCENT,"2025-07-23 10:16:16",43,
+FAT_FREE_MASS,"2025-07-17 09:55:48",46,
+"Visceral Fat","2025-07-17 09:55:48",2.1,
+"Impedence 50kHz for segments","2025-07-17 09:55:48",639.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-07-17 09:55:48",571.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-07-17 09:55:48",766.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-07-17 09:55:48",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-07-17 09:55:48",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-07-17 09:55:48",-0.1,,"Between Legs"
+"BIA Error","2025-07-17 09:55:48",0,
+"Basal Metabolic Rate (BMR)","2025-07-17 09:55:48","1,395",
+"Metabolic Age","2025-07-17 09:55:48",28,
+FAT_PERCENT,"2025-07-17 09:55:48",34,
+"Fat Free Percent","2025-07-17 09:55:48",66,
+MUSCLE_PERCENT,"2025-07-17 09:55:48",63,
+BONE_PERCENT,"2025-07-17 09:55:48",3,
+WATER_PERCENT,"2025-07-17 09:55:48",44,
+FAT_FREE_MASS,"2025-07-15 09:21:51",45,
+"Visceral Fat","2025-07-15 09:21:51",2.2,
+"Impedence 50kHz for segments","2025-07-15 09:21:51",678.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-07-15 09:21:51",596.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-07-15 09:21:51",794.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-07-15 09:21:51",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-07-15 09:21:51",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-07-15 09:21:51",-0.1,,"Between Legs"
+"BIA Error","2025-07-15 09:21:51",0,
+"Basal Metabolic Rate (BMR)","2025-07-15 09:21:51","1,379",
+"Metabolic Age","2025-07-15 09:21:51",28,
+FAT_PERCENT,"2025-07-15 09:21:51",35,
+"Fat Free Percent","2025-07-15 09:21:51",65,
+MUSCLE_PERCENT,"2025-07-15 09:21:51",62,
+BONE_PERCENT,"2025-07-15 09:21:51",3,
+WATER_PERCENT,"2025-07-15 09:21:51",43,
+"PWV Reached count","2025-07-14 10:12:00","1,283",
+"VA Reached count","2025-07-14 10:12:00","1,283",
+FAT_FREE_MASS,"2025-07-14 10:12:00",45,
+"Visceral Fat","2025-07-14 10:12:00",2.2,
+"Impedence 50kHz for segments","2025-07-14 10:12:00",650.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-07-14 10:12:00",586.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-07-14 10:12:00",751.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-07-14 10:12:00",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-07-14 10:12:00",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-07-14 10:12:00",-0.1,,"Between Legs"
+"BIA Error","2025-07-14 10:12:00",0,
+"Basal Metabolic Rate (BMR)","2025-07-14 10:12:00","1,390",
+"Metabolic Age","2025-07-14 10:12:00",28,
+FAT_PERCENT,"2025-07-14 10:12:00",35,
+"Fat Free Percent","2025-07-14 10:12:00",65,
+MUSCLE_PERCENT,"2025-07-14 10:12:00",62,
+BONE_PERCENT,"2025-07-14 10:12:00",3,
+WATER_PERCENT,"2025-07-14 10:12:00",43,
+FAT_FREE_MASS,"2025-06-28 13:40:38",45,
+"Visceral Fat","2025-06-28 13:40:38",2.2,
+"Impedence 50kHz for segments","2025-06-28 13:40:38",677.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-06-28 13:40:38",599.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-06-28 13:40:38",812.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-06-28 13:40:38",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-06-28 13:40:38",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-06-28 13:40:38",-0.1,,"Between Legs"
+"BIA Error","2025-06-28 13:40:38",0,
+"Basal Metabolic Rate (BMR)","2025-06-28 13:40:38","1,389",
+"Metabolic Age","2025-06-28 13:40:38",28,
+FAT_PERCENT,"2025-06-28 13:40:38",35,
+"Fat Free Percent","2025-06-28 13:40:38",65,
+MUSCLE_PERCENT,"2025-06-28 13:40:38",62,
+BONE_PERCENT,"2025-06-28 13:40:38",3,
+WATER_PERCENT,"2025-06-28 13:40:38",43,
+FAT_FREE_MASS,"2025-06-26 11:42:10",46,
+"Visceral Fat","2025-06-26 11:42:10",2.1,
+"Impedence 50kHz for segments","2025-06-26 11:42:10",613.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-06-26 11:42:10",553.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-06-26 11:42:10",739.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-06-26 11:42:10",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-06-26 11:42:10",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-06-26 11:42:10",-0.1,,"Between Legs"
+"BIA Error","2025-06-26 11:42:10",0,
+"Basal Metabolic Rate (BMR)","2025-06-26 11:42:10","1,407",
+"Metabolic Age","2025-06-26 11:42:10",28,
+FAT_PERCENT,"2025-06-26 11:42:10",34,
+"Fat Free Percent","2025-06-26 11:42:10",66,
+MUSCLE_PERCENT,"2025-06-26 11:42:10",63,
+BONE_PERCENT,"2025-06-26 11:42:10",3,
+WATER_PERCENT,"2025-06-26 11:42:10",44,
+FAT_FREE_MASS,"2025-06-19 11:38:39",45,
+"Visceral Fat","2025-06-19 11:38:39",2.2,
+"Impedence 50kHz for segments","2025-06-19 11:38:39",681.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-06-19 11:38:39",603.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-06-19 11:38:39",825.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-06-19 11:38:39",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-06-19 11:38:39",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-06-19 11:38:39",-0.1,,"Between Legs"
+"BIA Error","2025-06-19 11:38:39",8,
+"Basal Metabolic Rate (BMR)","2025-06-19 11:38:39","1,388",
+"Metabolic Age","2025-06-19 11:38:39",28,
+FAT_PERCENT,"2025-06-19 11:38:39",35,
+"Fat Free Percent","2025-06-19 11:38:39",65,
+MUSCLE_PERCENT,"2025-06-19 11:38:39",62,
+BONE_PERCENT,"2025-06-19 11:38:39",3,
+WATER_PERCENT,"2025-06-19 11:38:39",43,
+FAT_FREE_MASS,"2025-06-19 11:35:17",46,
+"Visceral Fat","2025-06-19 11:35:17",2.2,
+"Impedence 50kHz for segments","2025-06-19 11:35:17",666.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-06-19 11:35:17",585.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-06-19 11:35:17",815.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-06-19 11:35:17",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-06-19 11:35:17",-0.2,,"Between Legs"
+"Phase  250kHz segment","2025-06-19 11:35:17",-0.1,,"Between Legs"
+"BIA Error","2025-06-19 11:35:17",8,
+"Basal Metabolic Rate (BMR)","2025-06-19 11:35:17","1,397",
+"Metabolic Age","2025-06-19 11:35:17",28,
+FAT_PERCENT,"2025-06-19 11:35:17",35,
+"Fat Free Percent","2025-06-19 11:35:17",65,
+MUSCLE_PERCENT,"2025-06-19 11:35:17",62,
+BONE_PERCENT,"2025-06-19 11:35:17",3,
+WATER_PERCENT,"2025-06-19 11:35:17",43,
+FAT_FREE_MASS,"2025-06-06 08:07:06",45,
+"Visceral Fat","2025-06-06 08:07:06",2.2,
+"Impedence 50kHz for segments","2025-06-06 08:07:06",659.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-06-06 08:07:06",597.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-06-06 08:07:06",748.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-06-06 08:07:06",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-06-06 08:07:06",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-06-06 08:07:06",-0.1,,"Between Legs"
+"BIA Error","2025-06-06 08:07:06",0,
+"Basal Metabolic Rate (BMR)","2025-06-06 08:07:06","1,381",
+"Metabolic Age","2025-06-06 08:07:06",28,
+FAT_PERCENT,"2025-06-06 08:07:06",35,
+"Fat Free Percent","2025-06-06 08:07:06",65,
+MUSCLE_PERCENT,"2025-06-06 08:07:06",62,
+BONE_PERCENT,"2025-06-06 08:07:06",3,
+WATER_PERCENT,"2025-06-06 08:07:06",43,
+FAT_FREE_MASS,"2025-06-05 11:13:36",46,
+"Visceral Fat","2025-06-05 11:13:36",2.1,
+"Impedence 50kHz for segments","2025-06-05 11:13:36",644.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-06-05 11:13:36",581.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-06-05 11:13:36",779.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-06-05 11:13:36",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-06-05 11:13:36",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-06-05 11:13:36",-0.1,,"Between Legs"
+"BIA Error","2025-06-05 11:13:36",8,
+"Basal Metabolic Rate (BMR)","2025-06-05 11:13:36","1,402",
+"Metabolic Age","2025-06-05 11:13:36",28,
+FAT_PERCENT,"2025-06-05 11:13:36",34,
+"Fat Free Percent","2025-06-05 11:13:36",66,
+MUSCLE_PERCENT,"2025-06-05 11:13:36",62,
+BONE_PERCENT,"2025-06-05 11:13:36",3,
+WATER_PERCENT,"2025-06-05 11:13:36",44,
+"PWV Reached count","2025-05-31 11:26:46","1,282",
+"VA Reached count","2025-05-31 11:26:46","1,282",
+FAT_FREE_MASS,"2025-05-31 11:26:46",45,
+"Visceral Fat","2025-05-31 11:26:46",2.2,
+"Impedence 50kHz for segments","2025-05-31 11:26:46",680.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-05-31 11:26:46",605.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-05-31 11:26:46",814.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-05-31 11:26:46",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-05-31 11:26:46",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-05-31 11:26:46",-0.1,,"Between Legs"
+"BIA Error","2025-05-31 11:26:46",0,
+"Basal Metabolic Rate (BMR)","2025-05-31 11:26:46","1,389",
+"Metabolic Age","2025-05-31 11:26:46",28,
+FAT_PERCENT,"2025-05-31 11:26:46",35,
+"Fat Free Percent","2025-05-31 11:26:46",65,
+MUSCLE_PERCENT,"2025-05-31 11:26:46",62,
+BONE_PERCENT,"2025-05-31 11:26:46",3,
+WATER_PERCENT,"2025-05-31 11:26:46",43,
+FAT_FREE_MASS,"2025-05-21 11:34:22",46,
+"Visceral Fat","2025-05-21 11:34:22",2.2,
+"Impedence 50kHz for segments","2025-05-21 11:34:22",653.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-05-21 11:34:22",580.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-05-21 11:34:22",764.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-05-21 11:34:22",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-05-21 11:34:22",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-05-21 11:34:22",-0.1,,"Between Legs"
+"BIA Error","2025-05-21 11:34:22",0,
+"Basal Metabolic Rate (BMR)","2025-05-21 11:34:22","1,399",
+"Metabolic Age","2025-05-21 11:34:22",28,
+FAT_PERCENT,"2025-05-21 11:34:22",35,
+"Fat Free Percent","2025-05-21 11:34:22",65,
+MUSCLE_PERCENT,"2025-05-21 11:34:22",62,
+BONE_PERCENT,"2025-05-21 11:34:22",3,
+WATER_PERCENT,"2025-05-21 11:34:22",43,
+"PWV Reached count","2025-05-15 10:11:08","1,282",
+"VA Reached count","2025-05-15 10:11:08","1,282",
+FAT_FREE_MASS,"2025-05-15 10:11:08",46,
+"Visceral Fat","2025-05-15 10:11:08",2.2,
+"Impedence 50kHz for segments","2025-05-15 10:11:08",624.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-05-15 10:11:08",549.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-05-15 10:11:08",726.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-05-15 10:11:08",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-05-15 10:11:08",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-05-15 10:11:08",-0.1,,"Between Legs"
+"BIA Error","2025-05-15 10:11:08",0,
+"Basal Metabolic Rate (BMR)","2025-05-15 10:11:08","1,404",
+"Metabolic Age","2025-05-15 10:11:08",28,
+FAT_PERCENT,"2025-05-15 10:11:08",35,
+"Fat Free Percent","2025-05-15 10:11:08",65,
+MUSCLE_PERCENT,"2025-05-15 10:11:08",62,
+BONE_PERCENT,"2025-05-15 10:11:08",3,
+WATER_PERCENT,"2025-05-15 10:11:08",44,
+FAT_FREE_MASS,"2025-05-08 10:24:52",46,
+"Visceral Fat","2025-05-08 10:24:52",2.2,
+"Impedence 50kHz for segments","2025-05-08 10:24:52",653.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-05-08 10:24:52",581.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-05-08 10:24:52",772.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-05-08 10:24:52",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-05-08 10:24:52",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-05-08 10:24:52",-0.1,,"Between Legs"
+"BIA Error","2025-05-08 10:24:52",0,
+"Basal Metabolic Rate (BMR)","2025-05-08 10:24:52","1,406",
+"Metabolic Age","2025-05-08 10:24:52",28,
+FAT_PERCENT,"2025-05-08 10:24:52",35,
+"Fat Free Percent","2025-05-08 10:24:52",65,
+MUSCLE_PERCENT,"2025-05-08 10:24:52",61,
+BONE_PERCENT,"2025-05-08 10:24:52",3,
+WATER_PERCENT,"2025-05-08 10:24:52",43,
+FAT_FREE_MASS,"2025-04-30 10:14:16",46,
+"Visceral Fat","2025-04-30 10:14:16",2.2,
+"Impedence 50kHz for segments","2025-04-30 10:14:16",644.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-04-30 10:14:16",571.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-04-30 10:14:16",767.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-04-30 10:14:16",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-04-30 10:14:16",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-04-30 10:14:16",-0.1,,"Between Legs"
+"BIA Error","2025-04-30 10:14:16",0,
+"Basal Metabolic Rate (BMR)","2025-04-30 10:14:16","1,408",
+"Metabolic Age","2025-04-30 10:14:16",28,
+FAT_PERCENT,"2025-04-30 10:14:16",35,
+"Fat Free Percent","2025-04-30 10:14:16",65,
+MUSCLE_PERCENT,"2025-04-30 10:14:16",62,
+BONE_PERCENT,"2025-04-30 10:14:16",3,
+WATER_PERCENT,"2025-04-30 10:14:16",43,
+FAT_FREE_MASS,"2025-04-24 11:03:36",46,
+"Visceral Fat","2025-04-24 11:03:36",2.2,
+"Impedence 50kHz for segments","2025-04-24 11:03:36",655.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-04-24 11:03:36",576.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-04-24 11:03:36",775.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-04-24 11:03:36",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-04-24 11:03:36",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-04-24 11:03:36",-0.1,,"Between Legs"
+"BIA Error","2025-04-24 11:03:36",0,
+"Basal Metabolic Rate (BMR)","2025-04-24 11:03:36","1,402",
+"Metabolic Age","2025-04-24 11:03:36",28,
+FAT_PERCENT,"2025-04-24 11:03:36",35,
+"Fat Free Percent","2025-04-24 11:03:36",65,
+MUSCLE_PERCENT,"2025-04-24 11:03:36",62,
+BONE_PERCENT,"2025-04-24 11:03:36",3,
+WATER_PERCENT,"2025-04-24 11:03:36",43,
+FAT_FREE_MASS,"2025-04-22 10:17:33",46,
+"Visceral Fat","2025-04-22 10:17:33",2.2,
+"Impedence 50kHz for segments","2025-04-22 10:17:33",635.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-04-22 10:17:33",573.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-04-22 10:17:33",749.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-04-22 10:17:33",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-04-22 10:17:33",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-04-22 10:17:33",-0.1,,"Between Legs"
+"BIA Error","2025-04-22 10:17:33",0,
+"Basal Metabolic Rate (BMR)","2025-04-22 10:17:33","1,411",
+"Metabolic Age","2025-04-22 10:17:33",28,
+FAT_PERCENT,"2025-04-22 10:17:33",35,
+"Fat Free Percent","2025-04-22 10:17:33",65,
+MUSCLE_PERCENT,"2025-04-22 10:17:33",62,
+BONE_PERCENT,"2025-04-22 10:17:33",3,
+WATER_PERCENT,"2025-04-22 10:17:33",43,
+FAT_FREE_MASS,"2025-04-21 10:48:41",46,
+"Visceral Fat","2025-04-21 10:48:41",2.3,
+"Impedence 50kHz for segments","2025-04-21 10:48:41",649.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-04-21 10:48:41",587.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-04-21 10:48:41",756.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-04-21 10:48:41",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-04-21 10:48:41",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-04-21 10:48:41",-0.1,,"Between Legs"
+"BIA Error","2025-04-21 10:48:41",0,
+"Basal Metabolic Rate (BMR)","2025-04-21 10:48:41","1,405",
+"Metabolic Age","2025-04-21 10:48:41",28,
+FAT_PERCENT,"2025-04-21 10:48:41",35,
+"Fat Free Percent","2025-04-21 10:48:41",65,
+MUSCLE_PERCENT,"2025-04-21 10:48:41",61,
+BONE_PERCENT,"2025-04-21 10:48:41",3,
+WATER_PERCENT,"2025-04-21 10:48:41",43,
+FAT_FREE_MASS,"2025-04-20 11:57:14",46,
+"Visceral Fat","2025-04-20 11:57:14",2.3,
+"Impedence 50kHz for segments","2025-04-20 11:57:14",683.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-04-20 11:57:14",610.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-04-20 11:57:14",806.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-04-20 11:57:14",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-04-20 11:57:14",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-04-20 11:57:14",-0.1,,"Between Legs"
+"BIA Error","2025-04-20 11:57:14",0,
+"Basal Metabolic Rate (BMR)","2025-04-20 11:57:14","1,396",
+"Metabolic Age","2025-04-20 11:57:14",28,
+FAT_PERCENT,"2025-04-20 11:57:14",36,
+"Fat Free Percent","2025-04-20 11:57:14",64,
+MUSCLE_PERCENT,"2025-04-20 11:57:14",61,
+BONE_PERCENT,"2025-04-20 11:57:14",3,
+WATER_PERCENT,"2025-04-20 11:57:14",42,
+FAT_FREE_MASS,"2025-03-30 18:50:49",46,
+"Visceral Fat","2025-03-30 18:50:49",2.1,
+"Impedence 50kHz for segments","2025-03-30 18:50:49",627.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-03-30 18:50:49",548.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-03-30 18:50:49",744.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-03-30 18:50:49",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-03-30 18:50:49",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-03-30 18:50:49",-0.1,,"Between Legs"
+"BIA Error","2025-03-30 18:50:49",0,
+"Basal Metabolic Rate (BMR)","2025-03-30 18:50:49","1,403",
+"Metabolic Age","2025-03-30 18:50:49",27,
+FAT_PERCENT,"2025-03-30 18:50:49",34,
+"Fat Free Percent","2025-03-30 18:50:49",66,
+MUSCLE_PERCENT,"2025-03-30 18:50:49",62,
+BONE_PERCENT,"2025-03-30 18:50:49",3,
+WATER_PERCENT,"2025-03-30 18:50:49",44,
+FAT_FREE_MASS,"2025-03-18 18:51:17",46,
+"Visceral Fat","2025-03-18 18:51:17",2.1,
+"Impedence 50kHz for segments","2025-03-18 18:51:17",616.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-03-18 18:51:17",559.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-03-18 18:51:17",705.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-03-18 18:51:17",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-03-18 18:51:17",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-03-18 18:51:17",-0.1,,"Between Legs"
+"BIA Error","2025-03-18 18:51:17",0,
+"Basal Metabolic Rate (BMR)","2025-03-18 18:51:17","1,396",
+"Metabolic Age","2025-03-18 18:51:17",28,
+FAT_PERCENT,"2025-03-18 18:51:17",34,
+"Fat Free Percent","2025-03-18 18:51:17",66,
+MUSCLE_PERCENT,"2025-03-18 18:51:17",62,
+BONE_PERCENT,"2025-03-18 18:51:17",3,
+WATER_PERCENT,"2025-03-18 18:51:17",44,
+FAT_FREE_MASS,"2025-03-11 18:45:32",46,
+"Visceral Fat","2025-03-11 18:45:32",2.2,
+"Impedence 50kHz for segments","2025-03-11 18:45:32",639.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-03-11 18:45:32",584.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-03-11 18:45:32",725.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-03-11 18:45:32",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-03-11 18:45:32",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-03-11 18:45:32",-0.1,,"Between Legs"
+"BIA Error","2025-03-11 18:45:32",0,
+"Basal Metabolic Rate (BMR)","2025-03-11 18:45:32","1,392",
+"Metabolic Age","2025-03-11 18:45:32",28,
+FAT_PERCENT,"2025-03-11 18:45:32",35,
+"Fat Free Percent","2025-03-11 18:45:32",65,
+MUSCLE_PERCENT,"2025-03-11 18:45:32",62,
+BONE_PERCENT,"2025-03-11 18:45:32",3,
+WATER_PERCENT,"2025-03-11 18:45:32",44,
+FAT_FREE_MASS,"2025-03-08 17:50:20",45,
+"Visceral Fat","2025-03-08 17:50:20",2.1,
+"Impedence 50kHz for segments","2025-03-08 17:50:20",657.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-03-08 17:50:20",575.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-03-08 17:50:20",772.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-03-08 17:50:20",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-03-08 17:50:20",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-03-08 17:50:20",-0.1,,"Between Legs"
+"BIA Error","2025-03-08 17:50:20",0,
+"Basal Metabolic Rate (BMR)","2025-03-08 17:50:20","1,387",
+"Metabolic Age","2025-03-08 17:50:20",28,
+FAT_PERCENT,"2025-03-08 17:50:20",35,
+"Fat Free Percent","2025-03-08 17:50:20",65,
+MUSCLE_PERCENT,"2025-03-08 17:50:20",62,
+BONE_PERCENT,"2025-03-08 17:50:20",3,
+WATER_PERCENT,"2025-03-08 17:50:20",44,
+FAT_FREE_MASS,"2025-03-07 15:11:20",46,
+FAT_PERCENT,"2025-03-07 15:11:20",35,
+MUSCLE_PERCENT,"2025-03-07 15:11:20",62,
+BONE_PERCENT,"2025-03-07 15:11:20",3,
+WATER_PERCENT,"2025-03-07 15:11:20",44,
+"Fat Free Percent","2025-03-07 15:11:20",65,
+"Visceral Fat","2025-03-07 15:11:20",2.2,
+"Impedence 50kHz for segments","2025-03-07 15:11:20",633.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-03-07 15:11:20",568.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-03-07 15:11:20",722.0,,"Between Legs"
+"Phase  250kHz segment","2025-03-07 15:11:20",-0.1,,"Between Legs"
+"Basal Metabolic Rate (BMR)","2025-03-07 15:11:20","1,393",
+"Metabolic Age","2025-03-07 15:11:20",28,
+FAT_FREE_MASS,"2025-03-03 17:43:45",45,
+"Visceral Fat","2025-03-03 17:43:45",2.1,
+"Impedence 50kHz for segments","2025-03-03 17:43:45",661.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-03-03 17:43:45",587.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-03-03 17:43:45",768.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-03-03 17:43:45",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-03-03 17:43:45",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-03-03 17:43:45",-0.1,,"Between Legs"
+"BIA Error","2025-03-03 17:43:45",0,
+"Basal Metabolic Rate (BMR)","2025-03-03 17:43:45","1,383",
+"Metabolic Age","2025-03-03 17:43:45",28,
+FAT_PERCENT,"2025-03-03 17:43:45",35,
+"Fat Free Percent","2025-03-03 17:43:45",65,
+MUSCLE_PERCENT,"2025-03-03 17:43:45",62,
+BONE_PERCENT,"2025-03-03 17:43:45",3,
+WATER_PERCENT,"2025-03-03 17:43:45",44,
+FAT_FREE_MASS,"2025-02-21 11:12:34",45,
+"Visceral Fat","2025-02-21 11:12:34",2.1,
+"Impedence 50kHz for segments","2025-02-21 11:12:34",653.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-02-21 11:12:34",571.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-02-21 11:12:34",762.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-02-21 11:12:34",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-02-21 11:12:34",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-02-21 11:12:34",-0.1,,"Between Legs"
+"BIA Error","2025-02-21 11:12:34",0,
+"Basal Metabolic Rate (BMR)","2025-02-21 11:12:34","1,388",
+"Metabolic Age","2025-02-21 11:12:34",28,
+FAT_PERCENT,"2025-02-21 11:12:34",35,
+"Fat Free Percent","2025-02-21 11:12:34",65,
+MUSCLE_PERCENT,"2025-02-21 11:12:34",62,
+BONE_PERCENT,"2025-02-21 11:12:34",3,
+WATER_PERCENT,"2025-02-21 11:12:34",44,
+FAT_FREE_MASS,"2025-02-16 10:32:43",45,
+"Visceral Fat","2025-02-16 10:32:43",2.2,
+"Impedence 50kHz for segments","2025-02-16 10:32:43",688.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-02-16 10:32:43",624.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-02-16 10:32:43",800.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-02-16 10:32:43",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-02-16 10:32:43",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-02-16 10:32:43",-0.1,,"Between Legs"
+"BIA Error","2025-02-16 10:32:43",0,
+"Basal Metabolic Rate (BMR)","2025-02-16 10:32:43","1,378",
+"Metabolic Age","2025-02-16 10:32:43",28,
+FAT_PERCENT,"2025-02-16 10:32:43",35,
+"Fat Free Percent","2025-02-16 10:32:43",65,
+MUSCLE_PERCENT,"2025-02-16 10:32:43",62,
+BONE_PERCENT,"2025-02-16 10:32:43",3,
+WATER_PERCENT,"2025-02-16 10:32:43",43,
+"Vascular age","2025-02-14 09:42:42",27,
+FAT_FREE_MASS,"2025-02-14 09:42:42",45,
+"Visceral Fat","2025-02-14 09:42:42",2.2,
+"Impedence 50kHz for segments","2025-02-14 09:42:42",673.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-02-14 09:42:42",609.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-02-14 09:42:42",782.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-02-14 09:42:42",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-02-14 09:42:42",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-02-14 09:42:42",-0.1,,"Between Legs"
+"BIA Error","2025-02-14 09:42:42",0,
+"Basal Metabolic Rate (BMR)","2025-02-14 09:42:42","1,386",
+"Metabolic Age","2025-02-14 09:42:42",28,
+FAT_PERCENT,"2025-02-14 09:42:42",35,
+"Fat Free Percent","2025-02-14 09:42:42",65,
+MUSCLE_PERCENT,"2025-02-14 09:42:42",62,
+BONE_PERCENT,"2025-02-14 09:42:42",3,
+WATER_PERCENT,"2025-02-14 09:42:42",43,
+"Vascular age","2025-02-09 11:40:12",26,
+FAT_FREE_MASS,"2025-02-09 11:40:12",45,
+"Visceral Fat","2025-02-09 11:40:12",2.2,
+"Impedence 50kHz for segments","2025-02-09 11:40:12",667.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-02-09 11:40:12",585.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-02-09 11:40:12",786.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-02-09 11:40:12",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-02-09 11:40:12",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-02-09 11:40:12",-0.1,,"Between Legs"
+"BIA Error","2025-02-09 11:40:12",0,
+"Basal Metabolic Rate (BMR)","2025-02-09 11:40:12","1,388",
+"Metabolic Age","2025-02-09 11:40:12",28,
+FAT_PERCENT,"2025-02-09 11:40:12",35,
+"Fat Free Percent","2025-02-09 11:40:12",65,
+MUSCLE_PERCENT,"2025-02-09 11:40:12",62,
+BONE_PERCENT,"2025-02-09 11:40:12",3,
+WATER_PERCENT,"2025-02-09 11:40:12",43,
+"Electrodermal activity feet","2025-02-08 10:44:12",80,
+"Max Nerve Response Score (NRS) feet","2025-02-08 10:44:12",80,
+FAT_FREE_MASS,"2025-02-08 10:44:12",46,
+"Visceral Fat","2025-02-08 10:44:12",2.2,
+"Impedence 50kHz for segments","2025-02-08 10:44:12",655.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-02-08 10:44:12",578.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-02-08 10:44:12",769.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-02-08 10:44:12",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-02-08 10:44:12",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-02-08 10:44:12",-0.1,,"Between Legs"
+"BIA Error","2025-02-08 10:44:12",0,
+"Basal Metabolic Rate (BMR)","2025-02-08 10:44:12","1,394",
+"Metabolic Age","2025-02-08 10:44:12",28,
+FAT_PERCENT,"2025-02-08 10:44:12",35,
+"Fat Free Percent","2025-02-08 10:44:12",65,
+MUSCLE_PERCENT,"2025-02-08 10:44:12",62,
+BONE_PERCENT,"2025-02-08 10:44:12",3,
+WATER_PERCENT,"2025-02-08 10:44:12",43,
+"PWV Reached count","2025-02-01 10:21:28","1,284",
+"VA Reached count","2025-02-01 10:21:28","1,284",
+FAT_FREE_MASS,"2025-02-01 10:21:28",45,
+"Visceral Fat","2025-02-01 10:21:28",2.1,
+"Impedence 50kHz for segments","2025-02-01 10:21:28",657.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-02-01 10:21:28",577.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-02-01 10:21:28",768.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-02-01 10:21:28",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-02-01 10:21:28",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-02-01 10:21:28",-0.1,,"Between Legs"
+"BIA Error","2025-02-01 10:21:28",0,
+"Basal Metabolic Rate (BMR)","2025-02-01 10:21:28","1,388",
+"Metabolic Age","2025-02-01 10:21:28",28,
+FAT_PERCENT,"2025-02-01 10:21:28",35,
+"Fat Free Percent","2025-02-01 10:21:28",65,
+MUSCLE_PERCENT,"2025-02-01 10:21:28",62,
+BONE_PERCENT,"2025-02-01 10:21:28",3,
+WATER_PERCENT,"2025-02-01 10:21:28",44,
+FAT_FREE_MASS,"2025-01-23 09:16:47",45,
+"Visceral Fat","2025-01-23 09:16:47",2.1,
+"Impedence 50kHz for segments","2025-01-23 09:16:47",686.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-01-23 09:16:47",621.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-01-23 09:16:47",792.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-01-23 09:16:47",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-01-23 09:16:47",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-01-23 09:16:47",-0.1,,"Between Legs"
+"BIA Error","2025-01-23 09:16:47",0,
+"Basal Metabolic Rate (BMR)","2025-01-23 09:16:47","1,373",
+"Metabolic Age","2025-01-23 09:16:47",28,
+FAT_PERCENT,"2025-01-23 09:16:47",35,
+"Fat Free Percent","2025-01-23 09:16:47",65,
+MUSCLE_PERCENT,"2025-01-23 09:16:47",62,
+BONE_PERCENT,"2025-01-23 09:16:47",3,
+WATER_PERCENT,"2025-01-23 09:16:47",43,
+FAT_FREE_MASS,"2025-01-18 05:45:56",45,
+"Visceral Fat","2025-01-18 05:45:56",2.1,
+"Impedence 50kHz for segments","2025-01-18 05:45:56",704.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-01-18 05:45:56",620.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-01-18 05:45:56",831.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-01-18 05:45:56",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-01-18 05:45:56",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-01-18 05:45:56",-0.1,,"Between Legs"
+"BIA Error","2025-01-18 05:45:56",0,
+"Basal Metabolic Rate (BMR)","2025-01-18 05:45:56","1,367",
+"Metabolic Age","2025-01-18 05:45:56",28,
+FAT_PERCENT,"2025-01-18 05:45:56",35,
+"Fat Free Percent","2025-01-18 05:45:56",65,
+MUSCLE_PERCENT,"2025-01-18 05:45:56",62,
+BONE_PERCENT,"2025-01-18 05:45:56",3,
+WATER_PERCENT,"2025-01-18 05:45:56",43,
+FAT_FREE_MASS,"2025-01-17 06:49:47",45,
+"Visceral Fat","2025-01-17 06:49:47",2.1,
+"Impedence 50kHz for segments","2025-01-17 06:49:47",701.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-01-17 06:49:47",624.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-01-17 06:49:47",818.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-01-17 06:49:47",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-01-17 06:49:47",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-01-17 06:49:47",-0.1,,"Between Legs"
+"BIA Error","2025-01-17 06:49:47",0,
+"Basal Metabolic Rate (BMR)","2025-01-17 06:49:47","1,366",
+"Metabolic Age","2025-01-17 06:49:47",28,
+FAT_PERCENT,"2025-01-17 06:49:47",35,
+"Fat Free Percent","2025-01-17 06:49:47",65,
+MUSCLE_PERCENT,"2025-01-17 06:49:47",62,
+BONE_PERCENT,"2025-01-17 06:49:47",3,
+WATER_PERCENT,"2025-01-17 06:49:47",43,
+FAT_FREE_MASS,"2025-01-16 06:36:17",45,
+"Visceral Fat","2025-01-16 06:36:17",2.1,
+"Impedence 50kHz for segments","2025-01-16 06:36:17",715.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-01-16 06:36:17",630.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-01-16 06:36:17",867.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-01-16 06:36:17",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-01-16 06:36:17",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-01-16 06:36:17",-0.1,,"Between Legs"
+"BIA Error","2025-01-16 06:36:17",8,
+"Basal Metabolic Rate (BMR)","2025-01-16 06:36:17","1,373",
+"Metabolic Age","2025-01-16 06:36:17",28,
+FAT_PERCENT,"2025-01-16 06:36:17",35,
+"Fat Free Percent","2025-01-16 06:36:17",65,
+MUSCLE_PERCENT,"2025-01-16 06:36:17",62,
+BONE_PERCENT,"2025-01-16 06:36:17",3,
+WATER_PERCENT,"2025-01-16 06:36:17",43,
+FAT_FREE_MASS,"2025-01-13 08:12:07",46,
+"Visceral Fat","2025-01-13 08:12:07",2.1,
+"Impedence 50kHz for segments","2025-01-13 08:12:07",588.0,,"Between Legs"
+"Impedence 250kHz for segments","2025-01-13 08:12:07",530.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2025-01-13 08:12:07",673.0,,"Between Legs"
+"Phase  6.25kHz segment","2025-01-13 08:12:07",-0.1,,"Between Legs"
+"Phase  50kHz segment","2025-01-13 08:12:07",-0.1,,"Between Legs"
+"Phase  250kHz segment","2025-01-13 08:12:07",-0.1,,"Between Legs"
+"BIA Error","2025-01-13 08:12:07",0,
+"Basal Metabolic Rate (BMR)","2025-01-13 08:12:07","1,408",
+"Metabolic Age","2025-01-13 08:12:07",27,
+FAT_PERCENT,"2025-01-13 08:12:07",34,
+"Fat Free Percent","2025-01-13 08:12:07",66,
+MUSCLE_PERCENT,"2025-01-13 08:12:07",63,
+BONE_PERCENT,"2025-01-13 08:12:07",3,
+WATER_PERCENT,"2025-01-13 08:12:07",45,
+"Vascular age","2024-12-16 10:42:14",27,
+FAT_FREE_MASS,"2024-12-16 10:42:14",45,
+"Visceral Fat","2024-12-16 10:42:14",2.1,
+"Impedence 50kHz for segments","2024-12-16 10:42:14",692.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-12-16 10:42:14",620.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-12-16 10:42:14",803.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-12-16 10:42:14",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-12-16 10:42:14",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-12-16 10:42:14",-0.1,,"Between Legs"
+"BIA Error","2024-12-16 10:42:14",0,
+"Basal Metabolic Rate (BMR)","2024-12-16 10:42:14","1,367",
+"Metabolic Age","2024-12-16 10:42:14",27,
+FAT_PERCENT,"2024-12-16 10:42:14",35,
+"Fat Free Percent","2024-12-16 10:42:14",65,
+MUSCLE_PERCENT,"2024-12-16 10:42:14",62,
+BONE_PERCENT,"2024-12-16 10:42:14",3,
+WATER_PERCENT,"2024-12-16 10:42:14",43,
+FAT_FREE_MASS,"2024-12-14 12:09:14",45,
+"Visceral Fat","2024-12-14 12:09:14",2.2,
+"Impedence 50kHz for segments","2024-12-14 12:09:14",697.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-12-14 12:09:14",633.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-12-14 12:09:14",807.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-12-14 12:09:14",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-12-14 12:09:14",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-12-14 12:09:14",-0.1,,"Between Legs"
+"BIA Error","2024-12-14 12:09:14",0,
+"Basal Metabolic Rate (BMR)","2024-12-14 12:09:14","1,372",
+"Metabolic Age","2024-12-14 12:09:14",27,
+FAT_PERCENT,"2024-12-14 12:09:14",35,
+"Fat Free Percent","2024-12-14 12:09:14",65,
+MUSCLE_PERCENT,"2024-12-14 12:09:14",62,
+BONE_PERCENT,"2024-12-14 12:09:14",3,
+WATER_PERCENT,"2024-12-14 12:09:14",43,
+FAT_FREE_MASS,"2024-12-11 10:49:12",46,
+"Visceral Fat","2024-12-11 10:49:12",2.1,
+"Impedence 50kHz for segments","2024-12-11 10:49:12",646.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-12-11 10:49:12",578.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-12-11 10:49:12",777.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-12-11 10:49:12",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-12-11 10:49:12",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-12-11 10:49:12",-0.1,,"Between Legs"
+"BIA Error","2024-12-11 10:49:12",0,
+"Basal Metabolic Rate (BMR)","2024-12-11 10:49:12","1,391",
+"Metabolic Age","2024-12-11 10:49:12",27,
+FAT_PERCENT,"2024-12-11 10:49:12",34,
+"Fat Free Percent","2024-12-11 10:49:12",66,
+MUSCLE_PERCENT,"2024-12-11 10:49:12",63,
+BONE_PERCENT,"2024-12-11 10:49:12",3,
+WATER_PERCENT,"2024-12-11 10:49:12",44,
+"PWV Reached count","2024-12-08 12:18:13","1,284",
+"VA Reached count","2024-12-08 12:18:13","1,284",
+FAT_FREE_MASS,"2024-12-08 12:18:13",45,
+"Visceral Fat","2024-12-08 12:18:13",2.1,
+"Impedence 50kHz for segments","2024-12-08 12:18:13",706.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-12-08 12:18:13",624.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-12-08 12:18:13",830.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-12-08 12:18:13",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-12-08 12:18:13",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-12-08 12:18:13",-0.1,,"Between Legs"
+"BIA Error","2024-12-08 12:18:13",0,
+"Basal Metabolic Rate (BMR)","2024-12-08 12:18:13","1,369",
+"Metabolic Age","2024-12-08 12:18:13",27,
+FAT_PERCENT,"2024-12-08 12:18:13",35,
+"Fat Free Percent","2024-12-08 12:18:13",65,
+MUSCLE_PERCENT,"2024-12-08 12:18:13",62,
+BONE_PERCENT,"2024-12-08 12:18:13",3,
+WATER_PERCENT,"2024-12-08 12:18:13",43,
+"Vascular age","2024-11-12 09:53:19",27,
+"Electrodermal activity feet","2024-11-12 09:53:19",49,
+"Max Nerve Response Score (NRS) feet","2024-11-12 09:53:19",49,
+FAT_FREE_MASS,"2024-11-12 09:53:19",44,
+"Visceral Fat","2024-11-12 09:53:19",2.0,
+"Impedence 50kHz for segments","2024-11-12 09:53:19",689.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-11-12 09:53:19",624.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-11-12 09:53:19",797.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-11-12 09:53:19",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-11-12 09:53:19",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-11-12 09:53:19",-0.1,,"Between Legs"
+"BIA Error","2024-11-12 09:53:19",0,
+"Basal Metabolic Rate (BMR)","2024-11-12 09:53:19","1,357",
+"Metabolic Age","2024-11-12 09:53:19",27,
+FAT_PERCENT,"2024-11-12 09:53:19",34,
+"Fat Free Percent","2024-11-12 09:53:19",66,
+MUSCLE_PERCENT,"2024-11-12 09:53:19",63,
+BONE_PERCENT,"2024-11-12 09:53:19",3,
+WATER_PERCENT,"2024-11-12 09:53:19",44,
+FAT_FREE_MASS,"2024-10-18 11:38:26",44,
+"Visceral Fat","2024-10-18 11:38:26",2.0,
+"Impedence 50kHz for segments","2024-10-18 11:38:26",685.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-10-18 11:38:26",609.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-10-18 11:38:26",802.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-10-18 11:38:26",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-10-18 11:38:26",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-10-18 11:38:26",-0.1,,"Between Legs"
+"BIA Error","2024-10-18 11:38:26",0,
+"Basal Metabolic Rate (BMR)","2024-10-18 11:38:26","1,357",
+"Metabolic Age","2024-10-18 11:38:26",27,
+FAT_PERCENT,"2024-10-18 11:38:26",34,
+"Fat Free Percent","2024-10-18 11:38:26",66,
+MUSCLE_PERCENT,"2024-10-18 11:38:26",63,
+BONE_PERCENT,"2024-10-18 11:38:26",3,
+WATER_PERCENT,"2024-10-18 11:38:26",44,
+"Vascular age","2024-10-02 10:21:09",27,
+FAT_FREE_MASS,"2024-10-02 10:21:09",44,
+"Visceral Fat","2024-10-02 10:21:09",2.0,
+"Impedence 50kHz for segments","2024-10-02 10:21:09",696.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-10-02 10:21:09",628.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-10-02 10:21:09",807.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-10-02 10:21:09",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-10-02 10:21:09",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-10-02 10:21:09",-0.1,,"Between Legs"
+"BIA Error","2024-10-02 10:21:09",0,
+"Basal Metabolic Rate (BMR)","2024-10-02 10:21:09","1,357",
+"Metabolic Age","2024-10-02 10:21:09",27,
+FAT_PERCENT,"2024-10-02 10:21:09",34,
+"Fat Free Percent","2024-10-02 10:21:09",66,
+MUSCLE_PERCENT,"2024-10-02 10:21:09",62,
+BONE_PERCENT,"2024-10-02 10:21:09",3,
+WATER_PERCENT,"2024-10-02 10:21:09",44,
+"Electrodermal activity feet","2024-09-25 10:55:18",80,
+"Max Nerve Response Score (NRS) feet","2024-09-25 10:55:18",80,
+FAT_FREE_MASS,"2024-09-25 10:55:18",44,
+"Visceral Fat","2024-09-25 10:55:18",2.1,
+"Impedence 50kHz for segments","2024-09-25 10:55:18",701.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-09-25 10:55:18",635.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-09-25 10:55:18",818.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-09-25 10:55:18",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-09-25 10:55:18",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-09-25 10:55:18",-0.1,,"Between Legs"
+"BIA Error","2024-09-25 10:55:18",0,
+"Basal Metabolic Rate (BMR)","2024-09-25 10:55:18","1,361",
+"Metabolic Age","2024-09-25 10:55:18",27,
+FAT_PERCENT,"2024-09-25 10:55:18",34,
+"Fat Free Percent","2024-09-25 10:55:18",66,
+MUSCLE_PERCENT,"2024-09-25 10:55:18",62,
+BONE_PERCENT,"2024-09-25 10:55:18",3,
+WATER_PERCENT,"2024-09-25 10:55:18",43,
+"Vascular age","2024-09-19 12:02:15",27,
+FAT_FREE_MASS,"2024-09-19 12:02:15",44,
+"Visceral Fat","2024-09-19 12:02:15",2.0,
+"Impedence 50kHz for segments","2024-09-19 12:02:15",701.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-09-19 12:02:15",635.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-09-19 12:02:15",822.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-09-19 12:02:15",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-09-19 12:02:15",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-09-19 12:02:15",-0.1,,"Between Legs"
+"BIA Error","2024-09-19 12:02:15",0,
+"Basal Metabolic Rate (BMR)","2024-09-19 12:02:15","1,354",
+"Metabolic Age","2024-09-19 12:02:15",27,
+FAT_PERCENT,"2024-09-19 12:02:15",34,
+"Fat Free Percent","2024-09-19 12:02:15",66,
+MUSCLE_PERCENT,"2024-09-19 12:02:15",63,
+BONE_PERCENT,"2024-09-19 12:02:15",3,
+WATER_PERCENT,"2024-09-19 12:02:15",44,
+"Electrodermal activity feet","2024-09-08 11:21:01",79,
+"Max Nerve Response Score (NRS) feet","2024-09-08 11:21:01",85,
+FAT_FREE_MASS,"2024-09-08 11:21:01",44,
+"Visceral Fat","2024-09-08 11:21:01",2.0,
+"Impedence 50kHz for segments","2024-09-08 11:21:01",709.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-09-08 11:21:01",640.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-09-08 11:21:01",834.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-09-08 11:21:01",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-09-08 11:21:01",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-09-08 11:21:01",-0.1,,"Between Legs"
+"BIA Error","2024-09-08 11:21:01",0,
+"Basal Metabolic Rate (BMR)","2024-09-08 11:21:01","1,353",
+"Metabolic Age","2024-09-08 11:21:01",27,
+FAT_PERCENT,"2024-09-08 11:21:01",34,
+"Fat Free Percent","2024-09-08 11:21:01",66,
+MUSCLE_PERCENT,"2024-09-08 11:21:01",63,
+BONE_PERCENT,"2024-09-08 11:21:01",3,
+WATER_PERCENT,"2024-09-08 11:21:01",44,
+"Vascular age","2024-09-04 11:00:23",27,
+"Electrodermal activity feet","2024-09-04 11:00:23",61,
+"Max Nerve Response Score (NRS) feet","2024-09-04 11:00:23",85,
+FAT_FREE_MASS,"2024-09-04 11:00:23",45,
+"Visceral Fat","2024-09-04 11:00:23",2.0,
+"Impedence 50kHz for segments","2024-09-04 11:00:23",673.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-09-04 11:00:23",611.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-09-04 11:00:23",774.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-09-04 11:00:23",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-09-04 11:00:23",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-09-04 11:00:23",-0.1,,"Between Legs"
+"BIA Error","2024-09-04 11:00:23",0,
+"Basal Metabolic Rate (BMR)","2024-09-04 11:00:23","1,362",
+"Metabolic Age","2024-09-04 11:00:23",27,
+FAT_PERCENT,"2024-09-04 11:00:23",34,
+"Fat Free Percent","2024-09-04 11:00:23",66,
+MUSCLE_PERCENT,"2024-09-04 11:00:23",63,
+BONE_PERCENT,"2024-09-04 11:00:23",3,
+WATER_PERCENT,"2024-09-04 11:00:23",44,
+FAT_FREE_MASS,"2024-09-01 13:30:55",45,
+"Visceral Fat","2024-09-01 13:30:55",2.0,
+"Impedence 50kHz for segments","2024-09-01 13:30:55",690.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-09-01 13:30:55",618.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-09-01 13:30:55",835.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-09-01 13:30:55",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-09-01 13:30:55",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-09-01 13:30:55",-0.1,,"Between Legs"
+"BIA Error","2024-09-01 13:30:55",8,
+"Basal Metabolic Rate (BMR)","2024-09-01 13:30:55","1,368",
+"Metabolic Age","2024-09-01 13:30:55",27,
+FAT_PERCENT,"2024-09-01 13:30:55",34,
+"Fat Free Percent","2024-09-01 13:30:55",66,
+MUSCLE_PERCENT,"2024-09-01 13:30:55",63,
+BONE_PERCENT,"2024-09-01 13:30:55",3,
+WATER_PERCENT,"2024-09-01 13:30:55",44,
+FAT_FREE_MASS,"2024-08-31 12:09:12",45,
+FAT_PERCENT,"2024-08-31 12:09:12",34,
+BMI,"2024-08-31 12:09:12",26,
+MUSCLE_PERCENT,"2024-08-31 12:09:12",63,
+BONE_PERCENT,"2024-08-31 12:09:12",3,
+WATER_PERCENT,"2024-08-31 12:09:12",44,
+"Fat Free Percent","2024-08-31 12:09:12",66,
+"Visceral Fat","2024-08-31 12:09:12",2.0,
+"Impedence 50kHz for segments","2024-08-31 12:09:12",667.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-31 12:09:12",592.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-31 12:09:12",793.0,,"Between Legs"
+"Phase  50kHz segment","2024-08-31 12:09:12",-0.1,,"Between Legs"
+"Basal Metabolic Rate (BMR)","2024-08-31 12:09:12","1,372",
+"Metabolic Age","2024-08-31 12:09:12",27,
+"Vascular age","2024-08-27 09:41:42",28,
+FAT_FREE_MASS,"2024-08-27 09:41:42",44,
+"Visceral Fat","2024-08-27 09:41:42",2.0,
+"Impedence 50kHz for segments","2024-08-27 09:41:42",695.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-27 09:41:42",624.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-27 09:41:42",815.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-08-27 09:41:42",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-08-27 09:41:42",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-08-27 09:41:42",-0.1,,"Between Legs"
+"BIA Error","2024-08-27 09:41:42",0,
+"Basal Metabolic Rate (BMR)","2024-08-27 09:41:42","1,361",
+"Metabolic Age","2024-08-27 09:41:42",27,
+FAT_PERCENT,"2024-08-27 09:41:42",34,
+"Fat Free Percent","2024-08-27 09:41:42",66,
+MUSCLE_PERCENT,"2024-08-27 09:41:42",62,
+BONE_PERCENT,"2024-08-27 09:41:42",3,
+WATER_PERCENT,"2024-08-27 09:41:42",44,
+FAT_FREE_MASS,"2024-08-25 11:43:53",45,
+"Visceral Fat","2024-08-25 11:43:53",2.1,
+"Impedence 50kHz for segments","2024-08-25 11:43:53",668.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-25 11:43:53",602.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-25 11:43:53",765.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-08-25 11:43:53",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-08-25 11:43:53",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-08-25 11:43:53",-0.1,,"Between Legs"
+"BIA Error","2024-08-25 11:43:53",0,
+"Basal Metabolic Rate (BMR)","2024-08-25 11:43:53","1,368",
+"Metabolic Age","2024-08-25 11:43:53",27,
+FAT_PERCENT,"2024-08-25 11:43:53",34,
+"Fat Free Percent","2024-08-25 11:43:53",66,
+MUSCLE_PERCENT,"2024-08-25 11:43:53",62,
+BONE_PERCENT,"2024-08-25 11:43:53",3,
+WATER_PERCENT,"2024-08-25 11:43:53",44,
+"Electrodermal activity feet","2024-08-20 11:08:38",43,
+"Max Nerve Response Score (NRS) feet","2024-08-20 11:08:38",85,
+FAT_FREE_MASS,"2024-08-20 11:08:38",44,
+"Visceral Fat","2024-08-20 11:08:38",2.0,
+"Impedence 50kHz for segments","2024-08-20 11:08:38",695.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-20 11:08:38",620.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-20 11:08:38",813.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-08-20 11:08:38",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-08-20 11:08:38",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-08-20 11:08:38",-0.1,,"Between Legs"
+"BIA Error","2024-08-20 11:08:38",0,
+"Basal Metabolic Rate (BMR)","2024-08-20 11:08:38","1,357",
+"Metabolic Age","2024-08-20 11:08:38",27,
+FAT_PERCENT,"2024-08-20 11:08:38",34,
+"Fat Free Percent","2024-08-20 11:08:38",66,
+MUSCLE_PERCENT,"2024-08-20 11:08:38",63,
+BONE_PERCENT,"2024-08-20 11:08:38",3,
+WATER_PERCENT,"2024-08-20 11:08:38",44,
+"Vascular age","2024-08-18 12:05:50",27,
+FAT_FREE_MASS,"2024-08-18 12:05:50",44,
+FAT_PERCENT,"2024-08-18 12:05:50",34,
+BMI,"2024-08-18 12:05:50",26,
+MUSCLE_PERCENT,"2024-08-18 12:05:50",62,
+BONE_PERCENT,"2024-08-18 12:05:50",3,
+WATER_PERCENT,"2024-08-18 12:05:50",43,
+"Fat Free Percent","2024-08-18 12:05:50",66,
+"Visceral Fat","2024-08-18 12:05:50",2.1,
+"Impedence 50kHz for segments","2024-08-18 12:05:50",706.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-18 12:05:50",631.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-18 12:05:50",829.0,,"Between Legs"
+"Phase  250kHz segment","2024-08-18 12:05:50",-0.1,,"Between Legs"
+"Basal Metabolic Rate (BMR)","2024-08-18 12:05:50","1,360",
+"Metabolic Age","2024-08-18 12:05:50",27,
+"Vascular age","2024-08-14 11:57:16",27,
+"Electrodermal activity feet","2024-08-14 11:57:16",85,
+"Max Nerve Response Score (NRS) feet","2024-08-14 11:57:16",85,
+FAT_FREE_MASS,"2024-08-14 11:57:16",45,
+"Visceral Fat","2024-08-14 11:57:16",2.0,
+"Impedence 50kHz for segments","2024-08-14 11:57:16",683.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-14 11:57:16",602.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-14 11:57:16",809.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-08-14 11:57:16",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-08-14 11:57:16",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-08-14 11:57:16",-0.1,,"Between Legs"
+"BIA Error","2024-08-14 11:57:16",0,
+"Basal Metabolic Rate (BMR)","2024-08-14 11:57:16","1,365",
+"Metabolic Age","2024-08-14 11:57:16",27,
+FAT_PERCENT,"2024-08-14 11:57:16",34,
+"Fat Free Percent","2024-08-14 11:57:16",66,
+MUSCLE_PERCENT,"2024-08-14 11:57:16",63,
+BONE_PERCENT,"2024-08-14 11:57:16",3,
+WATER_PERCENT,"2024-08-14 11:57:16",44,
+"Vascular age","2024-08-13 10:18:25",27,
+FAT_FREE_MASS,"2024-08-13 10:18:25",44,
+"Visceral Fat","2024-08-13 10:18:25",2.1,
+"Impedence 50kHz for segments","2024-08-13 10:18:25",694.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-08-13 10:18:25",630.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-08-13 10:18:25",803.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-08-13 10:18:25",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-08-13 10:18:25",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-08-13 10:18:25",-0.1,,"Between Legs"
+"BIA Error","2024-08-13 10:18:25",0,
+"Basal Metabolic Rate (BMR)","2024-08-13 10:18:25","1,361",
+"Metabolic Age","2024-08-13 10:18:25",27,
+FAT_PERCENT,"2024-08-13 10:18:25",34,
+"Fat Free Percent","2024-08-13 10:18:25",66,
+MUSCLE_PERCENT,"2024-08-13 10:18:25",62,
+BONE_PERCENT,"2024-08-13 10:18:25",3,
+WATER_PERCENT,"2024-08-13 10:18:25",44,
+FAT_FREE_MASS,"2024-07-30 12:20:12",44,
+"Visceral Fat","2024-07-30 12:20:12",2.0,
+"Impedence 50kHz for segments","2024-07-30 12:20:12",727.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-30 12:20:12",660.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-30 12:20:12",851.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-30 12:20:12",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-30 12:20:12",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-30 12:20:12",-0.1,,"Between Legs"
+"BIA Error","2024-07-30 12:20:12",0,
+"Basal Metabolic Rate (BMR)","2024-07-30 12:20:12","1,350",
+"Metabolic Age","2024-07-30 12:20:12",27,
+FAT_PERCENT,"2024-07-30 12:20:12",35,
+"Fat Free Percent","2024-07-30 12:20:12",65,
+MUSCLE_PERCENT,"2024-07-30 12:20:12",62,
+BONE_PERCENT,"2024-07-30 12:20:12",3,
+WATER_PERCENT,"2024-07-30 12:20:12",43,
+"Vascular age","2024-07-27 12:40:12",26,
+"Electrodermal activity feet","2024-07-27 12:40:12",77,
+"Max Nerve Response Score (NRS) feet","2024-07-27 12:40:12",77,
+FAT_FREE_MASS,"2024-07-27 12:40:12",45,
+"Visceral Fat","2024-07-27 12:40:12",2.0,
+"Impedence 50kHz for segments","2024-07-27 12:40:12",686.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-27 12:40:12",603.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-27 12:40:12",814.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-27 12:40:12",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-27 12:40:12",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-27 12:40:12",-0.1,,"Between Legs"
+"BIA Error","2024-07-27 12:40:12",0,
+"Basal Metabolic Rate (BMR)","2024-07-27 12:40:12","1,364",
+"Metabolic Age","2024-07-27 12:40:12",27,
+FAT_PERCENT,"2024-07-27 12:40:12",34,
+"Fat Free Percent","2024-07-27 12:40:12",66,
+MUSCLE_PERCENT,"2024-07-27 12:40:12",63,
+BONE_PERCENT,"2024-07-27 12:40:12",3,
+WATER_PERCENT,"2024-07-27 12:40:12",44,
+"Vascular age","2024-07-26 10:43:54",26,
+"Electrodermal activity feet","2024-07-26 10:43:54",64,
+"Max Nerve Response Score (NRS) feet","2024-07-26 10:43:54",71,
+FAT_FREE_MASS,"2024-07-26 10:43:54",45,
+"Visceral Fat","2024-07-26 10:43:54",2.0,
+"Impedence 50kHz for segments","2024-07-26 10:43:54",677.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-26 10:43:54",603.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-26 10:43:54",792.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-26 10:43:54",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-26 10:43:54",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-26 10:43:54",-0.1,,"Between Legs"
+"BIA Error","2024-07-26 10:43:54",0,
+"Basal Metabolic Rate (BMR)","2024-07-26 10:43:54","1,364",
+"Metabolic Age","2024-07-26 10:43:54",27,
+FAT_PERCENT,"2024-07-26 10:43:54",34,
+"Fat Free Percent","2024-07-26 10:43:54",66,
+MUSCLE_PERCENT,"2024-07-26 10:43:54",63,
+BONE_PERCENT,"2024-07-26 10:43:54",3,
+WATER_PERCENT,"2024-07-26 10:43:54",44,
+"PWV Reached count","2024-07-16 10:48:04","1,284",
+"VA Reached count","2024-07-16 10:48:04","1,284",
+"Electrodermal activity feet","2024-07-16 10:48:04",71,
+"Max Nerve Response Score (NRS) feet","2024-07-16 10:48:04",71,
+FAT_FREE_MASS,"2024-07-16 10:48:04",45,
+"Visceral Fat","2024-07-16 10:48:04",2.0,
+"Impedence 50kHz for segments","2024-07-16 10:48:04",676.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-16 10:48:04",612.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-16 10:48:04",781.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-16 10:48:04",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-16 10:48:04",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-16 10:48:04",-0.1,,"Between Legs"
+"BIA Error","2024-07-16 10:48:04",0,
+"Basal Metabolic Rate (BMR)","2024-07-16 10:48:04","1,361",
+"Metabolic Age","2024-07-16 10:48:04",27,
+FAT_PERCENT,"2024-07-16 10:48:04",34,
+"Fat Free Percent","2024-07-16 10:48:04",66,
+MUSCLE_PERCENT,"2024-07-16 10:48:04",63,
+BONE_PERCENT,"2024-07-16 10:48:04",3,
+WATER_PERCENT,"2024-07-16 10:48:04",44,
+"PWV Reached count","2024-07-12 11:16:31","1,283",
+"VA Reached count","2024-07-12 11:16:31","1,283",
+FAT_FREE_MASS,"2024-07-12 11:16:31",45,
+"Visceral Fat","2024-07-12 11:16:31",2.0,
+"Impedence 50kHz for segments","2024-07-12 11:16:31",671.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-12 11:16:31",609.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-12 11:16:31",769.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-12 11:16:31",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-12 11:16:31",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-12 11:16:31",-0.1,,"Between Legs"
+"BIA Error","2024-07-12 11:16:31",0,
+"Basal Metabolic Rate (BMR)","2024-07-12 11:16:31","1,362",
+"Metabolic Age","2024-07-12 11:16:31",27,
+FAT_PERCENT,"2024-07-12 11:16:31",34,
+"Fat Free Percent","2024-07-12 11:16:31",66,
+MUSCLE_PERCENT,"2024-07-12 11:16:31",63,
+BONE_PERCENT,"2024-07-12 11:16:31",3,
+WATER_PERCENT,"2024-07-12 11:16:31",44,
+"PWV Reached count","2024-07-11 11:57:27","1,282",
+"VA Reached count","2024-07-11 11:57:27","1,282",
+"Electrodermal activity feet","2024-07-11 11:57:27",62,
+"Max Nerve Response Score (NRS) feet","2024-07-11 11:57:27",66,
+FAT_FREE_MASS,"2024-07-11 11:57:27",44,
+"Visceral Fat","2024-07-11 11:57:27",2.0,
+"Impedence 50kHz for segments","2024-07-11 11:57:27",683.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-11 11:57:27",618.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-11 11:57:27",795.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-11 11:57:27",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-11 11:57:27",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-11 11:57:27",-0.1,,"Between Legs"
+"BIA Error","2024-07-11 11:57:27",0,
+"Basal Metabolic Rate (BMR)","2024-07-11 11:57:27","1,361",
+"Metabolic Age","2024-07-11 11:57:27",27,
+FAT_PERCENT,"2024-07-11 11:57:27",34,
+"Fat Free Percent","2024-07-11 11:57:27",66,
+MUSCLE_PERCENT,"2024-07-11 11:57:27",63,
+BONE_PERCENT,"2024-07-11 11:57:27",3,
+WATER_PERCENT,"2024-07-11 11:57:27",44,
+"PWV Reached count","2024-07-07 12:07:28","1,281",
+"VA Reached count","2024-07-07 12:07:28","1,281",
+"Electrodermal activity feet","2024-07-07 12:07:28",66,
+"Max Nerve Response Score (NRS) feet","2024-07-07 12:07:28",66,
+FAT_FREE_MASS,"2024-07-07 12:07:28",44,
+"Visceral Fat","2024-07-07 12:07:28",2.0,
+"Impedence 50kHz for segments","2024-07-07 12:07:28",675.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-07-07 12:07:28",597.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-07-07 12:07:28",781.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-07-07 12:07:28",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-07-07 12:07:28",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-07-07 12:07:28",-0.1,,"Between Legs"
+"BIA Error","2024-07-07 12:07:28",0,
+"Basal Metabolic Rate (BMR)","2024-07-07 12:07:28","1,360",
+"Metabolic Age","2024-07-07 12:07:28",27,
+FAT_PERCENT,"2024-07-07 12:07:28",34,
+"Fat Free Percent","2024-07-07 12:07:28",66,
+MUSCLE_PERCENT,"2024-07-07 12:07:28",63,
+BONE_PERCENT,"2024-07-07 12:07:28",3,
+WATER_PERCENT,"2024-07-07 12:07:28",44,
+FAT_FREE_MASS,"2024-04-22 11:59:12",45,
+"Visceral Fat","2024-04-22 11:59:12",2.0,
+"Impedence 50kHz for segments","2024-04-22 11:59:12",668.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-04-22 11:59:12",601.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-04-22 11:59:12",772.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-04-22 11:59:12",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-04-22 11:59:12",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-04-22 11:59:12",-0.1,,"Between Legs"
+"BIA Error","2024-04-22 11:59:12",0,
+"Basal Metabolic Rate (BMR)","2024-04-22 11:59:12","1,368",
+"Metabolic Age","2024-04-22 11:59:12",26,
+FAT_PERCENT,"2024-04-22 11:59:12",34,
+"Fat Free Percent","2024-04-22 11:59:12",66,
+MUSCLE_PERCENT,"2024-04-22 11:59:12",63,
+BONE_PERCENT,"2024-04-22 11:59:12",3,
+WATER_PERCENT,"2024-04-22 11:59:12",44,
+FAT_FREE_MASS,"2024-04-15 10:08:42",44,
+"Visceral Fat","2024-04-15 10:08:42",2.0,
+"Impedence 50kHz for segments","2024-04-15 10:08:42",689.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-04-15 10:08:42",623.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-04-15 10:08:42",797.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-04-15 10:08:42",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-04-15 10:08:42",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-04-15 10:08:42",-0.1,,"Between Legs"
+"BIA Error","2024-04-15 10:08:42",0,
+"Basal Metabolic Rate (BMR)","2024-04-15 10:08:42","1,360",
+"Metabolic Age","2024-04-15 10:08:42",26,
+FAT_PERCENT,"2024-04-15 10:08:42",34,
+"Fat Free Percent","2024-04-15 10:08:42",66,
+MUSCLE_PERCENT,"2024-04-15 10:08:42",63,
+BONE_PERCENT,"2024-04-15 10:08:42",3,
+WATER_PERCENT,"2024-04-15 10:08:42",44,
+FAT_FREE_MASS,"2024-04-08 14:11:35",45,
+"Visceral Fat","2024-04-08 14:11:35",2.0,
+"Impedence 50kHz for segments","2024-04-08 14:11:35",662.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-04-08 14:11:35",577.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-04-08 14:11:35",775.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-04-08 14:11:35",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-04-08 14:11:35",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-04-08 14:11:35",-0.1,,"Between Legs"
+"BIA Error","2024-04-08 14:11:35",0,
+"Basal Metabolic Rate (BMR)","2024-04-08 14:11:35","1,370",
+"Metabolic Age","2024-04-08 14:11:35",26,
+FAT_PERCENT,"2024-04-08 14:11:35",34,
+"Fat Free Percent","2024-04-08 14:11:35",66,
+MUSCLE_PERCENT,"2024-04-08 14:11:35",63,
+BONE_PERCENT,"2024-04-08 14:11:35",3,
+WATER_PERCENT,"2024-04-08 14:11:35",44,
+FAT_FREE_MASS,"2024-03-24 15:28:35",44,
+"Visceral Fat","2024-03-24 15:28:35",2.0,
+"Impedence 50kHz for segments","2024-03-24 15:28:35",701.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-24 15:28:35",633.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-24 15:28:35",812.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-24 15:28:35",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-24 15:28:35",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-24 15:28:35",-0.1,,"Between Legs"
+"BIA Error","2024-03-24 15:28:35",0,
+"Basal Metabolic Rate (BMR)","2024-03-24 15:28:35","1,356",
+"Metabolic Age","2024-03-24 15:28:35",26,
+FAT_PERCENT,"2024-03-24 15:28:35",34,
+"Fat Free Percent","2024-03-24 15:28:35",66,
+MUSCLE_PERCENT,"2024-03-24 15:28:35",62,
+BONE_PERCENT,"2024-03-24 15:28:35",3,
+WATER_PERCENT,"2024-03-24 15:28:35",44,
+FAT_FREE_MASS,"2024-03-24 15:27:59",44,
+"Visceral Fat","2024-03-24 15:27:59",2.0,
+"Impedence 50kHz for segments","2024-03-24 15:27:59",697.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-24 15:27:59",614.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-24 15:27:59",822.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-24 15:27:59",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-24 15:27:59",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-24 15:27:59",-0.1,,"Between Legs"
+"BIA Error","2024-03-24 15:27:59",0,
+"Basal Metabolic Rate (BMR)","2024-03-24 15:27:59","1,361",
+"Metabolic Age","2024-03-24 15:27:59",26,
+FAT_PERCENT,"2024-03-24 15:27:59",34,
+"Fat Free Percent","2024-03-24 15:27:59",66,
+MUSCLE_PERCENT,"2024-03-24 15:27:59",63,
+BONE_PERCENT,"2024-03-24 15:27:59",3,
+WATER_PERCENT,"2024-03-24 15:27:59",44,
+FAT_FREE_MASS,"2024-03-22 15:10:36",45,
+"Visceral Fat","2024-03-22 15:10:36",2.0,
+"Impedence 50kHz for segments","2024-03-22 15:10:36",667.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-22 15:10:36",595.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-22 15:10:36",791.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-22 15:10:36",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-22 15:10:36",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-22 15:10:36",-0.1,,"Between Legs"
+"BIA Error","2024-03-22 15:10:36",0,
+"Basal Metabolic Rate (BMR)","2024-03-22 15:10:36","1,371",
+"Metabolic Age","2024-03-22 15:10:36",26,
+FAT_PERCENT,"2024-03-22 15:10:36",34,
+"Fat Free Percent","2024-03-22 15:10:36",66,
+MUSCLE_PERCENT,"2024-03-22 15:10:36",63,
+BONE_PERCENT,"2024-03-22 15:10:36",3,
+WATER_PERCENT,"2024-03-22 15:10:36",44,
+FAT_FREE_MASS,"2024-03-20 19:19:26",45,
+"Visceral Fat","2024-03-20 19:19:26",2.0,
+"Impedence 50kHz for segments","2024-03-20 19:19:26",622.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-20 19:19:26",564.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-20 19:19:26",706.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-20 19:19:26",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-20 19:19:26",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-20 19:19:26",-0.1,,"Between Legs"
+"BIA Error","2024-03-20 19:19:26",0,
+"Basal Metabolic Rate (BMR)","2024-03-20 19:19:26","1,376",
+"Metabolic Age","2024-03-20 19:19:26",26,
+FAT_PERCENT,"2024-03-20 19:19:26",33,
+"Fat Free Percent","2024-03-20 19:19:26",67,
+MUSCLE_PERCENT,"2024-03-20 19:19:26",63,
+BONE_PERCENT,"2024-03-20 19:19:26",3,
+WATER_PERCENT,"2024-03-20 19:19:26",45,
+"Vascular age","2024-03-18 15:01:37",25,
+FAT_FREE_MASS,"2024-03-18 15:01:37",45,
+"Visceral Fat","2024-03-18 15:01:37",1.9,
+"Impedence 50kHz for segments","2024-03-18 15:01:37",638.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-18 15:01:37",570.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-18 15:01:37",771.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-18 15:01:37",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-18 15:01:37",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-18 15:01:37",-0.1,,"Between Legs"
+"BIA Error","2024-03-18 15:01:37",0,
+"Basal Metabolic Rate (BMR)","2024-03-18 15:01:37","1,385",
+"Metabolic Age","2024-03-18 15:01:37",26,
+FAT_PERCENT,"2024-03-18 15:01:37",33,
+"Fat Free Percent","2024-03-18 15:01:37",67,
+MUSCLE_PERCENT,"2024-03-18 15:01:37",64,
+BONE_PERCENT,"2024-03-18 15:01:37",3,
+WATER_PERCENT,"2024-03-18 15:01:37",45,
+FAT_FREE_MASS,"2024-03-16 19:04:11",45,
+"Visceral Fat","2024-03-16 19:04:11",2.0,
+"Impedence 50kHz for segments","2024-03-16 19:04:11",634.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-16 19:04:11",556.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-16 19:04:11",756.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-16 19:04:11",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-16 19:04:11",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-16 19:04:11",-0.1,,"Between Legs"
+"BIA Error","2024-03-16 19:04:11",0,
+"Basal Metabolic Rate (BMR)","2024-03-16 19:04:11","1,385",
+"Metabolic Age","2024-03-16 19:04:11",26,
+FAT_PERCENT,"2024-03-16 19:04:11",33,
+"Fat Free Percent","2024-03-16 19:04:11",67,
+MUSCLE_PERCENT,"2024-03-16 19:04:11",64,
+BONE_PERCENT,"2024-03-16 19:04:11",3,
+WATER_PERCENT,"2024-03-16 19:04:11",45,
+FAT_FREE_MASS,"2024-03-13 15:57:55",46,
+"Visceral Fat","2024-03-13 15:57:55",2.0,
+"Impedence 50kHz for segments","2024-03-13 15:57:55",639.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-13 15:57:55",571.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-13 15:57:55",778.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-13 15:57:55",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-13 15:57:55",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-13 15:57:55",-0.1,,"Between Legs"
+"BIA Error","2024-03-13 15:57:55",8,
+"Basal Metabolic Rate (BMR)","2024-03-13 15:57:55","1,391",
+"Metabolic Age","2024-03-13 15:57:55",26,
+FAT_PERCENT,"2024-03-13 15:57:55",33,
+"Fat Free Percent","2024-03-13 15:57:55",67,
+MUSCLE_PERCENT,"2024-03-13 15:57:55",63,
+BONE_PERCENT,"2024-03-13 15:57:55",3,
+WATER_PERCENT,"2024-03-13 15:57:55",45,
+"Vascular age","2024-03-12 16:42:03",25,
+"Electrodermal activity feet","2024-03-12 16:42:03",40,
+"Max Nerve Response Score (NRS) feet","2024-03-12 16:42:03",40,
+FAT_FREE_MASS,"2024-03-12 16:42:03",45,
+"Visceral Fat","2024-03-12 16:42:03",2.0,
+"Impedence 50kHz for segments","2024-03-12 16:42:03",624.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-12 16:42:03",558.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-12 16:42:03",741.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-12 16:42:03",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-12 16:42:03",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-12 16:42:03",-0.1,,"Between Legs"
+"BIA Error","2024-03-12 16:42:03",0,
+"Basal Metabolic Rate (BMR)","2024-03-12 16:42:03","1,388",
+"Metabolic Age","2024-03-12 16:42:03",26,
+FAT_PERCENT,"2024-03-12 16:42:03",33,
+"Fat Free Percent","2024-03-12 16:42:03",67,
+MUSCLE_PERCENT,"2024-03-12 16:42:03",64,
+BONE_PERCENT,"2024-03-12 16:42:03",3,
+WATER_PERCENT,"2024-03-12 16:42:03",45,
+"Vascular age","2024-03-10 12:24:08",24,
+FAT_FREE_MASS,"2024-03-10 12:24:08",45,
+"Visceral Fat","2024-03-10 12:24:08",1.7,
+"Impedence 50kHz for segments","2024-03-10 12:24:08",627.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-03-10 12:24:08",560.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-03-10 12:24:08",765.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-03-10 12:24:08",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-03-10 12:24:08",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-03-10 12:24:08",-0.1,,"Between Legs"
+"BIA Error","2024-03-10 12:24:08",8,
+"Basal Metabolic Rate (BMR)","2024-03-10 12:24:08","1,361",
+"Metabolic Age","2024-03-10 12:24:08",25,
+FAT_PERCENT,"2024-03-10 12:24:08",31,
+"Fat Free Percent","2024-03-10 12:24:08",69,
+MUSCLE_PERCENT,"2024-03-10 12:24:08",66,
+BONE_PERCENT,"2024-03-10 12:24:08",3,
+WATER_PERCENT,"2024-03-10 12:24:08",46,
+"HR PNN 50","2024-03-01 21:07:26",0,
+"Atrial fibrillation result","2024-03-01 21:07:26",0,
+"QRS interval duration","2024-03-01 21:07:26",63,
+"PR interval duration","2024-03-01 21:07:26",136,
+"QT interval duration","2024-03-01 21:07:26",363,
+"Corrected QT interval duration","2024-03-01 21:07:26",447,
+"HR SD NN","2024-03-01 21:07:26",33,
+"HR RMS SD","2024-03-01 21:07:26",13,
+FAT_FREE_MASS,"2024-02-14 10:53:04",43,
+"Visceral Fat","2024-02-14 10:53:04",1.8,
+"Impedence 50kHz for segments","2024-02-14 10:53:04",705.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-02-14 10:53:04",642.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-02-14 10:53:04",802.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-02-14 10:53:04",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-02-14 10:53:04",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-02-14 10:53:04",-0.1,,"Between Legs"
+"BIA Error","2024-02-14 10:53:04",0,
+"Basal Metabolic Rate (BMR)","2024-02-14 10:53:04","1,322",
+"Metabolic Age","2024-02-14 10:53:04",26,
+FAT_PERCENT,"2024-02-14 10:53:04",33,
+"Fat Free Percent","2024-02-14 10:53:04",67,
+MUSCLE_PERCENT,"2024-02-14 10:53:04",64,
+BONE_PERCENT,"2024-02-14 10:53:04",3,
+WATER_PERCENT,"2024-02-14 10:53:04",45,
+FAT_FREE_MASS,"2024-02-13 11:38:27",44,
+"Visceral Fat","2024-02-13 11:38:27",1.7,
+"Impedence 50kHz for segments","2024-02-13 11:38:27",631.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-02-13 11:38:27",566.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-02-13 11:38:27",741.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-02-13 11:38:27",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-02-13 11:38:27",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-02-13 11:38:27",-0.1,,"Between Legs"
+"BIA Error","2024-02-13 11:38:27",0,
+"Basal Metabolic Rate (BMR)","2024-02-13 11:38:27","1,347",
+"Metabolic Age","2024-02-13 11:38:27",25,
+FAT_PERCENT,"2024-02-13 11:38:27",31,
+"Fat Free Percent","2024-02-13 11:38:27",69,
+MUSCLE_PERCENT,"2024-02-13 11:38:27",66,
+BONE_PERCENT,"2024-02-13 11:38:27",3,
+WATER_PERCENT,"2024-02-13 11:38:27",47,
+"Vascular age","2024-02-10 12:35:13",25,
+FAT_FREE_MASS,"2024-02-10 12:35:13",43,
+"Visceral Fat","2024-02-10 12:35:13",1.8,
+"Impedence 50kHz for segments","2024-02-10 12:35:13",700.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-02-10 12:35:13",626.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-02-10 12:35:13",819.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-02-10 12:35:13",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-02-10 12:35:13",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-02-10 12:35:13",-0.1,,"Between Legs"
+"BIA Error","2024-02-10 12:35:13",0,
+"Basal Metabolic Rate (BMR)","2024-02-10 12:35:13","1,322",
+"Metabolic Age","2024-02-10 12:35:13",26,
+FAT_PERCENT,"2024-02-10 12:35:13",32,
+"Fat Free Percent","2024-02-10 12:35:13",68,
+MUSCLE_PERCENT,"2024-02-10 12:35:13",65,
+BONE_PERCENT,"2024-02-10 12:35:13",3,
+WATER_PERCENT,"2024-02-10 12:35:13",45,
+"Electrodermal activity feet","2024-01-28 12:06:02",78,
+"Max Nerve Response Score (NRS) feet","2024-01-28 12:06:02",82,
+"Impedence 50kHz for segments","2024-01-28 12:06:02",658.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-28 12:06:02",572.0,,"Between Legs"
+"Phase  50kHz segment","2024-01-28 12:06:02",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-28 12:06:02",-0.1,,"Between Legs"
+"BIA Error","2024-01-28 12:06:02",11,
+FAT_FREE_MASS,"2024-01-24 12:00:36",44,
+"Visceral Fat","2024-01-24 12:00:36",1.7,
+"Impedence 50kHz for segments","2024-01-24 12:00:36",665.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-24 12:00:36",589.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-24 12:00:36",780.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-24 12:00:36",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-24 12:00:36",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-24 12:00:36",-0.1,,"Between Legs"
+"BIA Error","2024-01-24 12:00:36",0,
+"Basal Metabolic Rate (BMR)","2024-01-24 12:00:36","1,337",
+"Metabolic Age","2024-01-24 12:00:36",25,
+FAT_PERCENT,"2024-01-24 12:00:36",32,
+"Fat Free Percent","2024-01-24 12:00:36",68,
+MUSCLE_PERCENT,"2024-01-24 12:00:36",65,
+BONE_PERCENT,"2024-01-24 12:00:36",3,
+WATER_PERCENT,"2024-01-24 12:00:36",46,
+"Vascular age","2024-01-23 11:50:09",25,
+FAT_FREE_MASS,"2024-01-23 11:50:09",44,
+"Visceral Fat","2024-01-23 11:50:09",1.7,
+"Impedence 50kHz for segments","2024-01-23 11:50:09",654.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-23 11:50:09",569.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-23 11:50:09",773.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-23 11:50:09",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-23 11:50:09",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-23 11:50:09",-0.1,,"Between Legs"
+"BIA Error","2024-01-23 11:50:09",0,
+"Basal Metabolic Rate (BMR)","2024-01-23 11:50:09","1,337",
+"Metabolic Age","2024-01-23 11:50:09",25,
+FAT_PERCENT,"2024-01-23 11:50:09",31,
+"Fat Free Percent","2024-01-23 11:50:09",69,
+MUSCLE_PERCENT,"2024-01-23 11:50:09",66,
+BONE_PERCENT,"2024-01-23 11:50:09",3,
+WATER_PERCENT,"2024-01-23 11:50:09",46,
+FAT_FREE_MASS,"2024-01-22 10:38:32",45,
+"Visceral Fat","2024-01-22 10:38:32",1.7,
+"Impedence 50kHz for segments","2024-01-22 10:38:32",622.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-22 10:38:32",549.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-22 10:38:32",751.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-22 10:38:32",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-22 10:38:32",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-22 10:38:32",-0.1,,"Between Legs"
+"BIA Error","2024-01-22 10:38:32",0,
+"Basal Metabolic Rate (BMR)","2024-01-22 10:38:32","1,355",
+"Metabolic Age","2024-01-22 10:38:32",25,
+FAT_PERCENT,"2024-01-22 10:38:32",30,
+"Fat Free Percent","2024-01-22 10:38:32",70,
+MUSCLE_PERCENT,"2024-01-22 10:38:32",66,
+BONE_PERCENT,"2024-01-22 10:38:32",4,
+WATER_PERCENT,"2024-01-22 10:38:32",47,
+FAT_FREE_MASS,"2024-01-20 10:50:45",44,
+"Visceral Fat","2024-01-20 10:50:45",1.7,
+"Impedence 50kHz for segments","2024-01-20 10:50:45",657.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-20 10:50:45",575.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-20 10:50:45",780.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-20 10:50:45",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-20 10:50:45",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-20 10:50:45",-0.1,,"Between Legs"
+"BIA Error","2024-01-20 10:50:45",0,
+"Basal Metabolic Rate (BMR)","2024-01-20 10:50:45","1,337",
+"Metabolic Age","2024-01-20 10:50:45",25,
+FAT_PERCENT,"2024-01-20 10:50:45",31,
+"Fat Free Percent","2024-01-20 10:50:45",69,
+MUSCLE_PERCENT,"2024-01-20 10:50:45",66,
+BONE_PERCENT,"2024-01-20 10:50:45",3,
+WATER_PERCENT,"2024-01-20 10:50:45",46,
+FAT_FREE_MASS,"2024-01-18 11:11:56",44,
+"Visceral Fat","2024-01-18 11:11:56",1.7,
+"Impedence 50kHz for segments","2024-01-18 11:11:56",679.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-18 11:11:56",594.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-18 11:11:56",807.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-18 11:11:56",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-18 11:11:56",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-18 11:11:56",-0.1,,"Between Legs"
+"BIA Error","2024-01-18 11:11:56",0,
+"Basal Metabolic Rate (BMR)","2024-01-18 11:11:56","1,328",
+"Metabolic Age","2024-01-18 11:11:56",25,
+FAT_PERCENT,"2024-01-18 11:11:56",31,
+"Fat Free Percent","2024-01-18 11:11:56",69,
+MUSCLE_PERCENT,"2024-01-18 11:11:56",65,
+BONE_PERCENT,"2024-01-18 11:11:56",3,
+WATER_PERCENT,"2024-01-18 11:11:56",46,
+"Electrodermal activity feet","2024-01-17 10:52:02",53,
+"Max Nerve Response Score (NRS) feet","2024-01-17 10:52:02",82,
+FAT_FREE_MASS,"2024-01-17 10:52:02",44,
+"Visceral Fat","2024-01-17 10:52:02",1.6,
+"Impedence 50kHz for segments","2024-01-17 10:52:02",625.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-17 10:52:02",561.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-17 10:52:02",764.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-17 10:52:02",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-17 10:52:02",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-17 10:52:02",-0.1,,"Between Legs"
+"BIA Error","2024-01-17 10:52:02",8,
+"Basal Metabolic Rate (BMR)","2024-01-17 10:52:02","1,351",
+"Metabolic Age","2024-01-17 10:52:02",25,
+FAT_PERCENT,"2024-01-17 10:52:02",30,
+"Fat Free Percent","2024-01-17 10:52:02",70,
+MUSCLE_PERCENT,"2024-01-17 10:52:02",67,
+BONE_PERCENT,"2024-01-17 10:52:02",4,
+WATER_PERCENT,"2024-01-17 10:52:02",47,
+"Vascular age","2024-01-16 10:10:42",25,
+FAT_FREE_MASS,"2024-01-16 10:10:42",44,
+"Visceral Fat","2024-01-16 10:10:42",1.7,
+"Impedence 50kHz for segments","2024-01-16 10:10:42",640.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-16 10:10:42",558.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-16 10:10:42",752.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-16 10:10:42",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-16 10:10:42",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-16 10:10:42",-0.1,,"Between Legs"
+"BIA Error","2024-01-16 10:10:42",0,
+"Basal Metabolic Rate (BMR)","2024-01-16 10:10:42","1,337",
+"Metabolic Age","2024-01-16 10:10:42",25,
+FAT_PERCENT,"2024-01-16 10:10:42",31,
+"Fat Free Percent","2024-01-16 10:10:42",69,
+MUSCLE_PERCENT,"2024-01-16 10:10:42",66,
+BONE_PERCENT,"2024-01-16 10:10:42",3,
+WATER_PERCENT,"2024-01-16 10:10:42",47,
+FAT_FREE_MASS,"2024-01-15 14:09:27",43,
+"Visceral Fat","2024-01-15 14:09:27",1.8,
+"Impedence 50kHz for segments","2024-01-15 14:09:27",666.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-15 14:09:27",607.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-15 14:09:27",751.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-15 14:09:27",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-15 14:09:27",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-15 14:09:27",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-15 14:09:27",32,
+"Fat Free Percent","2024-01-15 14:09:27",68,
+MUSCLE_PERCENT,"2024-01-15 14:09:27",65,
+BONE_PERCENT,"2024-01-15 14:09:27",3,
+WATER_PERCENT,"2024-01-15 14:09:27",46,
+"PWV Reached count","2024-01-14 10:01:30","1,284",
+"VA Reached count","2024-01-14 10:01:30","1,284",
+"Electrodermal activity feet","2024-01-14 10:01:30",58,
+"Max Nerve Response Score (NRS) feet","2024-01-14 10:01:30",82,
+FAT_FREE_MASS,"2024-01-14 10:01:30",44,
+"Visceral Fat","2024-01-14 10:01:30",1.7,
+"Impedence 50kHz for segments","2024-01-14 10:01:30",654.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-14 10:01:30",577.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-14 10:01:30",774.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-14 10:01:30",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-14 10:01:30",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-14 10:01:30",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-14 10:01:30",31,
+"Fat Free Percent","2024-01-14 10:01:30",69,
+MUSCLE_PERCENT,"2024-01-14 10:01:30",66,
+BONE_PERCENT,"2024-01-14 10:01:30",3,
+WATER_PERCENT,"2024-01-14 10:01:30",47,
+FAT_FREE_MASS,"2024-01-13 10:27:57",43,
+"Visceral Fat","2024-01-13 10:27:57",1.7,
+"Impedence 50kHz for segments","2024-01-13 10:27:57",678.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-13 10:27:57",615.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-13 10:27:57",783.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-13 10:27:57",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-13 10:27:57",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-13 10:27:57",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-13 10:27:57",31,
+"Fat Free Percent","2024-01-13 10:27:57",69,
+MUSCLE_PERCENT,"2024-01-13 10:27:57",65,
+BONE_PERCENT,"2024-01-13 10:27:57",3,
+WATER_PERCENT,"2024-01-13 10:27:57",46,
+FAT_FREE_MASS,"2024-01-12 10:23:54",44,
+"Visceral Fat","2024-01-12 10:23:54",1.6,
+"Impedence 50kHz for segments","2024-01-12 10:23:54",666.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-12 10:23:54",586.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-12 10:23:54",807.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-12 10:23:54",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-12 10:23:54",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-12 10:23:54",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-12 10:23:54",30,
+"Fat Free Percent","2024-01-12 10:23:54",70,
+MUSCLE_PERCENT,"2024-01-12 10:23:54",66,
+BONE_PERCENT,"2024-01-12 10:23:54",4,
+WATER_PERCENT,"2024-01-12 10:23:54",47,
+"PWV Reached count","2024-01-11 09:29:16","1,283",
+"VA Reached count","2024-01-11 09:29:16","1,283",
+"Electrodermal activity feet","2024-01-11 09:29:16",82,
+"Max Nerve Response Score (NRS) feet","2024-01-11 09:29:16",82,
+FAT_FREE_MASS,"2024-01-11 09:29:16",43,
+"Visceral Fat","2024-01-11 09:29:16",1.7,
+"Impedence 50kHz for segments","2024-01-11 09:29:16",685.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-11 09:29:16",616.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-11 09:29:16",800.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-11 09:29:16",-0.1,,"Between Legs"
+"Phase  50kHz segment","2024-01-11 09:29:16",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-11 09:29:16",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-11 09:29:16",31,
+"Fat Free Percent","2024-01-11 09:29:16",69,
+MUSCLE_PERCENT,"2024-01-11 09:29:16",65,
+BONE_PERCENT,"2024-01-11 09:29:16",3,
+WATER_PERCENT,"2024-01-11 09:29:16",46,
+"PWV Reached count","2024-01-09 10:11:05","1,282",
+"VA Reached count","2024-01-09 10:11:05","1,282",
+FAT_FREE_MASS,"2024-01-09 10:11:05",43,
+"Visceral Fat","2024-01-09 10:11:05",1.7,
+"Impedence 50kHz for segments","2024-01-09 10:11:05",675.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-09 10:11:05",615.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-09 10:11:05",756.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-09 10:11:05",0.0,,"Between Legs"
+"Phase  50kHz segment","2024-01-09 10:11:05",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-09 10:11:05",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-09 10:11:05",32,
+"Fat Free Percent","2024-01-09 10:11:05",68,
+MUSCLE_PERCENT,"2024-01-09 10:11:05",65,
+BONE_PERCENT,"2024-01-09 10:11:05",3,
+WATER_PERCENT,"2024-01-09 10:11:05",46,
+"PWV Reached count","2024-01-08 12:44:37","1,281",
+"VA Reached count","2024-01-08 12:44:37","1,281",
+"Electrodermal activity feet","2024-01-08 12:44:37",39,
+"Max Nerve Response Score (NRS) feet","2024-01-08 12:44:37",39,
+FAT_FREE_MASS,"2024-01-08 12:44:37",44,
+"Visceral Fat","2024-01-08 12:44:37",1.7,
+"Impedence 50kHz for segments","2024-01-08 12:44:37",631.0,,"Between Legs"
+"Impedence 250kHz for segments","2024-01-08 12:44:37",581.0,,"Between Legs"
+"Impedence 6.25kHz for segments","2024-01-08 12:44:37",709.0,,"Between Legs"
+"Phase  6.25kHz segment","2024-01-08 12:44:37",0.0,,"Between Legs"
+"Phase  50kHz segment","2024-01-08 12:44:37",-0.1,,"Between Legs"
+"Phase  250kHz segment","2024-01-08 12:44:37",-0.1,,"Between Legs"
+FAT_PERCENT,"2024-01-08 12:44:37",31,
+"Fat Free Percent","2024-01-08 12:44:37",69,
+MUSCLE_PERCENT,"2024-01-08 12:44:37",66,
+BONE_PERCENT,"2024-01-08 12:44:37",3,
+WATER_PERCENT,"2024-01-08 12:44:37",47,
+BMI,"2023-11-29 14:44:12",25,
+"SPO2 Quality score","2023-11-14 18:13:20",-3,
+"SPO2 Quality score","2023-11-14 18:12:58",-3,
+"HR PNN 50","2023-11-14 18:11:34",0,
+"Atrial fibrillation result","2023-11-14 18:11:34",0,
+"QRS interval duration","2023-11-14 18:11:34",63,
+"PR interval duration","2023-11-14 18:11:34",110,
+"QT interval duration","2023-11-14 18:11:34",336,
+"Corrected QT interval duration","2023-11-14 18:11:34",429,
+"HR SD NN","2023-11-14 18:11:34",13,
+"HR RMS SD","2023-11-14 18:11:34",6,
+"Atrial fibrillation result","2023-11-14 18:10:37",8,
+"QRS interval duration","2023-11-14 18:10:37",60,
+"PR interval duration","2023-11-14 18:10:37",113,
+"QT interval duration","2023-11-14 18:10:37",320,
+"Corrected QT interval duration","2023-11-14 18:10:37",427,
+"Training Duration","2023-09-19 19:06:00",720,
+"Training Duration","2023-09-19 14:50:00",720,
+"Training Duration","2023-09-19 08:25:00",600,
+"Training Duration","2023-09-17 16:06:00","1,440",
+"Training load","2023-09-17 16:06:00",5,
+"Training Duration","2023-09-13 12:30:00",540,
+"Training Duration","2023-09-13 08:59:00",600,
+"Training Duration","2023-09-12 08:27:00",600,
+"Training Duration","2023-09-09 18:59:00","3,360",
+"Training load","2023-09-09 18:59:00",24,
+"Training Duration","2023-09-07 17:21:00",420,
+"Training Duration","2023-09-07 15:58:00",540,
+"Training Duration","2023-09-06 09:51:00",480,
+"Training Duration","2023-09-06 08:36:00",600,
+"Training Duration","2023-09-05 17:18:00",600,
+"Training Duration","2023-09-03 19:54:00",540,
+"Training Duration","2023-08-31 13:40:00",660,
+"Training Duration","2023-08-31 08:57:00",720,
+"Training Duration","2023-08-29 08:41:00",840,
+"Training Duration","2023-08-24 12:31:00","1,140",
+"Training load","2023-08-24 12:31:00",3,
+"Training Duration","2023-08-24 11:39:00",960,
+"Training Duration","2023-08-23 14:55:00",300,
+"Training Duration","2023-08-12 18:47:00",660,
+BMI,"2023-08-11 17:05:40",22,
+"Training Duration","2023-08-09 15:43:00",660,
+BMI,"2023-08-09 00:00:00",22,
+"Training Duration","2023-08-06 21:02:00",480,
+"Training Duration","2023-08-06 19:56:33","3,598",
+"Training load","2023-08-06 19:56:33",53,
+"SPO2 Quality score","2023-07-25 00:15:31",75,
+"SPO2 Quality score","2023-07-24 18:39:56",-4,
+"SPO2 Quality score","2023-07-24 18:39:07",-3,
+"SPO2 Quality score","2023-07-24 18:38:36",-3,
+"HR PNN 50","2023-07-24 18:35:18",11,
+"Atrial fibrillation result","2023-07-24 18:35:18",0,
+"QRS interval duration","2023-07-24 18:35:18",76,
+"PR interval duration","2023-07-24 18:35:18",146,
+"QT interval duration","2023-07-24 18:35:18",0,
+"Corrected QT interval duration","2023-07-24 18:35:18",0,
+"Checked Atrial fibrillation","2023-07-24 18:35:18",4,
+"HR SD NN","2023-07-24 18:35:18",38,
+"HR RMS SD","2023-07-24 18:35:18",38,
+"Activity class","2023-07-20 23:26:24",50,

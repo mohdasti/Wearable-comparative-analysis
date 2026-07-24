@@ -1,0 +1,12 @@
+Cycle start time,Cycle end time,Cycle timezone,Question text,Answered yes,Notes
+,,,Menstruating?,true,
+,,,Menstruating?,true,
+,,,Menstruating?,true,
+,,,Menstruating?,true,
+,,,Menstruating?,true,
+,,,Menstruating?,true,
+,,,Menstruating?,true,
+2026-06-30 01:14:09,2026-07-01 01:20:58,UTC-07:00,Read (non-screened device) while in bed?,false,
+2026-06-30 01:14:09,2026-07-01 01:20:58,UTC-07:00,Ate food close to bedtime?,false,
+2026-06-30 01:14:09,2026-07-01 01:20:58,UTC-07:00,Consumed caffeine?,true,
+2026-06-30 01:14:09,2026-07-01 01:20:58,UTC-07:00,Have any alcoholic drinks?,false,
