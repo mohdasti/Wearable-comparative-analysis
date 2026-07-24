@@ -31,9 +31,8 @@ execute:
 # Control the size of figures saved into the report.
 knitr::opts_chunk$set(fig.width = 9, fig.height = 5, dpi = 120)
 
-# If we are rendering from the reports/ subfolder, move up to the project root
-# where the CSV data files live.
-if (!file.exists("physiological_cycles.csv") && file.exists("../physiological_cycles.csv")) {
+# If we are rendering from the reports/ subfolder, move up to the project root.
+if (!file.exists("R/01_config.R") && file.exists("../R/01_config.R")) {
   setwd("..")
 }
 
@@ -147,9 +146,9 @@ Three consumer wearables were worn concurrently by one person:
 
 | Device | Source files | What we extract |
 |--------|-------------|-----------------|
-| Whoop | `physiological_cycles.csv`, `whoop.rtf` | RHR, HRV, sleep, stages, efficiency, respiratory rate, timing; steps typed manually into RTF |
-| Oura Ring 4 | `oura_2026-05-22_2026-07-23_trends.csv` | RHR, lowest RHR, HRV, sleep, stages, efficiency, respiratory rate, timing, steps |
-| Withings ScanWatch | `sleep.csv`, `aggregates_steps.csv` | Sleep, stages, efficiency, avg HR, min HR, timing, steps |
+| Whoop | `raw_data/whoop/` | RHR, HRV, sleep, stages, efficiency, respiratory rate, timing; steps typed manually into RTF |
+| Oura Ring 4 | `raw_data/oura/` | RHR, lowest RHR, HRV, sleep, stages, efficiency, respiratory rate, timing, steps |
+| Withings ScanWatch | `raw_data/withings/` | Sleep, stages, efficiency, avg HR, min HR, timing, steps |
 
 ```{r window-info}
 #| code-summary: "Show code that prints the analysis window settings"

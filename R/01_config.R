@@ -4,11 +4,11 @@
 # Edit values here if file locations or thresholds change.
 # =============================================================================
 
-# Locate project root by searching upward for physiological_cycles.csv.
+# Locate project root by searching upward for R/01_config.R.
 find_project_root <- function(start = getwd()) {
   dir <- normalizePath(start, mustWork = FALSE)
   for (i in 1:5) {
-    if (file.exists(file.path(dir, "physiological_cycles.csv"))) return(dir)
+    if (file.exists(file.path(dir, "R", "01_config.R"))) return(dir)
     parent <- dirname(dir)
     if (parent == dir) break
     dir <- parent
@@ -25,15 +25,15 @@ Sys.setenv(TZ = TZ)
 WINDOW_START <- as.Date("2026-06-20")
 WINDOW_END   <- as.Date("2026-07-22")
 
-# Input file paths (repo root).
+# Input file paths (raw_data/ subfolders).
 PATHS <- list(
-  whoop_cycles = file.path(PROJECT_ROOT, "physiological_cycles.csv"),
-  whoop_steps    = file.path(PROJECT_ROOT, "whoop.rtf"),
-  whoop_workouts = file.path(PROJECT_ROOT, "workouts.csv"),
-  oura_trends    = file.path(PROJECT_ROOT, "oura_2026-05-22_2026-07-23_trends.csv"),
-  withings_steps = file.path(PROJECT_ROOT, "aggregates_steps.csv"),
-  withings_sleep = file.path(PROJECT_ROOT, "sleep.csv"),
-  withings_hr    = file.path(PROJECT_ROOT, "raw_hr_hr.csv")
+  whoop_cycles   = file.path(PROJECT_ROOT, "raw_data", "whoop", "physiological_cycles.csv"),
+  whoop_steps    = file.path(PROJECT_ROOT, "raw_data", "whoop", "whoop.rtf"),
+  whoop_workouts = file.path(PROJECT_ROOT, "raw_data", "whoop", "workouts.csv"),
+  oura_trends    = file.path(PROJECT_ROOT, "raw_data", "oura", "oura_2026-05-22_2026-07-23_trends.csv"),
+  withings_steps = file.path(PROJECT_ROOT, "raw_data", "withings", "aggregates_steps.csv"),
+  withings_sleep = file.path(PROJECT_ROOT, "raw_data", "withings", "sleep.csv"),
+  withings_hr    = file.path(PROJECT_ROOT, "raw_data", "withings", "raw_hr_hr.csv")
 )
 
 # Output folder for cleaned / harmonized data.
