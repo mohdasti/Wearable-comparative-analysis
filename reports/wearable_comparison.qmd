@@ -10,6 +10,7 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+    embed-resources: true
 execute:
   echo: true
   message: false
