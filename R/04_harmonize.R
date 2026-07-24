@@ -56,7 +56,7 @@ compute_overlap_summary <- function(long_df) {
 
   expand_grid <- expand.grid(
     date = seq(WINDOW_START, WINDOW_END, by = "day"),
-    metric = METRICS,
+    metric = ALL_METRICS,
     stringsAsFactors = FALSE
   )
 

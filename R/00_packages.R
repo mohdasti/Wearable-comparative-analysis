@@ -28,7 +28,10 @@ required_packages <- c(
   "irr",          # Intraclass correlation coefficient (ICC)
   "psych",        # Lin's concordance correlation coefficient (CCC)
   "patchwork",    # Combine multiple ggplot figures
-  "scales"        # Axis formatting helpers
+  "scales",       # Axis formatting helpers
+  "ggridges",     # Ridgeline density plots
+  "deming",       # Deming regression (errors on both axes)
+  "zoo"           # Rolling-window calculations
 )
 
 # Install any package that is not yet on the system.

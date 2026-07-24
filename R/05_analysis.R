@@ -151,31 +151,53 @@ run_pairwise_analysis <- function(wide_df, metric, device_a, device_b, label_a, 
     rmse = err$rmse,
     mape = err$mape,
     icc = icc_value(pair),
-    ccc = ccc_value(pair)
+    ccc = ccc_value(pair),
+    deming_slope = deming_slope(pair),
+    deming_intercept = deming_intercept(pair)
   )
 }
 
-# Device pairs to compare (HRV excludes Withings — no data).
+# -----------------------------------------------------------------------------
+# deming_fit()
+# Deming regression treats BOTH devices as having measurement error (unlike
+# ordinary least squares, which assumes the x-axis is error-free). A slope near
+# 1 and intercept near 0 means no proportional or fixed bias between devices.
+# -----------------------------------------------------------------------------
+deming_fit <- function(pair_df) {
+  if (is.null(pair_df) || nrow(pair_df) < 4) return(NULL)
+  tryCatch(deming::deming(b ~ a, data = pair_df), error = function(e) NULL)
+}
+
+deming_slope <- function(pair_df) {
+  fit <- deming_fit(pair_df)
+  if (is.null(fit)) return(NA_real_)
+  unname(fit$coefficients[2])
+}
+
+deming_intercept <- function(pair_df) {
+  fit <- deming_fit(pair_df)
+  if (is.null(fit)) return(NA_real_)
+  unname(fit$coefficients[1])
+}
+
+# All three device pairs. get_pairwise_data() returns NULL when a device lacks
+# a metric (e.g. Withings HRV), so pairs are skipped automatically.
 DEVICE_PAIRS <- list(
   c("whoop", "oura", "Whoop", "Oura Ring 4"),
   c("whoop", "withings", "Whoop", "Withings ScanWatch"),
   c("oura", "withings", "Oura Ring 4", "Withings ScanWatch")
 )
 
-HRV_PAIRS <- list(
-  c("whoop", "oura", "Whoop", "Oura Ring 4")
-)
-
 # -----------------------------------------------------------------------------
 # run_all_agreement()
 # Runs pairwise analysis for every metric and applicable device pair.
+# `metrics` defaults to all comparable metrics.
 # -----------------------------------------------------------------------------
-run_all_agreement <- function(wide_df) {
+run_all_agreement <- function(wide_df, metrics = ALL_METRICS) {
   results <- list()
 
-  for (m in METRICS) {
-    pairs <- if (m == "hrv") HRV_PAIRS else DEVICE_PAIRS
-    for (p in pairs) {
+  for (m in metrics) {
+    for (p in DEVICE_PAIRS) {
       res <- run_pairwise_analysis(wide_df, m, p[1], p[2], p[3], p[4])
       if (!is.null(res)) results <- c(results, list(res))
     }
@@ -257,4 +279,225 @@ rank_consistency <- function(wide_df, metric, devices) {
     dplyr::rename(device_a = Var1, device_b = Var2, spearman = Freq) |>
     dplyr::mutate(metric = metric) |>
     dplyr::filter(device_a != device_b)
+}
+
+# -----------------------------------------------------------------------------
+# rolling_correlation()
+# Computes a 7-day rolling Pearson correlation between two devices for one
+# metric. Shows whether agreement is stable or drifts over the study window.
+# Input:  wide_df, metric, device_a, device_b, window (days)
+# Output: tibble with date, rolling_r, n (days in window)
+# -----------------------------------------------------------------------------
+rolling_correlation <- function(wide_df, metric, device_a, device_b, window = 7) {
+  pair <- get_pairwise_data(wide_df, metric, device_a, device_b)
+  if (is.null(pair) || nrow(pair) < window) return(NULL)
+
+  pair <- pair |> dplyr::arrange(date)
+  n <- length(pair$a)
+  rolls <- numeric(n)
+  counts <- integer(n)
+
+  for (i in seq_len(n)) {
+    start <- max(1, i - window + 1)
+    a_win <- pair$a[start:i]
+    b_win <- pair$b[start:i]
+    ok <- stats::complete.cases(a_win, b_win)
+    counts[i] <- sum(ok)
+    rolls[i] <- if (counts[i] >= 3) stats::cor(a_win[ok], b_win[ok]) else NA_real_
+  }
+
+  tibble::tibble(date = pair$date, rolling_r = rolls, n = counts)
+}
+
+# -----------------------------------------------------------------------------
+# kendall_w()
+# Kendall's W (coefficient of concordance) on days where all three devices
+# recorded a metric. W near 1 = all three rank days similarly; near 0 = no
+# agreement in ranking. Only meaningful when all three devices have data.
+# -----------------------------------------------------------------------------
+kendall_w <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+  cols <- vapply(devices, device_metric_col, character(1), metric = metric)
+  if (!all(cols %in% names(wide_df))) return(NA_real_)
+
+  sub <- wide_df[, cols, drop = FALSE]
+  sub <- sub[stats::complete.cases(sub), , drop = FALSE]
+  if (nrow(sub) < 5) return(NA_real_)
+
+  mat <- as.matrix(sub)
+  tryCatch({
+    res <- irr::kendall(mat, correct = TRUE)
+    res$value
+  }, error = function(e) NA_real_)
+}
+
+# -----------------------------------------------------------------------------
+# kendall_w_table()
+# Kendall's W for every metric where all three devices have enough overlap.
+# -----------------------------------------------------------------------------
+kendall_w_table <- function(wide_df, metrics = ALL_METRICS) {
+  results <- lapply(metrics, function(m) {
+    w <- kendall_w(wide_df, m)
+    if (is.na(w)) return(NULL)
+    tibble::tibble(metric = m, kendall_w = w)
+  })
+  dplyr::bind_rows(results)
+}
+
+# -----------------------------------------------------------------------------
+# cross_metric_correlation()
+# Within each device, correlates two metrics (e.g. RHR vs HRV) across days.
+# Sanity check: do the metrics move together as expected within a device?
+# -----------------------------------------------------------------------------
+cross_metric_correlation <- function(long_df, metric_x, metric_y) {
+  wide <- long_df |>
+    dplyr::filter(metric %in% c(metric_x, metric_y)) |>
+    dplyr::mutate(
+      device_key = dplyr::case_when(
+        grepl("Whoop", device) ~ "whoop",
+        grepl("Oura", device) ~ "oura",
+        grepl("Withings", device) ~ "withings"
+      ),
+      col = paste0(device_key, "_", metric)
+    ) |>
+    dplyr::select(date, col, value) |>
+    tidyr::pivot_wider(names_from = col, values_from = value)
+
+  col_x <- paste0(c("whoop", "oura", "withings"), "_", metric_x)
+  col_y <- paste0(c("whoop", "oura", "withings"), "_", metric_y)
+
+  results <- list()
+  for (dev in c("whoop", "oura", "withings")) {
+    cx <- paste0(dev, "_", metric_x)
+    cy <- paste0(dev, "_", metric_y)
+    if (!all(c(cx, cy) %in% names(wide))) next
+    sub <- wide[, c(cx, cy)]
+    sub <- sub[stats::complete.cases(sub), , drop = FALSE]
+    if (nrow(sub) < 5) next
+    ct <- stats::cor.test(sub[[cx]], sub[[cy]], method = "spearman", exact = FALSE)
+    results <- c(results, list(tibble::tibble(
+      device = DEVICE_LABELS[[dev]],
+      metric_x = metric_x, metric_y = metric_y,
+      n = nrow(sub), spearman_rho = unname(ct$estimate), p_value = ct$p.value
+    )))
+  }
+  if (length(results) == 0) return(NULL)
+  dplyr::bind_rows(results)
+}
+
+# -----------------------------------------------------------------------------
+# lagged_correlation()
+# Exploratory: does today's step count predict tomorrow's RHR or HRV?
+# Positive lag means metric_y on day t+1 vs metric_x on day t.
+# -----------------------------------------------------------------------------
+lagged_correlation <- function(long_df, metric_x, metric_y, lag_days = 1) {
+  wide <- long_df |>
+    dplyr::filter(metric %in% c(metric_x, metric_y)) |>
+    dplyr::mutate(
+      device_key = dplyr::case_when(
+        grepl("Whoop", device) ~ "whoop",
+        grepl("Oura", device) ~ "oura",
+        grepl("Withings", device) ~ "withings"
+      )
+    ) |>
+    dplyr::select(device_key, date, metric, value) |>
+    tidyr::pivot_wider(names_from = metric, values_from = value)
+
+  results <- list()
+  for (dev in c("whoop", "oura", "withings")) {
+    sub <- wide |> dplyr::filter(device_key == dev) |> dplyr::arrange(date)
+    if (!all(c(metric_x, metric_y) %in% names(sub))) next
+    sub <- sub |>
+      dplyr::mutate(y_lag = dplyr::lead(.data[[metric_y]], lag_days)) |>
+      dplyr::filter(!is.na(.data[[metric_x]]), !is.na(y_lag))
+    if (nrow(sub) < 5) next
+    ct <- stats::cor.test(sub[[metric_x]], sub$y_lag, method = "spearman", exact = FALSE)
+    results <- c(results, list(tibble::tibble(
+      device = DEVICE_LABELS[[dev]],
+      predictor = metric_x, outcome = metric_y,
+      lag_days = lag_days, n = nrow(sub),
+      spearman_rho = unname(ct$estimate), p_value = ct$p.value
+    )))
+  }
+  if (length(results) == 0) return(NULL)
+  dplyr::bind_rows(results)
+}
+
+# -----------------------------------------------------------------------------
+# compliance_summary()
+# For each device and metric, reports how many days in the analysis window
+# had valid data (compliance %). Helps quantify which device "saw" more days.
+# -----------------------------------------------------------------------------
+compliance_summary <- function(long_df) {
+  total_days <- as.integer(WINDOW_END - WINDOW_START) + 1L
+  long_df |>
+    dplyr::group_by(device, metric) |>
+    dplyr::summarise(
+      days_present = dplyr::n(),
+      compliance_pct = days_present / total_days * 100,
+      .groups = "drop"
+    ) |>
+    dplyr::arrange(metric, dplyr::desc(compliance_pct))
+}
+
+# -----------------------------------------------------------------------------
+# sensitivity_agreement()
+# Re-runs agreement stats excluding days flagged by QC (qc_flag == TRUE).
+# Compares to the full-sample agreement to show robustness.
+# Input:  long_df with qc_flag column, wide_df, metric list
+# Output: agreement tibble with a 'sample' column ("full" or "clean")
+# -----------------------------------------------------------------------------
+sensitivity_agreement <- function(long_df, wide_df, metrics = METRICS) {
+  flagged_dates <- long_df |>
+    dplyr::filter(qc_flag == TRUE) |>
+    dplyr::select(date, device, metric) |>
+    dplyr::distinct()
+
+  clean_long <- long_df |>
+    dplyr::anti_join(flagged_dates, by = c("date", "device", "metric"))
+
+  clean_wide <- build_daily_wide(clean_long)
+
+  full  <- run_all_agreement(wide_df, metrics = metrics)  |> dplyr::mutate(sample = "full")
+  clean <- run_all_agreement(clean_wide, metrics = metrics) |> dplyr::mutate(sample = "clean")
+
+  dplyr::bind_rows(full, clean)
+}
+
+# -----------------------------------------------------------------------------
+# executive_summary()
+# One-row-per-metric verdict table: best-agreeing pair, Pearson r, bias, n.
+# Plain-language summary for the report introduction.
+# -----------------------------------------------------------------------------
+executive_summary <- function(agreement_df) {
+  if (is.null(agreement_df) || nrow(agreement_df) == 0) return(NULL)
+
+  agreement_df |>
+    dplyr::group_by(metric) |>
+    dplyr::slice_max(order_by = abs(pearson_r), n = 1, with_ties = FALSE) |>
+    dplyr::ungroup() |>
+    dplyr::transmute(
+      metric = METRIC_LABELS[metric],
+      best_pair = paste(device_a, "vs", device_b),
+      pearson_r = round(pearson_r, 3),
+      mean_bias = round(mean_bias, 2),
+      n_days = n,
+      verdict = dplyr::case_when(
+        abs(pearson_r) >= 0.9 ~ "Strong agreement",
+        abs(pearson_r) >= 0.7 ~ "Moderate agreement",
+        abs(pearson_r) >= 0.5 ~ "Weak agreement",
+        TRUE                    ~ "Poor agreement"
+      )
+    )
+}
+
+# -----------------------------------------------------------------------------
+# sleep_architecture_wide()
+# Builds a wide table of sleep-stage minutes per device per night, for stacked
+# bar plots. Columns: date, device, deep_min, rem_min, light_min.
+# -----------------------------------------------------------------------------
+sleep_architecture_wide <- function(long_df) {
+  long_df |>
+    dplyr::filter(metric %in% SLEEP_STAGE_METRICS) |>
+    dplyr::select(date, device, metric, value) |>
+    tidyr::pivot_wider(names_from = metric, values_from = value)
 }
