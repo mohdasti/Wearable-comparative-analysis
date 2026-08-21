@@ -404,7 +404,9 @@ threeway_analysis <- function(wide_df, metric, devices = c("whoop", "oura", "wit
   }, error = function(e) NULL)
 
   alpha_res <- tryCatch({
-    psych::alpha(mat, check.keys = FALSE, warnings = FALSE)$total$raw_alpha
+    suppressWarnings(
+      psych::alpha(mat, check.keys = FALSE, discrete = FALSE)$total$raw_alpha
+    )
   }, error = function(e) NA_real_)
 
   tibble::tibble(
