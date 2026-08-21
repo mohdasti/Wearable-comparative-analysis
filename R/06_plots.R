@@ -67,13 +67,6 @@ plot_ridgeline <- function(long_df, metric_name) {
 }
 
 # -----------------------------------------------------------------------------
-# plot_density() — kept for backward compatibility; ridgeline preferred.
-# -----------------------------------------------------------------------------
-plot_density <- function(long_df, metric_name) {
-  plot_ridgeline(long_df, metric_name)
-}
-
-# -----------------------------------------------------------------------------
 # plot_overlap_heatmap()
 # Calendar heatmap showing which devices have data on each day for one metric.
 # -----------------------------------------------------------------------------
@@ -261,9 +254,11 @@ plot_correlation_heatmap <- function(agreement_df) {
   ggplot2::ggplot(plot_df, ggplot2::aes(x = pair, y = metric_label, fill = pearson_r)) +
     ggplot2::geom_tile(color = "white", linewidth = 0.5) +
     ggplot2::geom_text(ggplot2::aes(label = label), size = 3, color = "white") +
+    # Midpoint 0 so the color break sits at "no correlation"; a midpoint of 0.5
+    # would paint a genuinely uncorrelated pair (r = 0) as if it were negative.
     ggplot2::scale_fill_gradient2(
       low = "#457B9D", mid = "gray85", high = "#E63946",
-      midpoint = 0.5, limits = c(-1, 1), name = "Pearson r"
+      midpoint = 0, limits = c(-1, 1), name = "Pearson r"
     ) +
     ggplot2::labs(x = "Device pair", y = "Metric",
                   title = "Correlation matrix across device pairs",
@@ -354,6 +349,41 @@ plot_paired_dumbbell <- function(wide_df, metric, devices = c("whoop", "oura", "
 }
 
 # -----------------------------------------------------------------------------
+# plot_stage_composition()
+# Mean share of total sleep spent in each stage, per device. Comparing stage
+# MINUTES confounds two things: how the device splits stages and how much total
+# sleep it recorded. Percentages isolate the staging algorithm itself.
+# -----------------------------------------------------------------------------
+plot_stage_composition <- function(long_df) {
+  sub <- long_df |>
+    dplyr::filter(metric %in% SLEEP_STAGE_PCT_METRICS) |>
+    dplyr::group_by(device, metric) |>
+    dplyr::summarise(mean_pct = mean(value, na.rm = TRUE), .groups = "drop") |>
+    dplyr::mutate(
+      stage = factor(metric, levels = c("deep_pct", "rem_pct", "light_pct"),
+                     labels = c("Deep", "REM", "Light"))
+    )
+  if (nrow(sub) == 0) return(NULL)
+
+  ggplot2::ggplot(sub, ggplot2::aes(x = device, y = mean_pct, fill = stage)) +
+    ggplot2::geom_col(width = 0.65) +
+    ggplot2::geom_text(
+      ggplot2::aes(label = sprintf("%.0f%%", mean_pct)),
+      position = ggplot2::position_stack(vjust = 0.5),
+      color = "white", size = 3.5
+    ) +
+    ggplot2::scale_fill_manual(values = c("Deep" = unname(STAGE_COLORS["deep_min"]),
+                                          "REM"  = unname(STAGE_COLORS["rem_min"]),
+                                          "Light" = unname(STAGE_COLORS["light_min"]))) +
+    ggplot2::labs(
+      x = NULL, y = "Mean share of total sleep (%)", fill = "Stage",
+      title = "How each device divides a night of sleep into stages",
+      subtitle = "Percentages remove the effect of differing total sleep time"
+    ) +
+    ggplot2::theme_minimal(base_size = 12)
+}
+
+# -----------------------------------------------------------------------------
 # plot_threeway_box()
 # Boxplots + jitter of the three devices on the SAME complete-case days used
 # in Friedman / three-rater ICC. Missing a device drops the whole day, so the
@@ -379,35 +409,4 @@ plot_threeway_box <- function(wide_df, metric, devices = c("whoop", "oura", "wit
     ) +
     ggplot2::theme_minimal(base_size = 12) +
     ggplot2::theme(legend.position = "none")
-}
-
-# -----------------------------------------------------------------------------
-# plot_intraday_hr_profile()
-# Average hourly HR profile from Withings intraday data (one line per device
-# if multiple devices contribute; currently Withings only).
-# Input: tibble from load_withings_intraday_hr() with columns hour, hr, date.
-# -----------------------------------------------------------------------------
-plot_intraday_hr_profile <- function(hr_df) {
-  if (is.null(hr_df) || nrow(hr_df) == 0) return(NULL)
-
-  profile <- hr_df |>
-    dplyr::mutate(hour_bin = floor(hour)) |>
-    dplyr::group_by(hour_bin) |>
-    dplyr::summarise(
-      mean_hr = mean(hr, na.rm = TRUE),
-      se_hr   = stats::sd(hr, na.rm = TRUE) / sqrt(dplyr::n()),
-      .groups = "drop"
-    )
-
-  ggplot2::ggplot(profile, ggplot2::aes(x = hour_bin, y = mean_hr)) +
-    ggplot2::geom_ribbon(ggplot2::aes(ymin = mean_hr - se_hr, ymax = mean_hr + se_hr),
-                         fill = DEVICE_COLORS["Withings ScanWatch"], alpha = 0.2) +
-    ggplot2::geom_line(color = DEVICE_COLORS["Withings ScanWatch"], linewidth = 1) +
-    ggplot2::scale_x_continuous(breaks = seq(0, 23, 3), labels = paste0(seq(0, 23, 3), ":00")) +
-    ggplot2::labs(
-      x = "Hour of day (Pacific)", y = "Mean heart rate (bpm)",
-      title = "Withings intraday HR profile (averaged across study window)",
-      subtitle = "Shaded band = ±1 SE"
-    ) +
-    ggplot2::theme_minimal(base_size = 12)
 }

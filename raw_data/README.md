@@ -16,17 +16,17 @@ raw_data/
 
 | Device | File | Purpose |
 |--------|------|---------|
-| Whoop | `whoop/physiological_cycles.csv` | Daily RHR, HRV, sleep duration, stages, efficiency, respiratory rate |
+| Whoop | `whoop/physiological_cycles.csv` | RHR, HRV, sleep duration, stages, awake time, time in bed, efficiency, respiratory rate, recovery score, sleep timing |
 | Whoop | `whoop/whoop.rtf` | Manually logged daily steps (not exported by Whoop app) |
-| Whoop | `whoop/workouts.csv` | Workout summary (optional exploratory use) |
-| Oura | `oura/oura_2026-05-22_2026-07-23_trends.csv` | Daily trends export |
-| Withings | `withings/sleep.csv` | Nightly sleep sessions |
+| Oura | `oura/oura_2026-05-22_2026-07-23_trends.csv` | Daily trends export (same metrics plus readiness score and steps) |
+| Withings | `withings/sleep.csv` | Nightly sleep sessions, stages, awake time, average and minimum HR |
 | Withings | `withings/aggregates_steps.csv` | Daily step totals |
-| Withings | `withings/raw_hr_hr.csv` | Intraday heart rate (optional exploratory use) |
 
-## Supplementary Withings exports
+## Files present but not used
 
-The `withings/supplementary/` folder holds the full Health Mate export (activities, weight, raw tracker streams, etc.). These are kept for reference but are **not** loaded by the main R pipeline. See `withings/README.txt` for Health Mate field definitions.
+`whoop/workouts.csv`, `whoop/sleeps.csv`, `withings/raw_hr_hr.csv`, and everything under `withings/supplementary/` (the full Health Mate export: activities, weight, raw tracker streams, and so on) are kept for reference but are **not** read by the pipeline. See `withings/README.txt` for Health Mate field definitions.
+
+Skin temperature and blood oxygen are exported by some devices but on incompatible scales (Whoop reports absolute °C, Oura a deviation from baseline) or too sparsely to support a comparison.
 
 ## Updating data
 

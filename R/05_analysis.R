@@ -98,6 +98,66 @@ error_metrics <- function(pair_df) {
 }
 
 # -----------------------------------------------------------------------------
+# ba_proportional_bias()
+# Bland-Altman trend test: correlates each day's difference with that day's
+# mean. A significant correlation means the gap between devices grows (or
+# shrinks) as values get larger — "proportional bias". Without this test a
+# Bland-Altman plot can look acceptable on average while being badly wrong at
+# the high and low ends.
+# -----------------------------------------------------------------------------
+ba_proportional_bias <- function(pair_df) {
+  if (is.null(pair_df) || nrow(pair_df) < 4) {
+    return(tibble::tibble(ba_trend_r = NA_real_, ba_trend_p = NA_real_))
+  }
+  diff <- pair_df$b - pair_df$a
+  mean_val <- (pair_df$a + pair_df$b) / 2
+  if (stats::sd(diff) == 0 || stats::sd(mean_val) == 0) {
+    return(tibble::tibble(ba_trend_r = NA_real_, ba_trend_p = NA_real_))
+  }
+  ct <- stats::cor.test(mean_val, diff, method = "pearson")
+  tibble::tibble(ba_trend_r = unname(ct$estimate), ba_trend_p = ct$p.value)
+}
+
+# -----------------------------------------------------------------------------
+# srd_value()
+# Smallest Real Difference (also called minimum detectable change): how big a
+# change must be before it exceeds measurement noise between two devices.
+# SRD = 1.96 * SD of the differences. If SRD for sleep is 90 minutes, a
+# 40-minute difference between devices is indistinguishable from noise.
+# -----------------------------------------------------------------------------
+srd_value <- function(pair_df) {
+  if (is.null(pair_df) || nrow(pair_df) < 3) return(NA_real_)
+  1.96 * stats::sd(pair_df$b - pair_df$a, na.rm = TRUE)
+}
+
+# -----------------------------------------------------------------------------
+# equivalence_test()
+# Asks a practical question the p-value cannot: is the bias small enough not to
+# matter? Compares the 95% confidence interval of the mean difference against a
+# pre-set margin from EQUIV_MARGINS. "Equivalent" means the whole CI sits inside
+# the margin; "not equivalent" means it does not. This is the two-one-sided-test
+# (TOST) logic used in method-comparison studies.
+# -----------------------------------------------------------------------------
+equivalence_test <- function(pair_df, metric) {
+  margin <- unname(EQUIV_MARGINS[metric])
+  if (is.null(pair_df) || nrow(pair_df) < 3 || is.na(margin)) {
+    return(tibble::tibble(
+      margin = NA_real_, bias_ci_lower = NA_real_, bias_ci_upper = NA_real_,
+      equivalent = NA_character_
+    ))
+  }
+  diff <- pair_df$b - pair_df$a
+  tt <- stats::t.test(diff)
+  ci <- unname(tt$conf.int)
+  tibble::tibble(
+    margin = margin,
+    bias_ci_lower = ci[1],
+    bias_ci_upper = ci[2],
+    equivalent = if (ci[1] > -margin && ci[2] < margin) "Yes" else "No"
+  )
+}
+
+# -----------------------------------------------------------------------------
 # icc_value()
 # Intraclass correlation ICC(2,1) — absolute agreement between two measurements.
 # Values near 1 indicate strong agreement; uses the irr package.
@@ -135,6 +195,8 @@ run_pairwise_analysis <- function(wide_df, metric, device_a, device_b, label_a, 
   cor_stats <- correlation_stats(pair)
   ba_stats  <- bland_altman_stats(pair)
   err       <- error_metrics(pair)
+  trend     <- ba_proportional_bias(pair)
+  equiv     <- equivalence_test(pair, metric)
 
   tibble::tibble(
     metric = metric,
@@ -146,15 +208,22 @@ run_pairwise_analysis <- function(wide_df, metric, device_a, device_b, label_a, 
     spearman_rho = cor_stats$spearman_rho,
     spearman_p = cor_stats$spearman_p,
     mean_bias = ba_stats$mean_bias,
+    bias_ci_lower = equiv$bias_ci_lower,
+    bias_ci_upper = equiv$bias_ci_upper,
     loa_lower = ba_stats$loa_lower,
     loa_upper = ba_stats$loa_upper,
     mae = err$mae,
     rmse = err$rmse,
     mape = err$mape,
+    srd = srd_value(pair),
     icc = icc_value(pair),
     ccc = ccc_value(pair),
     deming_slope = deming_slope(pair),
-    deming_intercept = deming_intercept(pair)
+    deming_intercept = deming_intercept(pair),
+    ba_trend_r = trend$ba_trend_r,
+    ba_trend_p = trend$ba_trend_p,
+    equiv_margin = equiv$margin,
+    equivalent = equiv$equivalent
   )
 }
 
@@ -242,47 +311,6 @@ overlap_counts <- function(overlap_df) {
 }
 
 # -----------------------------------------------------------------------------
-# weekday_weekend_stats()
-# Compares mean values on weekdays vs weekends per device and metric.
-# -----------------------------------------------------------------------------
-weekday_weekend_stats <- function(long_df) {
-  long_df |>
-    dplyr::mutate(
-      day_type = ifelse(lubridate::wday(date, label = TRUE) %in% c("Sat", "Sun"),
-                        "weekend", "weekday")
-    ) |>
-    dplyr::group_by(device, metric, day_type) |>
-    dplyr::summarise(mean = mean(value, na.rm = TRUE), n = dplyr::n(), .groups = "drop")
-}
-
-# -----------------------------------------------------------------------------
-# rank_consistency()
-# On days where all available devices have a metric, do they rank the day
-# similarly? Reports Spearman correlation of within-day ranks across devices.
-# -----------------------------------------------------------------------------
-# Fix rank_consistency filter — use base subsetting for compatibility.
-rank_consistency <- function(wide_df, metric, devices) {
-  cols <- vapply(devices, device_metric_col, character(1), metric = metric)
-  if (!all(cols %in% names(wide_df))) return(NULL)
-
-  sub <- wide_df[, c("date", cols), drop = FALSE]
-  complete <- complete.cases(sub[, cols, drop = FALSE])
-  sub <- sub[complete, , drop = FALSE]
-
-  if (nrow(sub) < 5) return(NULL)
-
-  mat <- as.matrix(sub[, cols, drop = FALSE])
-  ranks <- apply(mat, 2, rank)
-  cors <- stats::cor(ranks, method = "spearman")
-
-  as.data.frame(as.table(cors)) |>
-    tibble::as_tibble() |>
-    dplyr::rename(device_a = Var1, device_b = Var2, spearman = Freq) |>
-    dplyr::mutate(metric = metric) |>
-    dplyr::filter(device_a != device_b)
-}
-
-# -----------------------------------------------------------------------------
 # rolling_correlation()
 # Computes a 7-day rolling Pearson correlation between two devices for one
 # metric. Shows whether agreement is stable or drifts over the study window.
@@ -361,14 +389,17 @@ occc_value <- function(mat) {
 # Simultaneous three-device tests on complete-case days for one metric.
 #
 # Agreement (do the three devices track the same days?):
-#   - ICC(2,1) absolute agreement with 95% CI and F-test p-value
+#   - ICC(2,1) absolute agreement with 95% CI
 #   - OCCC (overall concordance correlation)
 #   - Kendall's W and its chi-square p-value
-#   - Cronbach's alpha (internal consistency of the three readings)
 #
 # Location (do the three devices sit at different levels?):
 #   - Friedman rank test (non-parametric; no normality assumption)
 #   - Repeated-measures ANOVA (parametric companion; assumes sphericity)
+#
+# Deliberately omitted: Cronbach's alpha and the ICC F-test p-value. Both are
+# driven by between-day variance, so they stay near 1 / near 0 even when devices
+# disagree by a large constant offset, which invites the wrong conclusion.
 #
 # Returns NULL when a device is missing the metric (e.g. Withings HRV).
 # -----------------------------------------------------------------------------
@@ -403,11 +434,10 @@ threeway_analysis <- function(wide_df, metric, devices = c("whoop", "oura", "wit
     list(F = unname(within["device", "F value"]), p = unname(within["device", "Pr(>F)"]))
   }, error = function(e) NULL)
 
-  alpha_res <- tryCatch({
-    suppressWarnings(
-      psych::alpha(mat, check.keys = FALSE, discrete = FALSE)$total$raw_alpha
-    )
-  }, error = function(e) NA_real_)
+  # Largest gap between any two device means — the practical size of the
+  # level disagreement that Friedman only reports as a p-value.
+  device_means <- colMeans(mat, na.rm = TRUE)
+  max_gap <- max(device_means) - min(device_means)
 
   tibble::tibble(
     metric = metric,
@@ -416,9 +446,8 @@ threeway_analysis <- function(wide_df, metric, devices = c("whoop", "oura", "wit
     icc = if (is.null(icc_res)) NA_real_ else icc_res$value,
     icc_lbound = if (is.null(icc_res)) NA_real_ else icc_res$lbound,
     icc_ubound = if (is.null(icc_res)) NA_real_ else icc_res$ubound,
-    icc_p = if (is.null(icc_res)) NA_real_ else icc_res$p.value,
     occc = occc_value(mat),
-    cronbach_alpha = if (length(alpha_res) == 1) as.numeric(alpha_res) else NA_real_,
+    max_mean_gap = max_gap,
     kendall_w = if (is.null(kendall_res)) NA_real_ else kendall_res$value,
     kendall_p = if (is.null(kendall_res)) NA_real_ else kendall_res$p.value,
     friedman_chi2 = if (is.null(friedman_res)) NA_real_ else unname(friedman_res$statistic),
@@ -476,24 +505,6 @@ run_all_threeway_posthoc <- function(wide_df, metrics = ALL_METRICS,
 }
 
 # -----------------------------------------------------------------------------
-# kendall_w() / kendall_w_table()
-# Kept for backward compatibility; threeway_analysis() is the full three-device
-# test suite. W near 1 = all three rank days similarly; near 0 = no ranking
-# agreement. Only defined when all three devices have data on the same days.
-# -----------------------------------------------------------------------------
-kendall_w <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
-  row <- threeway_analysis(wide_df, metric, devices)
-  if (is.null(row)) return(NA_real_)
-  row$kendall_w
-}
-
-kendall_w_table <- function(wide_df, metrics = ALL_METRICS) {
-  tbl <- run_all_threeway(wide_df, metrics = metrics)
-  if (is.null(tbl) || nrow(tbl) == 0) return(NULL)
-  tbl |> dplyr::select(metric, kendall_w, kendall_p, n_days)
-}
-
-# -----------------------------------------------------------------------------
 # cross_metric_correlation()
 # Within each device, correlates two metrics (e.g. RHR vs HRV) across days.
 # Sanity check: do the metrics move together as expected within a device?
@@ -528,44 +539,6 @@ cross_metric_correlation <- function(long_df, metric_x, metric_y) {
       device = DEVICE_LABELS[[dev]],
       metric_x = metric_x, metric_y = metric_y,
       n = nrow(sub), spearman_rho = unname(ct$estimate), p_value = ct$p.value
-    )))
-  }
-  if (length(results) == 0) return(NULL)
-  dplyr::bind_rows(results)
-}
-
-# -----------------------------------------------------------------------------
-# lagged_correlation()
-# Exploratory: does today's step count predict tomorrow's RHR or HRV?
-# Positive lag means metric_y on day t+1 vs metric_x on day t.
-# -----------------------------------------------------------------------------
-lagged_correlation <- function(long_df, metric_x, metric_y, lag_days = 1) {
-  wide <- long_df |>
-    dplyr::filter(metric %in% c(metric_x, metric_y)) |>
-    dplyr::mutate(
-      device_key = dplyr::case_when(
-        grepl("Whoop", device) ~ "whoop",
-        grepl("Oura", device) ~ "oura",
-        grepl("Withings", device) ~ "withings"
-      )
-    ) |>
-    dplyr::select(device_key, date, metric, value) |>
-    tidyr::pivot_wider(names_from = metric, values_from = value)
-
-  results <- list()
-  for (dev in c("whoop", "oura", "withings")) {
-    sub <- wide |> dplyr::filter(device_key == dev) |> dplyr::arrange(date)
-    if (!all(c(metric_x, metric_y) %in% names(sub))) next
-    sub <- sub |>
-      dplyr::mutate(y_lag = dplyr::lead(.data[[metric_y]], lag_days)) |>
-      dplyr::filter(!is.na(.data[[metric_x]]), !is.na(y_lag))
-    if (nrow(sub) < 5) next
-    ct <- stats::cor.test(sub[[metric_x]], sub$y_lag, method = "spearman", exact = FALSE)
-    results <- c(results, list(tibble::tibble(
-      device = DEVICE_LABELS[[dev]],
-      predictor = metric_x, outcome = metric_y,
-      lag_days = lag_days, n = nrow(sub),
-      spearman_rho = unname(ct$estimate), p_value = ct$p.value
     )))
   }
   if (length(results) == 0) return(NULL)
@@ -615,27 +588,52 @@ sensitivity_agreement <- function(long_df, wide_df, metrics = METRICS) {
 
 # -----------------------------------------------------------------------------
 # executive_summary()
-# One-row-per-metric verdict table: best-agreeing pair, Pearson r, bias, n.
-# Plain-language summary for the report introduction.
+# One row per metric showing the full range across device pairs, not just the
+# best one. Reporting only the strongest pair would flatter the devices: for
+# most metrics Whoop-Oura agree well while anything involving Withings does not.
+# The verdict is based on the WEAKEST pair, since a device set is only
+# interchangeable if every pair within it agrees.
 # -----------------------------------------------------------------------------
-executive_summary <- function(agreement_df) {
+executive_summary <- function(agreement_df, threeway_df = NULL) {
   if (is.null(agreement_df) || nrow(agreement_df) == 0) return(NULL)
 
-  agreement_df |>
+  out <- agreement_df |>
     dplyr::group_by(metric) |>
-    dplyr::slice_max(order_by = abs(pearson_r), n = 1, with_ties = FALSE) |>
-    dplyr::ungroup() |>
+    dplyr::summarise(
+      n_pairs = dplyr::n(),
+      best_pair = paste(device_a[which.max(pearson_r)], "vs", device_b[which.max(pearson_r)]),
+      best_r = max(pearson_r, na.rm = TRUE),
+      worst_pair = paste(device_a[which.min(pearson_r)], "vs", device_b[which.min(pearson_r)]),
+      worst_r = min(pearson_r, na.rm = TRUE),
+      max_abs_bias = max(abs(mean_bias), na.rm = TRUE),
+      all_equivalent = if (all(equivalent == "Yes", na.rm = TRUE)) "Yes" else "No",
+      .groups = "drop"
+    )
+
+  if (!is.null(threeway_df) && nrow(threeway_df) > 0) {
+    out <- out |>
+      dplyr::left_join(
+        threeway_df |> dplyr::select(metric, threeway_icc = icc),
+        by = "metric"
+      )
+  } else {
+    out$threeway_icc <- NA_real_
+  }
+
+  out |>
     dplyr::transmute(
       metric = METRIC_LABELS[metric],
-      best_pair = paste(device_a, "vs", device_b),
-      pearson_r = round(pearson_r, 3),
-      mean_bias = round(mean_bias, 2),
-      n_days = n,
+      pairs = n_pairs,
+      best_pair, best_r = round(best_r, 2),
+      worst_pair, worst_r = round(worst_r, 2),
+      threeway_icc = round(threeway_icc, 2),
+      max_abs_bias = round(max_abs_bias, 1),
+      within_margin = all_equivalent,
       verdict = dplyr::case_when(
-        abs(pearson_r) >= 0.9 ~ "Strong agreement",
-        abs(pearson_r) >= 0.7 ~ "Moderate agreement",
-        abs(pearson_r) >= 0.5 ~ "Weak agreement",
-        TRUE                    ~ "Poor agreement"
+        worst_r >= 0.9 ~ "All pairs agree strongly",
+        worst_r >= 0.7 ~ "All pairs agree moderately",
+        best_r  >= 0.9 ~ "One pair strong, another weak",
+        TRUE           ~ "Weak agreement overall"
       )
     )
 }

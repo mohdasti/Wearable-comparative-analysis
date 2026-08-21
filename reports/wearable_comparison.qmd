@@ -52,25 +52,37 @@ overlap    <- harmonized$overlap
 qc_log     <- harmonized$qc     # log of excluded or flagged data points
 
 # --- Compute all statistics used in the report ---
-agreement     <- run_all_agreement(wide_df, metrics = METRICS)          # headline 4 metrics
-agreement_ext <- run_all_agreement(wide_df, metrics = setdiff(ALL_METRICS, METRICS))
-desc_stats    <- descriptive_stats(long_df)                             # mean, SD, median, etc.
-overlap_tbl   <- overlap_counts(overlap)                                # which devices overlap
-ww_stats      <- weekday_weekend_stats(long_df)                         # weekday vs weekend
-exec_summary  <- executive_summary(agreement)                           # one-line verdicts
-compliance    <- compliance_summary(long_df)                            # % days with data
-threeway_tbl  <- run_all_threeway(wide_df)                              # simultaneous 3-device tests
-threeway_post <- run_all_threeway_posthoc(wide_df)                      # which device pairs differ
-kendall_tbl   <- kendall_w_table(wide_df)                               # 3-way rank agreement (subset of threeway_tbl)
-arch_df       <- sleep_architecture_wide(long_df)                       # sleep stages per night
-workouts      <- parse_whoop_workouts()                                 # Whoop activity log
-intraday_hr   <- load_withings_intraday_hr()                            # Withings HR time series
+agreement     <- run_all_agreement(wide_df, metrics = METRICS)   # headline 4 metrics, pairwise
+threeway_tbl  <- run_all_threeway(wide_df)                       # all three devices at once
+threeway_post <- run_all_threeway_posthoc(wide_df)               # which device pairs differ
+desc_stats    <- descriptive_stats(long_df)                      # mean, SD, median, etc.
+overlap_tbl   <- overlap_counts(overlap)                         # which devices overlap
+compliance    <- compliance_summary(long_df)                     # % days with data
+exec_summary  <- executive_summary(agreement, threeway_tbl)      # headline verdicts
+arch_df       <- sleep_architecture_wide(long_df)                # sleep stages per night
 sensitivity   <- sensitivity_agreement(long_df, wide_df, metrics = METRICS)  # outlier robustness
+
+# Shared helper: format p-values for display (avoids printing "0.000").
+fmt_p <- function(p) {
+  dplyr::case_when(
+    is.na(p) ~ NA_character_,
+    p < 0.001 ~ "<0.001",
+    TRUE ~ sprintf("%.3f", p)
+  )
+}
 ```
 
 ## How to read this report
 
-This document compares three wearable devices worn by the **same person** over **33 days**. You do **not** need to know R to follow the story: narrative text explains every table and chart. R code is included for transparency but is **folded by default** — click **"Show R code"** under any chunk to inspect it.
+Three consumer wearables were worn **at the same time by the same person** for 33 days (June 20 – July 22, 2026, US Pacific):
+
+- **Whoop bracelet** — recovery-focused strap; exports one row per day with resting HR, HRV, sleep and strain.
+- **Oura Ring 4** — sleep and readiness ring; exports a daily trends file.
+- **Withings ScanWatch** — hybrid smartwatch; exports through Health Mate.
+
+Because one person wore all three simultaneously, any disagreement between them is a **measurement** difference, not a biological one. That is what makes this comparison possible.
+
+You do **not** need to know R to follow this report: narrative text explains every table and chart. Code is included for transparency but is **folded by default** — click **"Show R code"** to inspect any step.
 
 **Color key (used in every chart):**
 
@@ -80,82 +92,80 @@ This document compares three wearable devices worn by the **same person** over *
 | <span style="color:#2A9D8F">Green</span> | Oura Ring 4 |
 | <span style="color:#457B9D">Blue</span> | Withings ScanWatch |
 
-### Glossary of terms used in this report
+### The two questions every comparison must answer
+
+Almost every table below is answering one of two different questions. Keeping them separate is the single most important idea in this report:
+
+1. **Do the devices rise and fall together?** When one says you slept badly, do the others agree? This is measured by **correlation** and **Kendall's W**. A device can be excellent at this while still being systematically wrong.
+2. **Do the devices report the same number?** This is measured by **bias**, **ICC**, and **CCC**. Two devices can track each other perfectly and still disagree by 40 minutes every single night.
+
+A device pair is only truly **interchangeable** if the answer to *both* questions is yes.
+
+### Glossary
 
 | Term | Plain-language meaning |
 |------|------------------------|
-| **RHR (resting heart rate)** | Your heart rate when fully at rest, in beats per minute (bpm). Lower generally indicates better cardiovascular fitness. |
-| **HRV (heart rate variability)** | Tiny beat-to-beat timing differences, measured in milliseconds (ms). Higher HRV usually means better recovery / readiness. |
-| **Sleep duration** | Total time spent asleep (not just in bed), in minutes. |
-| **Steps** | Daily step count — a simple activity measure. |
-| **Pearson r** | Correlation coefficient from −1 to +1. **+1** = perfect agreement in the same direction; **0** = no linear relationship; **−1** = perfect opposite. Values above **0.9** are considered strong. |
-| **Spearman ρ (rho)** | Like Pearson r, but based on *ranks* rather than raw values. More robust when values are not perfectly linear. |
-| **Bias (mean difference)** | The average amount one device reads higher or lower than another. A bias of +2 bpm means device B is typically 2 bpm above device A. |
-| **MAE / RMSE** | Average error size (MAE = mean absolute error; RMSE = root mean squared error, penalises large errors more). Lower is better. |
-| **ICC** | Intraclass correlation — measures whether two devices give similar *absolute* values, not just correlated trends. Near **1** = strong agreement. |
-| **CCC** | Concordance correlation — combines correlation *and* bias into one number. Near **1** = devices agree on both trend and level. |
-| **Bland–Altman plot** | A standard method-comparison chart. Points above zero mean device B reads higher than A that day. The solid line = average bias; dashed lines = 95% limits of agreement (LoA). |
-| **Deming regression** | A regression line that accounts for measurement error in *both* devices (not just one). Slope ≈ 1 and intercept ≈ 0 means no proportional or fixed bias. |
-| **Kendall's W** | Measures whether all three devices *rank* days similarly (e.g., all agree "June 28 was a good recovery day"). **1** = perfect rank agreement; **0** = none. |
-| **Three-rater ICC** | Intraclass correlation using *all three* devices on the same days (not two at a time). Near **1** = the three readings are interchangeable. |
-| **OCCC** | Overall concordance correlation — the three-device version of CCC. Near **1** = all three agree on both trend and level. |
-| **Friedman's test** | Asks whether the three devices sit at different *levels* (e.g., one always reads higher). A small p-value means they do **not** all share the same typical value. |
-| **RM-ANOVA** | Repeated-measures ANOVA — the parametric companion to Friedman. Same question (do means differ?), with a normality/sphericity assumption. |
-| **Wake date** | The calendar date we assign a night's sleep to — the morning you woke up (e.g., sleep starting June 20 at 1 am → assigned to June 20). |
-| **Compliance** | The percentage of days in the 33-day window where a device actually recorded a valid value. |
-| **QC flag** | A data point marked as suspicious (e.g., very low steps suggesting the device was not worn) but not automatically deleted. |
+| **RHR (resting heart rate)** | Heart rate when fully at rest, in beats per minute (bpm). Lower generally indicates better cardiovascular fitness. |
+| **HRV (heart rate variability)** | Tiny beat-to-beat timing differences, in milliseconds (ms). Higher usually means better recovery. |
+| **Sleep duration** | Time actually asleep (not time in bed), in minutes. |
+| **Time in bed** | Total time in the sleep session, including time awake. |
+| **Pearson r** | Correlation from −1 to +1. **+1** = move together perfectly; **0** = unrelated. Above **0.9** is strong. Answers question 1. |
+| **Spearman ρ (rho)** | Correlation based on *ranks* instead of raw values. More robust to outliers. |
+| **Bias (mean difference)** | Average amount device B reads above device A. Bias of +2 bpm means B is typically 2 bpm higher. Answers question 2. |
+| **95% CI of bias** | The range where the true average difference plausibly lies. Narrow = precisely known. |
+| **Limits of agreement (LoA)** | The range containing ~95% of daily differences. Much wider than the bias, and the honest measure of what to expect on any one day. |
+| **MAE / RMSE** | Typical error size (RMSE punishes big misses more). Lower is better. |
+| **SRD** | Smallest Real Difference — how large a gap must be before it exceeds measurement noise. A difference smaller than SRD is indistinguishable from noise. |
+| **ICC** | Intraclass correlation — do the devices give the same *absolute* value, not just a correlated trend? Near **1** = interchangeable. |
+| **CCC / OCCC** | Concordance correlation, combining trend *and* level into one number. OCCC is the three-device version. |
+| **Equivalent** | Whether the bias is small enough not to matter in practice — its 95% CI fits entirely inside a pre-set acceptable margin. |
+| **Proportional bias** | Disagreement that grows as values get larger (e.g. devices agree on short nights but not long ones). |
+| **Bland–Altman plot** | Method-comparison chart of difference vs average. Solid line = bias; dashed lines = LoA. |
+| **Deming regression** | Best-fit line accounting for error in *both* devices. Slope ≈ 1 and intercept ≈ 0 means no bias. |
+| **Kendall's W** | Do all three devices *rank* days in the same order? **1** = identical ranking. |
+| **Friedman's test** | Do the three devices sit at different levels? A small p-value means at least one reads systematically high or low. |
+| **Wake date** | The calendar date a night's sleep is assigned to — the morning you woke up. |
+| **QC flag** | A data point marked suspicious (e.g. 27 steps, suggesting the device was not worn) but not deleted. |
 
 ---
 
 ## Executive summary
 
-**What this section answers:** *Overall, do these three devices agree — and on which metrics?*
+**What this section answers:** *Overall, can these three devices be used interchangeably?*
 
-We compare **Whoop**, **Oura Ring 4**, and **Withings ScanWatch** over **33 days** (June 20 – July 22, 2026, US Pacific time) on four daily metrics: resting heart rate, HRV, sleep duration, and steps.
+The table reports, for each headline metric, both the **best-agreeing** and the **worst-agreeing** device pair. Showing only the best pair would flatter the devices, because Whoop and Oura agree well on almost everything while anything involving Withings agrees less.
 
 ```{r exec-summary}
 #| code-summary: "Show code that builds the summary table"
-# Pick the device pair with the strongest Pearson correlation for each metric
-# and assign a plain-language verdict (Strong / Moderate / Weak / Poor agreement).
+# For each metric: strongest pair, weakest pair, three-device ICC, largest bias,
+# and whether every pair's bias stayed inside the acceptable margin.
 if (!is.null(exec_summary)) {
-  knitr::kable(exec_summary, caption = "Headline agreement verdicts (best pair per metric)")
+  knitr::kable(exec_summary, caption = "Headline verdicts — best and worst device pair per metric")
 }
 ```
 
-**Key takeaways:**
+**The short answer: they track the same trends, but they are not interchangeable.**
 
-- **Whoop ↔ Oura** agree strongly on all four headline metrics (Pearson r > 0.9).
-- **Withings RHR** looks similar on average (~70 bpm) but does not track day-to-day changes with Whoop/Oura when using average sleeping HR. Using **minimum sleeping HR** instead improves agreement — see the RHR section.
-- **Three-device tests** (ICC, Friedman, Kendall's W) evaluate Whoop, Oura, and Withings **on the same days at once**, not two at a time — see the dedicated section below. HRV cannot be tested this way because Withings HRV is missing.
-- **Sleep stages** (deep / REM / light) are available from all three devices; agreement is moderate (algorithms differ).
-- **Withings HRV** is missing from the 2026 export — only Whoop vs Oura HRV comparison is possible.
-- **Withings sleep data** stops after July 18, so three-way sleep comparisons cover fewer days.
-
----
-
-## Introduction
-
-**What this section answers:** *What devices and data files are we comparing, and over what time period?*
-
-Three consumer wearables were worn concurrently by one person:
-
-- **Whoop bracelet** — recovery-focused wearable; exports "physiological cycles" (one row per day with RHR, HRV, sleep, strain).
-- **Oura Ring 4** — sleep and readiness ring; exports a daily trends CSV with scores and raw metrics.
-- **Withings ScanWatch** — hybrid smartwatch; exports via Health Mate (3 years of history; we use only the Whoop-aligned 33-day window).
-
-**How to read the code in this report:** Every R code block is optional reading. Click **"Show R code"** to expand it. Comments inside each block explain what that specific step does. The main analysis logic also lives in commented scripts under the `R/` folder.
+- **Whoop and Oura are close partners.** They correlate strongly on resting HR, HRV, sleep duration and steps (r = 0.91–1.00).
+- **All three agree on bedtime almost exactly** (three-device ICC = 0.98). Detecting *when* a night starts is the one thing every device does well.
+- **No headline metric passed the equivalence check on all pairs.** Even where correlation is high, at least one pair's average difference is too large to call the devices swappable.
+- **The one genuinely interchangeable pairing is a surprise:** Oura and Withings on *lowest* resting HR (r = 0.94, ICC = 0.93, bias under 0.5 bpm) — better than either agrees with Whoop.
+- **Sleep staging is where they truly diverge.** Withings assigns roughly **40%** of the night to deep sleep versus 16–20% for the others, and almost no REM.
+- **Sleep duration disagrees more than its own ingredients**, because it is derived from the awake/asleep decision — the least reliable step in the chain.
+- **The two brands' headline "readiness" scores barely agree** (r = 0.24) — the clearest evidence that a proprietary score is not a measurement.
+- **HRV can only be compared two ways** — Withings exported no HRV for 2026.
 
 ---
 
 ## Data sources and analysis window
 
-**What this section answers:** *Where did the numbers come from, and what date range are we looking at?*
+**What this section answers:** *Where did the numbers come from, and over what dates?*
 
-| Device | Source files | What we extract |
-|--------|-------------|-----------------|
-| Whoop | `raw_data/whoop/` | RHR, HRV, sleep, stages, efficiency, respiratory rate, timing; steps typed manually into RTF |
-| Oura Ring 4 | `raw_data/oura/` | RHR, lowest RHR, HRV, sleep, stages, efficiency, respiratory rate, timing, steps |
-| Withings ScanWatch | `raw_data/withings/` | Sleep, stages, efficiency, avg HR, min HR, timing, steps |
+| Device | Source folder | What we extract |
+|--------|---------------|-----------------|
+| Whoop | `raw_data/whoop/` | RHR, HRV, sleep, stages, awake time, time in bed, efficiency, respiratory rate, recovery score, timing; steps typed manually into an RTF note |
+| Oura Ring 4 | `raw_data/oura/` | RHR, lowest RHR, HRV, sleep, stages, awake time, time in bed, efficiency, respiratory rate, readiness score, timing, steps |
+| Withings ScanWatch | `raw_data/withings/` | Sleep, stages, awake time, time in bed, efficiency, average and minimum HR, timing, steps |
 
 ```{r window-info}
 #| code-summary: "Show code that prints the analysis window settings"
@@ -167,56 +177,72 @@ window_info <- tibble::tibble(
 knitr::kable(window_info, caption = "Analysis configuration")
 ```
 
+The window is anchored to Whoop's coverage, which is the shortest of the three.
+
 ### Sleep date alignment
 
-**Why this matters:** If Device A labels "the night of June 20" differently from Device B, their values will never match even when both are correct. We checked all three exports and confirmed they all use the **wake date** (the morning you get up) as the calendar day for that night's sleep.
+**Why this matters:** if Device A labels "the night of June 20" differently from Device B, their values can never match even when both are correct. All three exports were checked and all three key a night's sleep to the **wake date** — the morning you got up.
 
-| Device | How we determine the date for a night's sleep |
+| Device | How the date for a night's sleep is determined |
 |--------|------------------------------------------------|
-| Whoop | Date of `Wake onset` timestamp |
-| Oura | The `date` column (equals the wake / summary calendar day) |
+| Whoop | Date of the `Wake onset` timestamp |
+| Oura | The `date` column (equals the wake / summary day) |
 | Withings | Date of the sleep *end* timestamp (`to`) |
+
+### Timestamp handling (a real bug worth knowing about)
+
+Whoop writes naive local wall-clock times (`2026-07-22 02:25:47`) and puts the zone in a separate column, while Oura and Withings write times with an explicit offset (`...T02:25:47-07:00`). Read carelessly, Whoop's timestamps get treated as UTC and every time-of-day shifts by 7 hours — which silently made Whoop look like it detected bedtime in the early evening. All three parsers now read timestamps as text and attach Pacific time explicitly. Sleep *dates* were never affected, because every wake time in this window falls between 07:22 and 11:13.
 
 ---
 
-## Device compliance
+## Data coverage and quality
 
-**What this section answers:** *How often was each device actually recording data?*
+**What this section answers:** *How much usable data does each device actually contribute, and what did we throw away?*
 
-"Compliance" here means: out of 33 possible days, on how many days did each device produce a valid reading for each metric? A device with 90% compliance was worn and recording on ~30 of 33 days. Low compliance means fewer days available for comparison.
+You can only compare devices on days where they both recorded. This section establishes how many such days exist before any statistics are run.
 
 ```{r compliance}
 #| code-summary: "Show code that counts days with valid data per device"
 knitr::kable(
   compliance |>
+    dplyr::filter(metric %in% METRICS) |>
     dplyr::mutate(
       metric = METRIC_LABELS[as.character(metric)],
       compliance_pct = round(compliance_pct, 1)
     ) |>
     dplyr::select(device, metric, days_present, compliance_pct),
-  caption = "Data completeness (% of 33-day window with valid data)"
+  caption = "Data completeness for headline metrics (% of the 33-day window)"
 )
 ```
 
-**How to read the table:** `days_present` = number of valid days; `compliance_pct` = that number as a percentage of 33. Oura has the highest compliance overall. Withings sleep drops sharply after July 18 and Withings has no HRV at all in this export.
+**How to read it:** `days_present` is the count of valid days; `compliance_pct` expresses that as a share of 33. Oura has the highest coverage. Withings sleep stops after July 18, and Withings contributes no HRV at all.
 
----
+```{r overlap-table}
+#| code-summary: "Show code that counts overlapping days"
+knitr::kable(overlap_tbl |> dplyr::filter(metric %in% METRICS),
+             caption = "Days available by device combination")
+```
 
-## Data quality and exclusions
+```{r overlap-heatmaps, fig.height=8}
+#| fig-cap: "Each colored tile = that device recorded that metric that day. White gaps = missing data, which every comparison skips."
+#| code-summary: "Show code that draws the calendar heatmaps"
+plots <- lapply(METRICS, function(m) plot_overlap_heatmap(overlap, m))
+patchwork::wrap_plots(plots, ncol = 1)
+```
 
-**What this section answers:** *Were there bad or suspicious data points, and what did we do about them?*
+### Quality screening
 
-Before any comparison, we screen for data problems:
+Two levels of screening run before any comparison:
 
-1. **Hard exclusions** — physiologically impossible values (e.g., heart rate below 30 bpm) are removed entirely.
-2. **Soft flags** — suspicious but plausible values (e.g., only 27 steps in a day, suggesting the device was not worn) are kept but marked. We later re-run key analyses without flagged days to check whether conclusions change.
+1. **Hard exclusions** — physiologically impossible values (e.g. heart rate below 30 bpm) are removed.
+2. **Soft flags** — suspicious but possible values (e.g. 27 steps in a day, suggesting the device was not worn) are kept but marked, then re-tested later in the sensitivity analysis.
 
-Known issues handled in this dataset:
+Known issues in this dataset:
 
-- Whoop steps were **manually typed** into an RTF note (not exported by the app) — gaps and typos are possible.
-- Withings sleep on **June 20** is corrupt (all sleep stages = 0) — excluded.
-- Withings has **two sleep sessions on June 26** — we keep the longer one.
-- Withings HRV file is **empty for 2026** — no HRV comparison possible.
+- Whoop steps were **typed by hand** into an RTF note, since the app does not export them.
+- Withings sleep on **June 20** is corrupt (all stages zero) and is excluded.
+- Withings recorded **two sleep sessions on June 26**; the longer one is kept.
+- The Withings HRV export is **empty for 2026**.
 
 ```{r qc-table}
 #| code-summary: "Show code that displays the QC exclusion log"
@@ -227,42 +253,11 @@ if (nrow(qc_log) > 0) {
 }
 ```
 
-**How to read the QC table:** Each row is one data point that was excluded or flagged. The `rule` column explains why (e.g., `missing_value`, `outside_soft_range`).
-
 ---
 
-## Overlap and coverage
+## What each device reported
 
-**What this section answers:** *On how many days do two or all three devices have data for the same metric?*
-
-You can only compare devices on days where **both** recorded a value. The table below counts how many days fall into each overlap category (e.g., "all three devices", "Whoop and Oura only").
-
-```{r overlap-table}
-#| code-summary: "Show code that counts overlapping days"
-knitr::kable(overlap_tbl |> dplyr::filter(metric %in% METRICS),
-             caption = "Days by device-combination (headline metrics)")
-```
-
-```{r overlap-heatmaps, fig.height=8}
-#| fig-cap: "Each colored tile = that device had valid data that day. White gaps = missing."
-#| code-summary: "Show code that draws the calendar heatmaps"
-plots <- lapply(METRICS, function(m) plot_overlap_heatmap(overlap, m))
-patchwork::wrap_plots(plots, ncol = 1)
-```
-
-**How to read the heatmaps:** One panel per metric. Each row is a device; each column is a calendar day. A colored tile means that device recorded that metric on that day. Gaps (white spaces) mean missing data — comparisons skip those days.
-
----
-
-## Descriptive statistics
-
-**What this section answers:** *What are the typical daily values from each device — and how much do they vary day to day?*
-
-This section describes each device's readings before any cross-device comparison. Key columns:
-
-- **mean / median** — typical daily value
-- **sd** — standard deviation (how much day-to-day variation)
-- **cv_pct** — coefficient of variation (sd ÷ mean × 100); a stability measure — lower means more consistent day to day
+**What this section answers:** *What are the typical values from each device, and how much do they move day to day?*
 
 ```{r desc-table}
 #| code-summary: "Show code that computes summary statistics"
@@ -276,25 +271,21 @@ desc_display <- desc_stats |>
 knitr::kable(desc_display, caption = "Summary statistics — headline metrics")
 ```
 
-Whoop and Oura are very close on average RHR (~69–70 bpm) and HRV (~28–33 ms). Withings average sleeping HR has a similar mean but, as we show later, does not track the same day-to-day pattern as the other two.
+`cv_pct` is the coefficient of variation (SD ÷ mean × 100), a rough stability measure: lower means steadier day to day.
 
-### Distribution shapes (ridgeline plots)
-
-**What the chart shows:** The shape of each device's daily value distribution. Wider bulges = more days at that value. Overlapping bulges = similar distributions.
+Whoop and Oura sit very close on average resting HR (~69–70 bpm) and HRV (~28–33 ms). Withings' average sleeping HR has a similar mean but, as the next section shows, it does not follow the same day-to-day pattern.
 
 ```{r ridgelines, fig.height=10}
-#| fig-cap: "Ridgeline plots — each horizontal band is one device; the width shows how often each value occurred."
+#| fig-cap: "Distribution of daily values. Each band is one device; width shows how often each value occurred. Bands sitting on top of each other = similar distributions."
 #| code-summary: "Show code that draws ridgeline density plots"
 ridge_plots <- lapply(METRICS, function(m) plot_ridgeline(long_df, m))
 patchwork::wrap_plots(ridge_plots, ncol = 2)
 ```
 
-### Daily time series
-
-**What the chart shows:** Each device's daily value plotted over the 33-day window. Lines break (rather than connect) across missing days so gaps are visible.
+Note that two devices can produce nearly identical distributions while still disagreeing every single day — matching *overall shape* is a much weaker claim than matching *day by day*. The time series below is the first look at day-by-day behavior.
 
 ```{r timeseries, fig.height=10}
-#| fig-cap: "Daily values over time. Lines do not connect across missing days."
+#| fig-cap: "Daily values over time. Lines break rather than connect across missing days, so gaps stay visible."
 #| code-summary: "Show code that draws time series plots"
 ts_plots <- lapply(METRICS, function(m) plot_timeseries(long_df, m))
 patchwork::wrap_plots(ts_plots, ncol = 2)
@@ -302,24 +293,21 @@ patchwork::wrap_plots(ts_plots, ncol = 2)
 
 ---
 
-## Correlation and agreement — headline metrics
+## Pairwise agreement — headline metrics
 
-**What this section answers:** *When both devices record on the same day, how closely do their numbers match?*
+**What this section answers:** *When two devices both recorded on a day, how closely do their numbers match?*
 
-We first compare devices **pairwise** (Whoop vs Oura, Whoop vs Withings, Oura vs Withings) on every day where those two have data. Pairwise tests can use different day sets for each pair. The **next section** tests all three devices together on the *same* days.
+This section compares devices **two at a time** (Whoop vs Oura, Whoop vs Withings, Oura vs Withings), using every day where that particular pair has data. Note that each pair may therefore rest on a different set of days; the [three-device section](#three-device-tests-all-methods-together) removes that inconsistency.
 
-The table below reports:
-
-| Column | Meaning |
-|--------|---------|
-| `pearson_r` | Linear correlation (−1 to +1). Higher = more agreement. |
-| `mean_bias` | Average difference (device B − device A). Positive = B reads higher. |
-| `loa_lower / loa_upper` | 95% limits of agreement — the range within which ~95% of daily differences fall. |
-| `mae` | Mean absolute error — typical daily disagreement in original units. |
-| `icc` | Intraclass correlation — absolute agreement (not just trend). |
-| `ccc` | Concordance correlation — combines trend agreement and level agreement. |
-| `deming_slope` | Proportional bias test. Should be ≈ 1. |
-| `deming_intercept` | Fixed bias test. Should be ≈ 0. |
+| Column | Meaning | Which question it answers |
+|--------|---------|---------------------------|
+| `pearson_r`, `spearman_rho` | Correlation | Do they move together? |
+| `mean_bias` | Average difference (B − A) | Do they report the same number? |
+| `loa_lower` / `loa_upper` | 95% limits of agreement | How far apart can they be on a given day? |
+| `mae`, `rmse` | Typical error size | How wrong, on average? |
+| `srd` | Smallest Real Difference | How big must a gap be to exceed noise? |
+| `icc`, `ccc` | Absolute agreement | Are they interchangeable? |
+| `deming_slope` / `deming_intercept` | Proportional / fixed bias (ideal: 1 and 0) | Is the disagreement constant or scaling? |
 
 ```{r agreement-table}
 #| code-summary: "Show code that runs all pairwise agreement statistics"
@@ -328,32 +316,64 @@ if (!is.null(agreement)) {
     dplyr::mutate(
       metric = METRIC_LABELS[metric],
       dplyr::across(where(is.numeric), ~ round(.x, 3))
-    )
+    ) |>
+    dplyr::select(metric, device_a, device_b, n, pearson_r, spearman_rho,
+                  mean_bias, loa_lower, loa_upper, mae, rmse, srd, icc, ccc,
+                  deming_slope, deming_intercept)
   knitr::kable(agree_display, caption = "Pairwise agreement — headline metrics")
 }
 ```
 
 ```{r corr-heatmap, fig.height=6}
-#| fig-cap: "Darker red = stronger positive correlation. * = statistically significant (p<0.05)."
+#| fig-cap: "Pearson r for every metric and device pair. Red = positive correlation, gray = none, blue = negative. * = p<0.05, ** = p<0.01."
 #| code-summary: "Show code that draws the correlation heatmap"
 if (!is.null(agreement)) plot_correlation_heatmap(agreement)
 ```
 
-**Interpretation:** Whoop–Oura pairs show r > 0.9 on all four metrics — strong agreement. Withings RHR and sleep show weak correlation with the other two, partly because Withings measures HR differently (see next section).
+**Interpretation:** Whoop–Oura exceed r = 0.9 on all four headline metrics. Pairs involving Withings are consistently weaker, and the resting-HR gap has a specific, fixable cause — covered next.
 
-### Resting HR — why the definition matters
+### Is the difference small enough to ignore?
 
-**What this section answers:** *Is poor Withings RHR agreement real, or just a measurement-definition problem?*
+**What this section answers:** *Correlation aside, is the average gap between devices too big to matter in practice?*
 
-Each device defines "resting heart rate" differently:
+A significant p-value only says a difference exists; it does not say the difference is *important*. So each pair is checked against a margin set in advance from what a user could actually act on — for example, a 2 bpm resting-HR offset falls within normal day-to-day noise and would not change any decision.
 
-| Device | What we used as `rhr` | What we used as `rhr_rest` (like-for-like) |
-|--------|----------------------|---------------------------------------------|
+A pair is marked **equivalent** only when the entire 95% confidence interval of its bias fits inside that margin.
+
+```{r equivalence}
+#| code-summary: "Show code that runs the equivalence check"
+if (!is.null(agreement)) {
+  knitr::kable(
+    agreement |>
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        bias = round(mean_bias, 2),
+        ci = sprintf("[%.2f, %.2f]", bias_ci_lower, bias_ci_upper),
+        margin = sprintf("+/- %g", equiv_margin),
+        srd = round(srd, 1)
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, bias, ci, margin,
+                    equivalent, srd),
+    caption = "Equivalence check: is the bias inside a practically acceptable margin?"
+  )
+}
+```
+
+**How to read it:** `equivalent = Yes` means the two devices can reasonably stand in for each other on that metric. `No` means they cannot, even if their correlation is high. The `srd` column is a useful companion: for sleep duration it runs to roughly an hour, so a 20-minute difference between two devices carries no real information.
+
+### Resting HR — the definition matters more than the sensor
+
+**What this section answers:** *Is Withings' weak resting-HR agreement a hardware problem or a definition mismatch?*
+
+The three devices do not mean the same thing by "resting heart rate":
+
+| Device | Used as `rhr` | Used as `rhr_rest` (like-for-like) |
+|--------|---------------|-------------------------------------|
 | Whoop | Recovery RHR (lowest during sleep) | Same |
-| Oura | Average resting HR | **Lowest** resting HR |
+| Oura | **Average** resting HR | **Lowest** resting HR |
 | Withings | **Average** HR during sleep | **Minimum** HR during sleep |
 
-The original `rhr` comparison pits Whoop's true resting HR against Withings' sleep average — an apples-to-oranges comparison. The `rhr_rest` column harmonizes all three to their lowest/resting value.
+Comparing the `rhr` column pits Whoop's true resting value against Withings' whole-night average — an apples-to-oranges comparison. The `rhr_rest` column re-runs the analysis with all three harmonized to their lowest value.
 
 ```{r rhr-rest-agreement}
 #| code-summary: "Show code that compares RHR using the harmonized definition"
@@ -361,49 +381,170 @@ rhr_rest_agree <- run_all_agreement(wide_df, metrics = "rhr_rest")
 if (!is.null(rhr_rest_agree)) {
   knitr::kable(
     rhr_rest_agree |>
-      dplyr::mutate(metric = "Resting HR (like-for-like)", dplyr::across(where(is.numeric), ~ round(.x, 3))),
-    caption = "RHR agreement — like-for-like definition"
+      dplyr::mutate(
+        metric = "Resting HR (like-for-like)",
+        dplyr::across(where(is.numeric), ~ round(.x, 3))
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, pearson_r, mean_bias,
+                    loa_lower, loa_upper, icc, ccc, equivalent),
+    caption = "RHR agreement using the harmonized 'lowest value' definition"
   )
 }
 ```
 
-```{r rhr-dumbbell, fig.height=8}
-#| fig-cap: "Top: original RHR definitions. Bottom: like-for-like (lowest/resting HR). Dots connected by a line = same day, different devices."
-#| code-summary: "Show code that draws dumbbell spread plots"
-p1 <- plot_paired_dumbbell(wide_df, "rhr")
-p2 <- plot_paired_dumbbell(wide_df, "rhr_rest")
-if (!is.null(p1) && !is.null(p2)) patchwork::wrap_plots(list(p1, p2), ncol = 1)
+**Result — and it is not the result you might expect.** Harmonizing the definition does not lift every pair; it *rearranges* which pairs agree:
+
+| Pair | `rhr` (as shipped) | `rhr_rest` (lowest value) |
+|------|--------------------|---------------------------|
+| Whoop vs Oura | r = 0.91 | r = 0.74 |
+| Whoop vs Withings | r = 0.83 | r = 0.76 |
+| **Oura vs Withings** | r = 0.81 | **r = 0.94**, ICC = 0.93, bias = −0.4 bpm |
+
+Once Oura and Withings are both asked for their *lowest* value, they become **the single most interchangeable pair anywhere in this report** — correlation 0.94, ICC 0.93, and an average difference of under half a beat per minute. Meanwhile both drift *away* from Whoop.
+
+The explanation is that Whoop publishes only one resting-HR number, so its column is identical in both rows. Whoop's "recovery RHR" therefore behaves statistically more like Oura's and Withings' **averages** than like their **minima**, despite being documented as a sleeping low. Read literally, the labels imply the wrong grouping.
+
+This is the clearest demonstration in the report that a metric name is not a definition. Before concluding that a device is inaccurate, check that it was asked the same question as the others.
+
+### How to read the scatter and Bland–Altman plots
+
+Each metric below gets two plot types per device pair.
+
+**Scatter plot (left):**
+
+- Each dot is one day where both devices recorded.
+- Dashed diagonal = perfect agreement.
+- Solid colored line = Deming regression, which allows for error in both devices.
+- Dots hugging the diagonal = good agreement.
+
+**Bland–Altman plot (right):**
+
+- X-axis = the average of the two readings that day; Y-axis = their difference.
+- Solid line = mean bias; shaded band and dashed lines = 95% limits of agreement.
+- Randomly scattered points around zero = good agreement.
+- A visible slope across the x-axis = **proportional bias**: the devices disagree more at high values than at low ones.
+
+```{r scatter-ba-rhr, fig.height=15}
+#| fig-cap: "Resting HR: scatter with Deming line (left) and Bland-Altman (right) for all three device pairs."
+#| code-summary: "Show code that draws RHR scatter and Bland–Altman plots"
+rhr_pairs <- list(
+  c("whoop", "oura", "Whoop", "Oura Ring 4"),
+  c("whoop", "withings", "Whoop", "Withings ScanWatch"),
+  c("oura", "withings", "Oura Ring 4", "Withings ScanWatch")
+)
+rhr_plots <- unlist(lapply(rhr_pairs, function(p) list(
+  plot_scatter_pair(wide_df, "rhr", p[1], p[2], p[3], p[4]),
+  plot_bland_altman(wide_df, "rhr", p[1], p[2], p[3], p[4])
+)), recursive = FALSE)
+patchwork::wrap_plots(Filter(Negate(is.null), rhr_plots), ncol = 2)
 ```
+
+All three pairs are shown here rather than a selected subset, so the Oura–Withings comparison is not hidden.
+
+```{r scatter-ba-sleep, fig.height=10}
+#| fig-cap: "Sleep duration (minutes): scatter and Bland-Altman. Note how much wider the limits of agreement are than for resting HR."
+#| code-summary: "Show code that draws sleep scatter and Bland–Altman plots"
+sleep_plots <- list(
+  plot_scatter_pair(wide_df, "sleep_min", "whoop", "oura", "Whoop", "Oura Ring 4"),
+  plot_bland_altman(wide_df, "sleep_min", "whoop", "oura", "Whoop", "Oura Ring 4"),
+  plot_scatter_pair(wide_df, "sleep_min", "whoop", "withings", "Whoop", "Withings ScanWatch"),
+  plot_bland_altman(wide_df, "sleep_min", "whoop", "withings", "Whoop", "Withings ScanWatch")
+)
+patchwork::wrap_plots(Filter(Negate(is.null), sleep_plots), ncol = 2)
+```
+
+```{r scatter-ba-steps, fig.height=10}
+#| fig-cap: "Daily steps: scatter and Bland-Altman. Whoop steps were logged by hand, so treat that pair with extra caution."
+#| code-summary: "Show code that draws steps scatter and Bland–Altman plots"
+step_plots <- list(
+  plot_scatter_pair(wide_df, "steps", "whoop", "oura", "Whoop", "Oura Ring 4"),
+  plot_bland_altman(wide_df, "steps", "whoop", "oura", "Whoop", "Oura Ring 4"),
+  plot_scatter_pair(wide_df, "steps", "oura", "withings", "Oura Ring 4", "Withings ScanWatch"),
+  plot_bland_altman(wide_df, "steps", "oura", "withings", "Oura Ring 4", "Withings ScanWatch")
+)
+patchwork::wrap_plots(Filter(Negate(is.null), step_plots), ncol = 2)
+```
+
+```{r scatter-ba-hrv, fig.height=5}
+#| fig-cap: "HRV (milliseconds): Whoop vs Oura only — Withings exported no HRV for 2026."
+#| code-summary: "Show code that draws HRV scatter and Bland–Altman plots"
+hrv_plots <- list(
+  plot_scatter_pair(wide_df, "hrv", "whoop", "oura", "Whoop", "Oura Ring 4"),
+  plot_bland_altman(wide_df, "hrv", "whoop", "oura", "Whoop", "Oura Ring 4")
+)
+patchwork::wrap_plots(Filter(Negate(is.null), hrv_plots), ncol = 2)
+```
+
+### Does the disagreement grow at higher values?
+
+**What this section answers:** *Is the gap between devices constant, or does it scale with the size of the reading?*
+
+A constant offset is easy to live with — you can mentally subtract it. A gap that *grows* with the value is worse, because no single correction fixes it. The test below correlates each day's difference with that day's average: a significant result means proportional bias.
+
+```{r proportional-bias}
+#| code-summary: "Show code that tests for proportional bias"
+if (!is.null(agreement)) {
+  knitr::kable(
+    agreement |>
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        ba_trend_r = round(ba_trend_r, 3),
+        ba_trend_p = fmt_p(ba_trend_p),
+        deming_slope = round(deming_slope, 3),
+        verdict = dplyr::if_else(
+          !is.na(ba_trend_p) & ba_trend_p < 0.05,
+          "Proportional bias present",
+          "Constant offset only"
+        )
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, ba_trend_r, ba_trend_p,
+                    deming_slope, verdict),
+    caption = "Proportional-bias test: does the difference between devices scale with the value?"
+  )
+}
+```
+
+### Is agreement stable over the 33 days?
+
+A single correlation for the whole window can hide a device that drifted. These two views check for that.
+
+```{r diff-ts-rhr, fig.height=4}
+#| fig-cap: "Daily resting-HR difference (Oura minus Whoop). A flat line near zero = stable agreement; a trend = one device drifting."
+#| code-summary: "Show code that plots daily differences over time"
+plot_difference_timeseries(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
+```
+
+```{r rolling-rhr, fig.height=4}
+#| fig-cap: "7-day rolling Pearson r for resting HR (Whoop vs Oura). Values near 1.0 mean the two devices agreed closely that week."
+#| code-summary: "Show code that computes rolling correlation"
+plot_rolling_correlation(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
+```
+
+---
 
 ## Three-device tests (all methods together)
 
-**What this section answers:** *When Whoop, Oura, and Withings all recorded on the same day, do the three methods agree as a set — and do they sit at the same level?*
+**What this section answers:** *On days when all three devices recorded, do they agree as a set?*
 
-The pairwise tables above compare two devices at a time, and each pair can use a different set of days. That can hide a three-way mismatch: Whoop and Oura may agree on 33 days, while Withings only overlaps 25 of them.
+The pairwise tables above compare two devices at a time, and each pair can rest on a different set of days. That can conceal a three-way mismatch: Whoop and Oura may agree across 32 days while Withings only overlaps 28 of them.
 
-Here we keep **only days where all three devices have a value**, then run tests that treat the three methods as one comparison:
+Here only days where **all three** devices have a value are kept, and the three methods are then tested as a single group:
 
 | Test | Question it answers | How to read it |
 |------|---------------------|----------------|
-| **Three-rater ICC(2,1)** | If we picked a day at random, would the three readings be interchangeable? | Near **1** = yes. Below **0.5** = poor. The 95% CI and p-value test whether ICC is greater than 0. |
-| **OCCC** | Same idea as Lin's CCC, but for three devices at once. | Near **1** = they track each other *and* sit at the same level. |
-| **Cronbach's α** | Internal consistency of the three readings. | Near **1** = they behave like repeated measures of the same thing. |
-| **Kendall's W** | Do all three *rank* days in the same order? | **1** = identical ranking; **0** = none. The p-value tests W > 0. |
-| **Friedman's test** | Do the three devices have the same typical value (median)? | Small p (e.g. < 0.05) = at least one device sits higher or lower than the others. |
-| **RM-ANOVA** | Same question as Friedman, using means. | Same reading as Friedman; more powerful if values are roughly normal. |
+| **Three-rater ICC(2,1)** | Would three readings of a random day be interchangeable? | Near **1** = yes; below **0.5** = poor. The 95% CI shows how precisely ICC is known. |
+| **OCCC** | Lin's CCC extended to three devices | Near **1** = they track each other *and* sit at the same level. |
+| **Kendall's W** | Do all three rank days in the same order? | **1** = identical ranking. |
+| **Friedman's test** | Do the three sit at different levels? | Small p = at least one reads systematically high or low. |
+| **RM-ANOVA** | Same question, using means | Same reading as Friedman; assumes roughly normal values. |
+| **max_mean_gap** | Largest gap between any two device averages | The practical size of the disagreement, in the metric's own units. |
 
-**HRV is omitted** here: Withings has no 2026 HRV export, so a three-device HRV test is impossible.
+Two statistics were deliberately **left out**: Cronbach's α and the ICC F-test p-value. Both are dominated by how much values vary between days, so they stay near 1 (or produce a tiny p-value) even when two devices differ by a large constant offset — exactly the situation a reader would want flagged.
+
+**HRV is absent** from this section: with no Withings HRV, a three-device HRV test is impossible.
 
 ```{r threeway-agreement}
 #| code-summary: "Show code that runs simultaneous three-device agreement tests"
-fmt_p <- function(p) {
-  dplyr::case_when(
-    is.na(p) ~ NA_character_,
-    p < 0.001 ~ "<0.001",
-    TRUE ~ sprintf("%.3f", p)
-  )
-}
-
 if (!is.null(threeway_tbl) && nrow(threeway_tbl) > 0) {
   knitr::kable(
     threeway_tbl |>
@@ -411,22 +552,19 @@ if (!is.null(threeway_tbl) && nrow(threeway_tbl) > 0) {
         metric = METRIC_LABELS[metric],
         icc = round(icc, 3),
         icc_95 = sprintf("[%.2f, %.2f]", icc_lbound, icc_ubound),
-        icc_p = fmt_p(icc_p),
         occc = round(occc, 3),
-        cronbach_alpha = round(cronbach_alpha, 3),
         kendall_w = round(kendall_w, 3),
-        kendall_p = fmt_p(kendall_p)
+        kendall_p = fmt_p(kendall_p),
+        max_mean_gap = round(max_mean_gap, 1)
       ) |>
-      dplyr::select(
-        metric, n_days, icc, icc_95, icc_p, occc, cronbach_alpha,
-        kendall_w, kendall_p
-      ),
-    caption = "Three-device agreement on complete-case days (ICC, OCCC, Cronbach's α, Kendall's W)"
+      dplyr::select(metric, n_days, icc, icc_95, occc, kendall_w, kendall_p,
+                    max_mean_gap),
+    caption = "Three-device agreement on complete-case days"
   )
 }
 ```
 
-**How to read the agreement table:** `n_days` is how many mornings all three devices recorded. ICC / OCCC / α / W all live on a 0–1 scale (higher = more interchangeable). A high Kendall's W with a low ICC means the devices *rank* days similarly but sit at different absolute levels (one reads systematically high).
+**How to read it:** `n_days` is the number of mornings all three devices recorded. ICC, OCCC and W all run 0–1, higher being more interchangeable. The revealing pattern is **high W with low ICC**: the devices rank days the same way but sit at different levels. Sleep staging is the clearest case — and bedtime is the opposite, with near-perfect agreement on both counts.
 
 ```{r threeway-location}
 #| code-summary: "Show code that tests whether the three devices sit at different levels"
@@ -451,16 +589,15 @@ if (!is.null(threeway_tbl) && nrow(threeway_tbl) > 0) {
 }
 ```
 
-When Friedman (or RM-ANOVA) is significant, the next table shows **which pair** differs. These are Wilcoxon signed-rank tests on the same complete-case days, Bonferroni-adjusted for the three pairs. `median_diff` is device B minus device A.
+When Friedman is significant, the post-hoc table identifies **which** pair is responsible. These are Wilcoxon signed-rank tests on the same complete-case days, Bonferroni-adjusted for three comparisons; `median_diff` is device B minus device A.
 
 ```{r threeway-posthoc}
 #| code-summary: "Show code that runs Bonferroni Wilcoxon post-hoc tests"
 headline_threeway <- c("rhr", "rhr_rest", "sleep_min", "steps")
 if (!is.null(threeway_post) && nrow(threeway_post) > 0) {
-  post_show <- threeway_post |>
-    dplyr::filter(metric %in% headline_threeway)
   knitr::kable(
-    post_show |>
+    threeway_post |>
+      dplyr::filter(metric %in% headline_threeway) |>
       dplyr::mutate(
         metric = METRIC_LABELS[metric],
         median_diff = round(median_diff, 2),
@@ -472,10 +609,8 @@ if (!is.null(threeway_post) && nrow(threeway_post) > 0) {
 }
 ```
 
-**What the charts show:** Each row of dots is one day where **all three** devices recorded. A short gray line means the three readings were close that day; a long line means they disagreed. Boxplots on the right use the same days.
-
 ```{r threeway-plots, fig.height=16}
-#| fig-cap: "Complete-case three-device spread (left) and boxplots (right) for RHR, like-for-like RHR, sleep, and steps. HRV is omitted because Withings has no HRV export."
+#| fig-cap: "Complete-case days only. Left: each row is one day, with the three readings connected — a long gray line means the devices disagreed that day. Right: the same days as boxplots."
 #| code-summary: "Show code that draws three-device complete-case plots"
 threeway_metrics <- c("rhr", "rhr_rest", "sleep_min", "steps")
 tw_plots <- lapply(threeway_metrics, function(m) {
@@ -488,163 +623,161 @@ tw_plots <- Filter(Negate(is.null), tw_plots)
 if (length(tw_plots) > 0) patchwork::wrap_plots(tw_plots, ncol = 1)
 ```
 
-### How to read the scatter and Bland–Altman plots
-
-Each metric has two plot types per device pair:
-
-**Scatter plot (left panels):**
-
-- Each dot = one day where both devices recorded.
-- Dashed diagonal = perfect agreement (both devices read the same).
-- Solid colored line = Deming regression (best-fit line accounting for error in both devices).
-- Dots clustering on the diagonal = good agreement.
-
-**Bland–Altman plot (right panels):**
-
-- X-axis = average of the two devices' readings that day.
-- Y-axis = difference (device B − device A).
-- Solid horizontal line = mean bias (systematic offset).
-- Shaded band + dashed lines = 95% limits of agreement.
-- Points scattered randomly around zero with no trend = good agreement.
-- A upward/downward trend across the x-axis = proportional bias (disagreement grows at higher values).
-
-```{r scatter-ba-rhr, fig.height=10}
-#| fig-cap: "RHR: scatter (with Deming line) and Bland–Altman for each device pair."
-#| code-summary: "Show code that draws RHR scatter and Bland–Altman plots"
-p1 <- plot_scatter_pair(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
-p2 <- plot_bland_altman(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
-p3 <- plot_scatter_pair(wide_df, "rhr", "whoop", "withings", "Whoop", "Withings ScanWatch")
-p4 <- plot_bland_altman(wide_df, "rhr", "whoop", "withings", "Whoop", "Withings ScanWatch")
-patchwork::wrap_plots(list(p1, p2, p3, p4), ncol = 2)
-```
-
-### Does agreement change over time?
-
-**Difference-over-time plot:** Shows (Oura − Whoop) for RHR each day. A flat line near zero = stable agreement. A trend up or down = one device is drifting relative to the other.
-
-```{r diff-ts-rhr, fig.height=4}
-#| fig-cap: "Daily RHR difference (Oura minus Whoop). Flat line near zero = stable agreement."
-#| code-summary: "Show code that plots daily differences over time"
-plot_difference_timeseries(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
-```
-
-**Rolling 7-day correlation:** Computes Pearson r using only the surrounding 7 days. Shows whether agreement is consistent or varies across the study period.
-
-```{r rolling-rhr, fig.height=4}
-#| fig-cap: "7-day rolling Pearson r for RHR (Whoop vs Oura). Values near 1.0 = strong agreement that week."
-#| code-summary: "Show code that computes rolling correlation"
-plot_rolling_correlation(wide_df, "rhr", "whoop", "oura", "Whoop", "Oura Ring 4")
-```
-
-```{r scatter-ba-sleep, fig.height=10}
-#| fig-cap: "Sleep duration (minutes): scatter and Bland–Altman for each pair."
-#| code-summary: "Show code that draws sleep scatter and Bland–Altman plots"
-s1 <- plot_scatter_pair(wide_df, "sleep_min", "whoop", "oura", "Whoop", "Oura Ring 4")
-s2 <- plot_bland_altman(wide_df, "sleep_min", "whoop", "oura", "Whoop", "Oura Ring 4")
-s3 <- plot_scatter_pair(wide_df, "sleep_min", "whoop", "withings", "Whoop", "Withings ScanWatch")
-s4 <- plot_bland_altman(wide_df, "sleep_min", "whoop", "withings", "Whoop", "Withings ScanWatch")
-patchwork::wrap_plots(list(s1, s2, s3, s4), ncol = 2)
-```
-
-```{r scatter-ba-steps, fig.height=10}
-#| fig-cap: "Daily steps: scatter and Bland–Altman. Note: Whoop steps were manually logged and may be less reliable."
-#| code-summary: "Show code that draws steps scatter and Bland–Altman plots"
-t1 <- plot_scatter_pair(wide_df, "steps", "whoop", "oura", "Whoop", "Oura Ring 4")
-t2 <- plot_bland_altman(wide_df, "steps", "whoop", "oura", "Whoop", "Oura Ring 4")
-t3 <- plot_scatter_pair(wide_df, "steps", "oura", "withings", "Oura Ring 4", "Withings ScanWatch")
-t4 <- plot_bland_altman(wide_df, "steps", "oura", "withings", "Oura Ring 4", "Withings ScanWatch")
-patchwork::wrap_plots(list(t1, t2, t3, t4), ncol = 2)
-```
-
-```{r scatter-ba-hrv, fig.height=5}
-#| fig-cap: "HRV (milliseconds): Whoop vs Oura only — Withings has no HRV in this export."
-#| code-summary: "Show code that draws HRV scatter and Bland–Altman plots"
-h1 <- plot_scatter_pair(wide_df, "hrv", "whoop", "oura", "Whoop", "Oura Ring 4")
-h2 <- plot_bland_altman(wide_df, "hrv", "whoop", "oura", "Whoop", "Oura Ring 4")
-patchwork::wrap_plots(list(h1, h2), ncol = 2)
-```
-
 ---
 
 ## Sleep architecture (stage comparison)
 
-**What this section answers:** *Do the devices agree on how much deep, REM, and light sleep you got — not just total sleep time?*
+**What this section answers:** *Do the devices agree on how the night was divided into deep, REM, and light sleep?*
 
-Total sleep can agree well even when devices classify stages differently (e.g., one calls a period "light" while another calls it "deep"). This section breaks sleep into three stages:
+Total sleep time can agree well even when devices disagree completely about *structure* — one calling a stretch "deep" while another calls it "light". Three stages are compared:
 
-- **Deep sleep** — physically restorative; hard to wake from.
-- **REM sleep** — dreaming stage; important for memory and mood.
-- **Light sleep** — transitional; largest stage by duration for most people.
+- **Deep sleep** — physically restorative, hard to wake from.
+- **REM sleep** — the dreaming stage, tied to memory and mood.
+- **Light sleep** — transitional, and the largest share for most people.
 
-```{r sleep-arch, fig.height=12}
-#| fig-cap: "Stacked bars = stage composition per night. Each row is one device. Dark = deep, mid-blue = REM, light blue = light."
-#| code-summary: "Show code that draws sleep architecture stacked bars"
-plot_sleep_architecture(arch_df, n_nights = 14)
+### Stage composition (the fair comparison)
+
+Comparing stage *minutes* confounds two different things: how a device splits stages, and how much total sleep it recorded. A device that logs 30 minutes less sleep will report fewer deep-sleep minutes even with an identical staging algorithm. Converting each stage to a **share of that night's total sleep** isolates the algorithm.
+
+```{r stage-composition, fig.height=5}
+#| fig-cap: "Mean share of the night assigned to each stage. Percentages remove the effect of differing total sleep time."
+#| code-summary: "Show code that draws the stage composition chart"
+plot_stage_composition(long_df)
 ```
 
+**This is the largest disagreement anywhere in the report.** Withings assigns roughly **40%** of the night to deep sleep, against 16–20% for Whoop and Oura, and it detects almost **no REM** (~2% versus 14–19%). A hybrid watch measuring from the wrist simply does not separate REM the way a ring or strap does. Any Withings deep- or REM-sleep number should be treated as a different quantity, not a noisier version of the same one.
+
+```{r stage-pct-agreement}
+#| code-summary: "Show code that computes stage-percentage agreement"
+stage_pct_agree <- run_all_agreement(wide_df, metrics = SLEEP_STAGE_PCT_METRICS)
+if (!is.null(stage_pct_agree)) {
+  knitr::kable(
+    stage_pct_agree |>
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        dplyr::across(where(is.numeric), ~ round(.x, 2))
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, pearson_r, mean_bias,
+                    loa_lower, loa_upper, icc, equivalent),
+    caption = "Stage agreement as a percentage of total sleep"
+  )
+}
+```
+
+Even between Whoop and Oura — the closest pair everywhere else — stage percentages correlate only around r = 0.4–0.5. Staging is the hardest problem in consumer sleep tracking, and it is where these devices are least substitutable.
+
 ```{r stage-agreement}
-#| code-summary: "Show code that computes sleep-stage agreement statistics"
+#| code-summary: "Show code that computes sleep-stage agreement in minutes"
 stage_agree <- run_all_agreement(wide_df, metrics = SLEEP_STAGE_METRICS)
 if (!is.null(stage_agree)) {
   knitr::kable(
     stage_agree |>
-      dplyr::mutate(metric = METRIC_LABELS[metric], dplyr::across(where(is.numeric), ~ round(.x, 3))),
-    caption = "Sleep-stage agreement (deep / REM / light minutes)"
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        dplyr::across(where(is.numeric), ~ round(.x, 2))
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, pearson_r, mean_bias,
+                    loa_lower, loa_upper, icc, srd),
+    caption = "Sleep-stage agreement in absolute minutes (for reference)"
   )
 }
 ```
 
-**How to read the stage table:** Lower correlations than total sleep are normal — stage detection is the hardest problem for wearables and algorithms differ substantially between brands.
+```{r sleep-arch, fig.height=12}
+#| fig-cap: "Stage composition night by night. Each panel is one device; dark = deep, mid-blue = REM, light blue = light."
+#| code-summary: "Show code that draws sleep architecture stacked bars"
+plot_sleep_architecture(arch_df, n_nights = 14)
+```
 
 ---
 
-## Sleep timing agreement
+## Sleep timing, awake time, and time in bed
 
-**What this section answers:** *Do the devices agree on when you went to bed and when you woke up?*
+**What this section answers:** *Do the devices agree on when sleep started and ended, and on how much of the night was spent awake?*
 
-Timing is converted to decimal hours for easy comparison:
+These are the mechanical building blocks of sleep tracking: a device must first detect the boundaries of the night, then decide how much of it counted as sleep. Splitting those apart shows exactly where sleep-duration differences come from.
 
-- **Bedtime** = hours after noon (e.g., 13.5 = 1:30 am the next calendar day).
-- **Wake time** = hours after midnight (e.g., 7.8 = 7:48 am).
+Timing uses decimal hours:
 
-A difference of 0.5 hours (30 minutes) in bedtime between devices means they detected sleep onset 30 minutes apart on average.
+- **Bedtime** = hours after noon (13.5 = 1:30 am).
+- **Wake time** = hours after midnight (7.8 = 7:48 am).
 
 ```{r timing-agreement}
-#| code-summary: "Show code that compares bedtime and wake time across devices"
-timing_agree <- run_all_agreement(wide_df, metrics = c("bedtime_hr", "waketime_hr"))
+#| code-summary: "Show code that compares bedtime, wake time, awake time, and time in bed"
+timing_agree <- run_all_agreement(
+  wide_df, metrics = c("bedtime_hr", "waketime_hr", "tib_min", "awake_min")
+)
 if (!is.null(timing_agree)) {
   knitr::kable(
     timing_agree |>
-      dplyr::mutate(metric = METRIC_LABELS[metric], dplyr::across(where(is.numeric), ~ round(.x, 3))),
-    caption = "Sleep timing agreement"
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        dplyr::across(where(is.numeric), ~ round(.x, 2))
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, pearson_r, mean_bias,
+                    loa_lower, loa_upper, icc, equivalent),
+    caption = "Sleep timing, time in bed, and awake time"
   )
 }
 ```
 
-```{r timing-ts, fig.height=8}
-#| fig-cap: "Bedtime (hours after noon) for each device over the study window."
-#| code-summary: "Show code that plots bedtime over time per device"
-bt_plots <- lapply(c("whoop", "oura", "withings"), function(d) {
-  sub <- long_df |> dplyr::filter(metric == "bedtime_hr",
-    grepl(DEVICE_LABELS[[d]], device))
-  if (nrow(sub) == 0) return(NULL)
-  ggplot2::ggplot(sub, ggplot2::aes(x = date, y = value)) +
-    ggplot2::geom_point(color = DEVICE_COLORS[[DEVICE_LABELS[[d]]]], size = 2) +
-    ggplot2::geom_line(color = DEVICE_COLORS[[DEVICE_LABELS[[d]]]], linewidth = 0.7) +
-    ggplot2::labs(title = DEVICE_LABELS[[d]], x = "Date", y = "Bedtime (h after noon)") +
-    ggplot2::theme_minimal(base_size = 11)
-})
-patchwork::wrap_plots(Filter(Negate(is.null), bt_plots), ncol = 1)
+**What this reveals about sleep duration.** The devices are near-perfect on **bedtime** (three-device ICC = 0.98), moderate on **time in bed** (ICC = 0.61), and weakest on **awake time** (ICC = 0.27), where Withings reports roughly 26–29 fewer awake minutes than the others.
+
+That ordering is the mechanism behind the sleep-duration gap. The devices agree closely on *when the night started*, less on *where its boundaries were*, and least on *how much of it counted as sleep*. Sleep duration is not measured directly — it is derived by subtracting awake time from time in bed, so it inherits the error of the least reliable step. This is why sleep duration disagrees more than bedtime despite being built from it.
+
+```{r timing-ts, fig.height=5}
+#| fig-cap: "Bedtime by device across the study window. The three series sit almost on top of each other."
+#| code-summary: "Show code that plots bedtime over time for all devices"
+plot_timeseries(long_df, "bedtime_hr")
 ```
+
+---
+
+## Do the brands agree on how you are doing?
+
+**What this section answers:** *Whoop's Recovery score and Oura's Readiness score both claim to summarise daily readiness on a 0–100 scale. Do they agree?*
+
+This is the number most people actually look at each morning, and it is the sharpest test in the report: both brands take similar raw inputs (resting HR, HRV, sleep) and reduce them to one score.
+
+```{r readiness}
+#| code-summary: "Show code that compares Whoop Recovery with Oura Readiness"
+readiness_agree <- run_all_agreement(wide_df, metrics = "readiness")
+if (!is.null(readiness_agree)) {
+  knitr::kable(
+    readiness_agree |>
+      dplyr::mutate(
+        metric = "Readiness / Recovery score",
+        dplyr::across(where(is.numeric), ~ round(.x, 3))
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, pearson_r, spearman_rho,
+                    mean_bias, loa_lower, loa_upper, icc, ba_trend_r, ba_trend_p),
+    caption = "Whoop Recovery score vs Oura Readiness score"
+  )
+}
+```
+
+```{r readiness-plots, fig.height=5}
+#| fig-cap: "Whoop Recovery vs Oura Readiness. Wide scatter around the diagonal and a sloped Bland-Altman pattern show the two scores are not measuring the same thing."
+#| code-summary: "Show code that plots the readiness comparison"
+r_plots <- list(
+  plot_scatter_pair(wide_df, "readiness", "whoop", "oura", "Whoop", "Oura Ring 4"),
+  plot_bland_altman(wide_df, "readiness", "whoop", "oura", "Whoop", "Oura Ring 4")
+)
+patchwork::wrap_plots(Filter(Negate(is.null), r_plots), ncol = 2)
+```
+
+**The scores disagree far more than their inputs do.** Correlation is only about r = 0.24 — much weaker than the r > 0.9 the same two devices achieve on resting HR, HRV and sleep duration. There is also strong proportional bias: the gap between the scores depends on how high the score is, so no constant adjustment reconciles them.
+
+The reason is that a readiness score is not a measurement — it is a *proprietary opinion* about the measurements, including each brand's own baselining and weighting. Two devices can agree on your physiology and still disagree about what it means. Treat a readiness score as meaningful only within one brand, and never compare scores across brands.
 
 ---
 
 ## Respiratory rate and sleep efficiency
 
-**What this section answers:** *Do devices agree on breathing rate during sleep and on sleep efficiency?*
+**What this section answers:** *Do the devices agree on breathing rate during sleep and on sleep efficiency?*
 
-- **Respiratory rate** = breaths per minute during sleep. Typically 12–20 for healthy adults. Available from Whoop and Oura only (Withings did not export this in 2026).
-- **Sleep efficiency** = (time asleep ÷ time in bed) × 100%. Higher is better. Values above 85% are generally considered good.
+- **Respiratory rate** = breaths per minute during sleep (typically 12–20 in healthy adults). Whoop and Oura only; Withings did not export it for 2026.
+- **Sleep efficiency** = time asleep ÷ time in bed × 100. Above 85% is generally considered good.
 
 ```{r resp-eff-agreement}
 #| code-summary: "Show code that compares respiratory rate and sleep efficiency"
@@ -652,80 +785,48 @@ re_agree <- run_all_agreement(wide_df, metrics = c("resp_rate", "sleep_eff"))
 if (!is.null(re_agree)) {
   knitr::kable(
     re_agree |>
-      dplyr::mutate(metric = METRIC_LABELS[metric], dplyr::across(where(is.numeric), ~ round(.x, 3))),
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        dplyr::across(where(is.numeric), ~ round(.x, 3))
+      ) |>
+      dplyr::select(metric, device_a, device_b, n, pearson_r, mean_bias,
+                    loa_lower, loa_upper, icc, equivalent),
     caption = "Respiratory rate and sleep efficiency agreement"
   )
 }
 ```
 
+Respiratory rate agrees well (r = 0.85) and is the rare metric that also **passes the equivalence check** — the two devices differ by only about 0.2 breaths per minute. It is a slow, stable signal, and comparatively easy to measure.
+
+Sleep efficiency is the mirror image, and a useful warning. Whoop and Oura also pass the equivalence check on it — their average difference is a mere 1.5 percentage points — yet they correlate at only r = 0.40. In other words the two devices produce the same *typical* efficiency while disagreeing about *which nights* were efficient. That combination is exactly why this report never relies on a single statistic: a small bias alone would have made this look like agreement.
+
 ---
 
-## Sensitivity analysis
+## Robustness checks
 
-**What this section answers:** *Do our conclusions change if we remove suspicious days?*
+### Does removing suspicious days change anything?
 
-We re-run the headline-metric agreement analysis twice: once with all data ("full") and once excluding QC-flagged days ("clean"). If the two rows are similar, our conclusions are robust and not driven by a few bad days.
+**What this section answers:** *Are the conclusions driven by a handful of bad days?*
+
+The headline analysis is re-run twice: once on all data (`full`) and once excluding QC-flagged days (`clean`). Similar values in both rows mean the conclusions are robust.
 
 ```{r sensitivity}
 #| code-summary: "Show code that re-runs agreement with and without flagged days"
 if (!is.null(sensitivity)) {
   sens_display <- sensitivity |>
     dplyr::filter(metric %in% METRICS) |>
-    dplyr::mutate(metric = METRIC_LABELS[metric], dplyr::across(where(is.numeric), ~ round(.x, 3))) |>
+    dplyr::mutate(metric = METRIC_LABELS[metric],
+                  dplyr::across(where(is.numeric), ~ round(.x, 3))) |>
     dplyr::select(sample, metric, device_a, device_b, n, pearson_r, mean_bias, mae)
   knitr::kable(sens_display, caption = "Agreement: full sample vs QC-cleaned sample")
 }
 ```
 
-**How to read this table:** Compare the `full` and `clean` rows for each metric/pair. Similar `pearson_r` and `mean_bias` values mean the outlier days did not materially change the conclusion.
+### Does each device measure coherently on its own?
 
----
+**What this section answers:** *Independent of cross-device agreement, does each device behave the way physiology says it should?*
 
-## Extended exploratory analyses
-
-These sections go beyond direct device comparison into patterns that may explain *why* devices agree or disagree.
-
-### Weekday vs weekend
-
-**What this section answers:** *Are daily values systematically different on weekends vs weekdays?*
-
-If weekend RHR is consistently lower across all devices, that is a real lifestyle pattern — not a device error.
-
-```{r weekday-weekend}
-#| code-summary: "Show code that compares weekday vs weekend means"
-knitr::kable(
-  ww_stats |>
-    dplyr::filter(metric %in% METRICS) |>
-    dplyr::mutate(metric = METRIC_LABELS[as.character(metric)], mean = round(mean, 2)),
-  caption = "Mean values on weekdays vs weekends"
-)
-```
-
-### Rank consistency (pairwise ranks on three-device days)
-
-**What this section answers:** *On days all three devices recorded a metric, do they agree on which days were "better" or "worse"?*
-
-Example: if Whoop, Oura, and Withings all rank June 28 as a high-HRV day and July 3 as a low-HRV day, rank consistency is high — even if the absolute numbers differ. This table is still pairwise (Whoop vs Oura, etc.) but **restricted to three-device days**. The simultaneous three-device tests (ICC, Friedman, Kendall's W) are in the **Three-device tests** section above.
-
-```{r rank-consistency}
-#| code-summary: "Show code that computes rank correlations across three devices"
-rank_rhr   <- rank_consistency(wide_df, "rhr", c("whoop", "oura", "withings"))
-rank_sleep <- rank_consistency(wide_df, "sleep_min", c("whoop", "oura", "withings"))
-rank_steps <- rank_consistency(wide_df, "steps", c("whoop", "oura", "withings"))
-rank_all <- dplyr::bind_rows(rank_rhr, rank_sleep, rank_steps)
-if (!is.null(rank_all) && nrow(rank_all) > 0) {
-  knitr::kable(
-    rank_all |> dplyr::mutate(metric = METRIC_LABELS[metric], spearman = round(spearman, 3)),
-    caption = "Rank correlation between devices (Spearman) on three-device complete-case days"
-  )
-}
-```
-
-### Cross-metric within device (RHR vs HRV)
-
-**What this section answers:** *Within each device, do RHR and HRV move together as expected?*
-
-Physiologically, lower RHR and higher HRV tend to occur on the same "good recovery" days. A negative Spearman correlation here is expected and confirms the device is measuring coherently.
+Lower resting HR and higher HRV tend to occur on the same well-recovered days. A **negative** correlation within each device is therefore expected, and finding it confirms the device is internally consistent — a useful check for a device that disagrees with the others, since it separates "measuring something different" from "measuring nothing".
 
 ```{r cross-metric}
 #| code-summary: "Show code that correlates RHR with HRV within each device"
@@ -733,77 +834,42 @@ cross_rhr_hrv <- cross_metric_correlation(long_df, "rhr", "hrv")
 if (!is.null(cross_rhr_hrv)) {
   knitr::kable(
     cross_rhr_hrv |> dplyr::mutate(dplyr::across(where(is.numeric), ~ round(.x, 3))),
-    caption = "Within-device Spearman correlation: RHR vs HRV"
+    caption = "Within-device Spearman correlation: resting HR vs HRV"
   )
-}
-```
-
-### Lagged effects (steps → next-day recovery)
-
-**What this section answers:** *Does being more active today affect tomorrow's RHR or HRV?*
-
-We correlate today's step count with *tomorrow's* RHR/HRV (1-day lag). A negative correlation for RHR would mean more steps today → lower (better) RHR tomorrow. This is exploratory — 33 days is a small sample.
-
-```{r lagged}
-#| code-summary: "Show code that tests lagged step-recovery correlations"
-lag_rhr  <- lagged_correlation(long_df, "steps", "rhr", lag_days = 1)
-lag_hrv  <- lagged_correlation(long_df, "steps", "hrv", lag_days = 1)
-lag_all  <- dplyr::bind_rows(lag_rhr, lag_hrv)
-if (!is.null(lag_all) && nrow(lag_all) > 0) {
-  knitr::kable(
-    lag_all |> dplyr::mutate(dplyr::across(where(is.numeric), ~ round(.x, 3))),
-    caption = "Lagged Spearman: today's steps vs tomorrow's RHR/HRV"
-  )
-}
-```
-
-### Withings intraday HR profile
-
-**What this chart shows:** The average heart rate at each hour of the day from Withings' high-frequency HR recordings, pooled across all days in the study. The dip during typical sleep hours (roughly 1–7 am) and rise during the day is expected.
-
-```{r intraday-hr, fig.height=5}
-#| fig-cap: "Average hourly heart rate from Withings (Pacific time). Shaded band = uncertainty (±1 standard error)."
-#| code-summary: "Show code that builds the intraday HR profile from raw Withings HR data"
-if (!is.null(intraday_hr)) plot_intraday_hr_profile(intraday_hr)
-```
-
-### Whoop workout log
-
-**What this table shows:** Structured exercise sessions recorded by Whoop during the study window. High-strain days may explain next-day recovery differences between devices.
-
-```{r workouts}
-#| code-summary: "Show code that lists Whoop workouts"
-if (!is.null(workouts) && nrow(workouts) > 0) {
-  knitr::kable(
-    workouts |>
-      dplyr::select(date, activity_name, duration_min, activity_strain, average_hr_bpm) |>
-      dplyr::mutate(dplyr::across(where(is.numeric), ~ round(.x, 1))),
-    caption = "Whoop workouts during the study window"
-  )
-} else {
-  cat("No Whoop workouts in the analysis window.")
 }
 ```
 
 ---
 
+## What this means in practice
+
+- **Pick one device and stay with it.** Trends within a single device are trustworthy; absolute numbers are not transferable between devices. Switching devices mid-tracking breaks the continuity of your history.
+- **Trust trends far more than single days.** Compare a daily change against the `srd` column: for sleep duration the smallest real difference approaches an hour, so a 20-minute change means nothing.
+- **Sleep stage numbers deserve the most skepticism**, especially from Withings, whose deep/REM split differs so much that it is effectively a different measurement.
+- **Never compare readiness or recovery scores across brands.** They agree less than any raw metric measured here.
+- **Match definitions before concluding a device is wrong.** The apparent resting-HR failure was largely a "lowest versus average" mismatch, not a bad sensor — and correcting it revealed Oura and Withings to be nearly interchangeable.
+- **Bedtime is the metric to trust if you need cross-device consistency**; sleep staging is the one to trust least.
+
+---
+
 ## Limitations
 
-Keep these caveats in mind when interpreting any result in this report:
-
-- **Single participant, ~33 days** — all correlations are exploratory. We cannot generalize to other people or longer periods.
-- **Whoop steps were manually typed** into a text file, not exported by the app. Gaps and implausible values reduce reliability.
-- **Withings HRV is absent** in the 2026 data export — no three-way HRV comparison is possible.
-- **Withings sleep stops after July 18** — three-way sleep comparisons cover fewer days than other metrics.
-- **RHR definitions differ** across devices unless using the harmonized `rhr_rest` metric.
-- **Proprietary algorithms** — each brand processes raw sensor data differently. Disagreement does not mean one device is "wrong" without a clinical reference (e.g., polysomnography for sleep, ECG for heart rate).
+- **One participant, 33 days.** Every result is exploratory and cannot be generalized to other people or longer periods.
+- **No ground truth.** Without polysomnography for sleep or ECG for heart rate, we can measure *agreement* but never *accuracy*. When devices disagree, this analysis cannot say which one is right.
+- **Whoop steps were typed by hand** into a text note rather than exported, so that comparison is the least reliable in the report.
+- **Withings exported no HRV** for 2026, so HRV is a two-device comparison only.
+- **Withings sleep stops after July 18**, reducing the day count for every sleep comparison involving it.
+- **Whoop and Oura are the only pair with near-complete overlap**, so their agreement estimates rest on more days than the others.
+- **Equivalence margins were chosen by judgement**, not from clinical guidelines. Different margins would change which pairs pass.
+- **Multiple comparisons.** Many tests are run across many metrics; only the three-device post-hoc tests are corrected for it. Individual p-values near 0.05 should not be over-read.
+- **Unused signals.** Skin temperature (Whoop absolute vs Oura deviation) and blood oxygen are exported on incompatible scales or too sparsely to compare here.
 - **All timestamps** are interpreted in US Pacific time (`America/Los_Angeles`).
 
 ---
 
 ## Appendix — session information
 
-The R version and package versions used to generate this report. Useful for reproducibility if you re-run the analysis on your own machine.
+The R and package versions used to generate this report, for reproducibility.
 
 ```{r session-info}
 #| code-fold: true

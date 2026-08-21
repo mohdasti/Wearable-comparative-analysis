@@ -98,7 +98,19 @@ make_metric_rows <- function(df, device, metric, date, value, unit, datetime, so
 # Sleep/recovery metrics are keyed to the wake date (Wake onset).
 # -----------------------------------------------------------------------------
 parse_whoop_cycles <- function() {
-  raw <- readr::read_csv(PATHS$whoop_cycles, show_col_types = FALSE) |>
+  # Whoop writes naive local wall-clock strings ("2026-07-22 02:25:47") with the
+  # zone in a separate column. Forcing these to character stops readr from
+  # parsing them as UTC, which would shift every time-of-day by the UTC offset.
+  raw <- readr::read_csv(
+    PATHS$whoop_cycles, show_col_types = FALSE,
+    col_types = readr::cols(
+      `Cycle start time` = readr::col_character(),
+      `Cycle end time`   = readr::col_character(),
+      `Sleep onset`      = readr::col_character(),
+      `Wake onset`       = readr::col_character(),
+      .default = readr::col_guess()
+    )
+  ) |>
     janitor::clean_names()
 
   raw <- raw |>
@@ -116,18 +128,27 @@ parse_whoop_cycles <- function() {
 
   src <- basename(PATHS$whoop_cycles)
   dt  <- raw$wake_onset_dt
+  total <- raw$asleep_duration_min
 
   dplyr::bind_rows(
     make_metric_rows(raw, "whoop", "rhr",       raw$date, raw$resting_heart_rate_bpm,     "bpm", dt, src),
     # Whoop already reports a true resting HR, so rhr_rest == rhr.
     make_metric_rows(raw, "whoop", "rhr_rest",  raw$date, raw$resting_heart_rate_bpm,     "bpm", dt, src),
     make_metric_rows(raw, "whoop", "hrv",       raw$date, raw$heart_rate_variability_ms,  "ms",  dt, src),
-    make_metric_rows(raw, "whoop", "sleep_min", raw$date, raw$asleep_duration_min,        "min", dt, src),
+    make_metric_rows(raw, "whoop", "sleep_min", raw$date, total,                          "min", dt, src),
     make_metric_rows(raw, "whoop", "deep_min",  raw$date, raw$deep_sws_duration_min,      "min", dt, src),
     make_metric_rows(raw, "whoop", "rem_min",   raw$date, raw$rem_duration_min,           "min", dt, src),
     make_metric_rows(raw, "whoop", "light_min", raw$date, raw$light_sleep_duration_min,   "min", dt, src),
+    make_metric_rows(raw, "whoop", "deep_pct",  raw$date, raw$deep_sws_duration_min / total * 100,    "%", dt, src),
+    make_metric_rows(raw, "whoop", "rem_pct",   raw$date, raw$rem_duration_min / total * 100,         "%", dt, src),
+    make_metric_rows(raw, "whoop", "light_pct", raw$date, raw$light_sleep_duration_min / total * 100, "%", dt, src),
+    make_metric_rows(raw, "whoop", "awake_min", raw$date, raw$awake_duration_min,         "min", dt, src),
+    make_metric_rows(raw, "whoop", "tib_min",   raw$date, raw$in_bed_duration_min,        "min", dt, src),
     make_metric_rows(raw, "whoop", "sleep_eff", raw$date, raw$sleep_efficiency_percent,   "%",   dt, src),
     make_metric_rows(raw, "whoop", "resp_rate", raw$date, raw$respiratory_rate_rpm,       "brpm", dt, src),
+    # Whoop "Recovery score" and Oura "Readiness score" are both 0-100 daily
+    # readiness ratings, so they are harmonized under one metric name.
+    make_metric_rows(raw, "whoop", "readiness", raw$date, raw$recovery_score_percent,     "score", dt, src),
     make_metric_rows(raw, "whoop", "bedtime_hr",  raw$date, hours_after_noon(raw$sleep_onset_dt), "h", raw$sleep_onset_dt, src),
     make_metric_rows(raw, "whoop", "waketime_hr", raw$date, hours_after_midnight(raw$wake_onset_dt), "h", dt, src)
   )
@@ -212,17 +233,24 @@ parse_oura_trends <- function() {
 
   src <- basename(PATHS$oura_trends)
   dt  <- as.POSIXct(raw$date, tz = TZ)
+  total <- num(raw$total_sleep_duration) / 60
 
   dplyr::bind_rows(
     make_metric_rows(raw, "oura", "rhr",       raw$date, num(raw$average_resting_heart_rate), "bpm", dt, src),
     make_metric_rows(raw, "oura", "rhr_rest",  raw$date, num(raw$lowest_resting_heart_rate),  "bpm", dt, src),
     make_metric_rows(raw, "oura", "hrv",       raw$date, num(raw$average_hrv),                "ms",  dt, src),
-    make_metric_rows(raw, "oura", "sleep_min", raw$date, num(raw$total_sleep_duration) / 60,  "min", dt, src),
+    make_metric_rows(raw, "oura", "sleep_min", raw$date, total,                               "min", dt, src),
     make_metric_rows(raw, "oura", "deep_min",  raw$date, num(raw$deep_sleep_duration) / 60,   "min", dt, src),
     make_metric_rows(raw, "oura", "rem_min",   raw$date, num(raw$rem_sleep_duration) / 60,    "min", dt, src),
     make_metric_rows(raw, "oura", "light_min", raw$date, num(raw$light_sleep_duration) / 60,  "min", dt, src),
+    make_metric_rows(raw, "oura", "deep_pct",  raw$date, num(raw$deep_sleep_duration) / 60 / total * 100,  "%", dt, src),
+    make_metric_rows(raw, "oura", "rem_pct",   raw$date, num(raw$rem_sleep_duration) / 60 / total * 100,   "%", dt, src),
+    make_metric_rows(raw, "oura", "light_pct", raw$date, num(raw$light_sleep_duration) / 60 / total * 100, "%", dt, src),
+    make_metric_rows(raw, "oura", "awake_min", raw$date, num(raw$awake_time) / 60,            "min", dt, src),
+    make_metric_rows(raw, "oura", "tib_min",   raw$date, num(raw$total_bedtime) / 60,         "min", dt, src),
     make_metric_rows(raw, "oura", "sleep_eff", raw$date, num(raw$sleep_efficiency),           "%",   dt, src),
     make_metric_rows(raw, "oura", "resp_rate", raw$date, num(raw$respiratory_rate),           "brpm", dt, src),
+    make_metric_rows(raw, "oura", "readiness", raw$date, num(raw$readiness_score),            "score", dt, src),
     make_metric_rows(raw, "oura", "steps",     raw$date, num(raw$steps),                      "steps", dt, src),
     make_metric_rows(raw, "oura", "bedtime_hr",  raw$date, hours_after_noon(raw$bedtime_start_dt), "h", raw$bedtime_start_dt, src),
     make_metric_rows(raw, "oura", "waketime_hr", raw$date, hours_after_midnight(raw$bedtime_end_dt), "h", raw$bedtime_end_dt, src)
@@ -296,12 +324,18 @@ parse_withings_sleep <- function() {
 
   src <- basename(PATHS$withings_sleep)
   dt  <- raw$to_dt
+  total <- raw$total_sleep_min
 
   dplyr::bind_rows(
-    make_metric_rows(raw, "withings", "sleep_min", raw$date, raw$total_sleep_min, "min", dt, src),
+    make_metric_rows(raw, "withings", "sleep_min", raw$date, total,               "min", dt, src),
     make_metric_rows(raw, "withings", "deep_min",  raw$date, raw$deep_s / 60,     "min", dt, src),
     make_metric_rows(raw, "withings", "rem_min",   raw$date, raw$rem_s / 60,      "min", dt, src),
     make_metric_rows(raw, "withings", "light_min", raw$date, raw$light_s / 60,    "min", dt, src),
+    make_metric_rows(raw, "withings", "deep_pct",  raw$date, raw$deep_s / 60 / total * 100,  "%", dt, src),
+    make_metric_rows(raw, "withings", "rem_pct",   raw$date, raw$rem_s / 60 / total * 100,   "%", dt, src),
+    make_metric_rows(raw, "withings", "light_pct", raw$date, raw$light_s / 60 / total * 100, "%", dt, src),
+    make_metric_rows(raw, "withings", "awake_min", raw$date, raw$awake_s / 60,    "min", dt, src),
+    make_metric_rows(raw, "withings", "tib_min",   raw$date, raw$time_in_bed_s / 60, "min", dt, src),
     make_metric_rows(raw, "withings", "sleep_eff", raw$date, raw$sleep_eff,       "%",   dt, src),
     # Withings "average heart rate" during sleep (comparable to Oura average RHR).
     make_metric_rows(raw, "withings", "rhr",       raw$date, raw$avg_hr,          "bpm", dt, src),
@@ -310,49 +344,6 @@ parse_withings_sleep <- function() {
     make_metric_rows(raw, "withings", "bedtime_hr",  raw$date, hours_after_noon(raw$from_dt), "h", raw$from_dt, src),
     make_metric_rows(raw, "withings", "waketime_hr", raw$date, hours_after_midnight(raw$to_dt), "h", dt, src)
   )
-}
-
-# -----------------------------------------------------------------------------
-# parse_whoop_workouts()
-# Reads workouts.csv for a per-workout summary (activity, duration, strain, HR).
-# Used for an exploratory "activity context" section, not device comparison.
-# -----------------------------------------------------------------------------
-parse_whoop_workouts <- function() {
-  if (!file.exists(PATHS$whoop_workouts)) return(NULL)
-  readr::read_csv(PATHS$whoop_workouts, show_col_types = FALSE) |>
-    janitor::clean_names() |>
-    dplyr::mutate(
-      start_dt = parse_pacific_datetime(workout_start_time),
-      date = wake_date_from_pacific(start_dt)
-    ) |>
-    dplyr::filter(!is.na(date), date >= WINDOW_START, date <= WINDOW_END)
-}
-
-# -----------------------------------------------------------------------------
-# load_withings_intraday_hr()
-# Reads the large Withings intraday HR file (raw_hr_hr.csv). Values and
-# durations are bracketed text like "[75]". Timestamps are in the export's
-# original +02:00 zone and are converted to Pacific. Returns rows within the
-# analysis window only, for a 24-hour HR-profile visualization.
-# -----------------------------------------------------------------------------
-load_withings_intraday_hr <- function() {
-  if (!file.exists(PATHS$withings_hr)) return(NULL)
-  raw <- readr::read_csv(PATHS$withings_hr, show_col_types = FALSE) |>
-    janitor::clean_names()
-
-  raw |>
-    dplyr::mutate(
-      # Strip brackets from "[75]" -> 75.
-      hr = as.numeric(gsub("\\[|\\]", "", value)),
-      dt = lubridate::with_tz(lubridate::ymd_hms(start, tz = "UTC", quiet = TRUE), TZ),
-      # ymd_hms with offset returns UTC; re-parse keeping the offset instead.
-      dt = lubridate::with_tz(lubridate::parse_date_time(start, orders = "YmdHMSz", tz = TZ), TZ),
-      date = as.Date(dt),
-      hour = lubridate::hour(dt) + lubridate::minute(dt) / 60
-    ) |>
-    dplyr::filter(!is.na(dt), date >= WINDOW_START, date <= WINDOW_END,
-                  hr > 20, hr < 220) |>
-    dplyr::select(dt, date, hour, hr)
 }
 
 # -----------------------------------------------------------------------------
