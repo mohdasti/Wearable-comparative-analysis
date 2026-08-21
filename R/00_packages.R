@@ -5,12 +5,25 @@
 # =============================================================================
 
 # Use user-level library when system library is not writable (e.g. cloud VM).
-user_lib <- Sys.getenv(
-  "R_LIBS_USER",
-  unset = file.path(Sys.getenv("HOME"), "R", R.version$platform, "library", R.version$major, ".", R.version$minor)
-)
-if (dir.exists(user_lib) || dir.create(user_lib, recursive = TRUE, showWarnings = FALSE)) {
-  .libPaths(c(user_lib, .libPaths()))
+# Check several common user-lib locations so packages installed by R, this
+# script, or a previous session are all visible.
+user_lib_candidates <- unique(c(
+  Sys.getenv("R_LIBS_USER"),
+  file.path(
+    Sys.getenv("HOME"), "R",
+    paste0(R.version$platform, "-library"),
+    paste0(R.version$major, ".", strsplit(R.version$minor, ".", fixed = TRUE)[[1]][[1]])
+  ),
+  file.path(
+    Sys.getenv("HOME"), "R", R.version$platform, "library",
+    paste0(R.version$major, ".", R.version$minor)
+  )
+))
+user_lib_candidates <- user_lib_candidates[nzchar(user_lib_candidates)]
+for (lib in user_lib_candidates) {
+  if (dir.exists(lib) || dir.create(lib, recursive = TRUE, showWarnings = FALSE)) {
+    .libPaths(c(lib, .libPaths()))
+  }
 }
 
 required_packages <- c(

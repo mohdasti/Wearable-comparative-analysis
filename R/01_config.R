@@ -29,11 +29,9 @@ WINDOW_END   <- as.Date("2026-07-22")
 PATHS <- list(
   whoop_cycles   = file.path(PROJECT_ROOT, "raw_data", "whoop", "physiological_cycles.csv"),
   whoop_steps    = file.path(PROJECT_ROOT, "raw_data", "whoop", "whoop.rtf"),
-  whoop_workouts = file.path(PROJECT_ROOT, "raw_data", "whoop", "workouts.csv"),
   oura_trends    = file.path(PROJECT_ROOT, "raw_data", "oura", "oura_2026-05-22_2026-07-23_trends.csv"),
   withings_steps = file.path(PROJECT_ROOT, "raw_data", "withings", "aggregates_steps.csv"),
-  withings_sleep = file.path(PROJECT_ROOT, "raw_data", "withings", "sleep.csv"),
-  withings_hr    = file.path(PROJECT_ROOT, "raw_data", "withings", "raw_hr_hr.csv")
+  withings_sleep = file.path(PROJECT_ROOT, "raw_data", "withings", "sleep.csv")
 )
 
 # Output folder for cleaned / harmonized data.
@@ -53,11 +51,16 @@ METRICS <- c("rhr", "hrv", "sleep_min", "steps")
 # All metrics harmonized in the long table (core + extended).
 # rhr_rest = "resting" definition (Whoop RHR / Oura lowest RHR / Withings min sleeping HR)
 #            used for a like-for-like resting HR comparison.
+# *_pct    = stage share of total sleep. Comparing stage minutes alone confounds
+#            stage detection with total-sleep differences; percentages separate them.
 ALL_METRICS <- c(
   "rhr", "rhr_rest", "hrv", "sleep_min", "steps",
   "deep_min", "rem_min", "light_min",
+  "deep_pct", "rem_pct", "light_pct",
+  "awake_min", "tib_min",
   "sleep_eff", "resp_rate",
-  "bedtime_hr", "waketime_hr"
+  "bedtime_hr", "waketime_hr",
+  "readiness"
 )
 
 METRIC_LABELS <- c(
@@ -69,14 +72,35 @@ METRIC_LABELS <- c(
   deep_min    = "Deep sleep (min)",
   rem_min     = "REM sleep (min)",
   light_min   = "Light sleep (min)",
+  deep_pct    = "Deep sleep (% of sleep)",
+  rem_pct     = "REM sleep (% of sleep)",
+  light_pct   = "Light sleep (% of sleep)",
+  awake_min   = "Awake time during sleep (min)",
+  tib_min     = "Time in bed (min)",
   sleep_eff   = "Sleep efficiency (%)",
   resp_rate   = "Respiratory rate (breaths/min)",
   bedtime_hr  = "Bedtime (hours after noon)",
-  waketime_hr = "Wake time (hours after midnight)"
+  waketime_hr = "Wake time (hours after midnight)",
+  readiness   = "Daily readiness score (0-100)"
 )
 
 # Sleep stages compared as a group (all three devices report these).
 SLEEP_STAGE_METRICS <- c("deep_min", "rem_min", "light_min")
+SLEEP_STAGE_PCT_METRICS <- c("deep_pct", "rem_pct", "light_pct")
+
+# Largest device-vs-device bias we would still call practically interchangeable.
+# Set from what a user could act on, not from statistics: e.g. a 2 bpm resting-HR
+# offset is within normal day-to-day noise, so it would not change a decision.
+# Used by the equivalence check — a bias whose 95% CI sits entirely inside
+# +/- margin is "equivalent"; one whose CI extends past it is not.
+EQUIV_MARGINS <- c(
+  rhr = 2, rhr_rest = 2, hrv = 5, sleep_min = 30, steps = 1000,
+  deep_min = 20, rem_min = 20, light_min = 30,
+  deep_pct = 5, rem_pct = 5, light_pct = 5,
+  awake_min = 20, tib_min = 30,
+  sleep_eff = 5, resp_rate = 1,
+  bedtime_hr = 0.5, waketime_hr = 0.5, readiness = 10
+)
 
 # QC thresholds — values outside hard bounds are excluded; soft bounds are flagged.
 QC_RULES <- list(
@@ -88,7 +112,13 @@ QC_RULES <- list(
   deep_min  = list(hard_min = 0,  hard_max = 300, soft_min = 15,  soft_max = 200, jump = 120),
   rem_min   = list(hard_min = 0,  hard_max = 300, soft_min = 15,  soft_max = 200, jump = 120),
   light_min = list(hard_min = 0,  hard_max = 600, soft_min = 60,  soft_max = 450, jump = 180),
+  deep_pct  = list(hard_min = 0,  hard_max = 100, soft_min = 3,   soft_max = 45,  jump = 30),
+  rem_pct   = list(hard_min = 0,  hard_max = 100, soft_min = 3,   soft_max = 45,  jump = 30),
+  light_pct = list(hard_min = 0,  hard_max = 100, soft_min = 20,  soft_max = 85,  jump = 35),
+  awake_min = list(hard_min = 0,  hard_max = 400, soft_min = 2,   soft_max = 180, jump = 120),
+  tib_min   = list(hard_min = 60, hard_max = 960, soft_min = 150, soft_max = 900, jump = 200),
   sleep_eff = list(hard_min = 30, hard_max = 100, soft_min = 60,  soft_max = 100, jump = 30),
+  readiness = list(hard_min = 0,  hard_max = 100, soft_min = 10,  soft_max = 100, jump = 40),
   resp_rate = list(hard_min = 5,  hard_max = 40,  soft_min = 10,  soft_max = 25,  jump = 6),
   bedtime_hr  = list(hard_min = -6, hard_max = 18, soft_min = 6, soft_max = 15, jump = 6),
   waketime_hr = list(hard_min = 0,  hard_max = 18, soft_min = 4, soft_max = 13, jump = 6)

@@ -4,14 +4,30 @@ Compare daily health metrics across **Whoop**, **Oura Ring 4**, and **Withings S
 
 ## Metrics
 
-- Resting heart rate (RHR)
-- Heart rate variability (HRV) — Whoop vs Oura only (Withings HRV not in 2026 export)
-- Sleep duration
-- Daily steps (Whoop steps manually logged from app)
+**Headline:** resting heart rate, HRV (Whoop vs Oura only — Withings exported none), sleep duration, daily steps (Whoop steps logged by hand).
+
+**Also compared:** like-for-like resting HR, sleep stages in minutes *and* as a share of the night, awake time, time in bed, sleep efficiency, respiratory rate, bedtime and wake time, and each brand's daily readiness score.
 
 ## Analysis window
 
 **2026-06-20 to 2026-07-22** (US Pacific, `America/Los_Angeles`), anchored to Whoop coverage.
+
+## Statistical approach
+
+Every comparison separates two questions that are easy to conflate:
+
+1. **Do the devices move together?** Pearson/Spearman correlation, Kendall's W.
+2. **Do they report the same number?** Bias with 95% CI, limits of agreement, ICC, CCC/OCCC.
+
+On top of that: Bland–Altman with a proportional-bias test, Deming regression, smallest real difference (SRD), an equivalence check against pre-set practical margins, and simultaneous three-device tests (three-rater ICC, Friedman, RM-ANOVA, Bonferroni Wilcoxon post-hoc).
+
+## Headline findings
+
+- All three devices agree on **bedtime** almost exactly (three-device ICC = 0.98).
+- **No** headline metric passed the equivalence check on every device pair.
+- Oura and Withings are nearly interchangeable on *lowest* resting HR (r = 0.94, ICC = 0.93) — better than either agrees with Whoop.
+- Withings assigns ~40% of the night to deep sleep vs 16–20% for the others, and detects almost no REM.
+- Whoop's Recovery score and Oura's Readiness score correlate at only r = 0.24.
 
 ## Project structure
 
@@ -50,6 +66,7 @@ source("R/source_project.R")
 source("R/06_plots.R")
 harmonized <- save_harmonized()
 agreement  <- run_all_agreement(harmonized$wide)
+threeway   <- run_all_threeway(harmonized$wide)
 ```
 
 ## R packages
