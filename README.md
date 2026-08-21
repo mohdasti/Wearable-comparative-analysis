@@ -50,6 +50,7 @@ source("R/source_project.R")
 source("R/06_plots.R")
 harmonized <- save_harmonized()
 agreement  <- run_all_agreement(harmonized$wide)
+threeway   <- run_all_threeway(harmonized$wide)
 ```
 
 ## R packages

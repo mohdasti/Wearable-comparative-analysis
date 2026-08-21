@@ -314,7 +314,8 @@ plot_sleep_architecture <- function(arch_df, n_nights = 14) {
 # For one metric, shows the spread between devices on each day as a dumbbell/lollipop.
 # Useful for seeing which device reads higher on which nights.
 # -----------------------------------------------------------------------------
-plot_paired_dumbbell <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+plot_paired_dumbbell <- function(wide_df, metric, devices = c("whoop", "oura", "withings"),
+                                 complete_only = FALSE) {
   cols <- vapply(devices, device_metric_col, character(1), metric = metric)
   if (!all(cols %in% names(wide_df))) return(NULL)
 
@@ -331,8 +332,10 @@ plot_paired_dumbbell <- function(wide_df, metric, devices = c("whoop", "oura", "
       )
     )
 
-  # Only days where at least 2 devices have data.
-  day_counts <- sub |> dplyr::count(date) |> dplyr::filter(n >= 2)
+  # complete_only = TRUE keeps days where every device recorded (three-way tests).
+  # Otherwise keep days with at least two devices (pairwise plots).
+  min_n <- if (isTRUE(complete_only)) length(devices) else 2L
+  day_counts <- sub |> dplyr::count(date) |> dplyr::filter(n >= min_n)
   sub <- sub |> dplyr::inner_join(day_counts, by = "date")
 
   ggplot2::ggplot(sub, ggplot2::aes(x = value, y = reorder(date, date), color = device)) +
@@ -341,10 +344,41 @@ plot_paired_dumbbell <- function(wide_df, metric, devices = c("whoop", "oura", "
     ggplot2::scale_color_manual(values = DEVICE_COLORS) +
     ggplot2::labs(
       x = METRIC_LABELS[[metric]], y = "Date", color = "Device",
-      title = paste("Daily spread —", METRIC_LABELS[[metric]])
+      title = paste(
+        if (isTRUE(complete_only)) "Three-device complete-case spread —" else "Daily spread —",
+        METRIC_LABELS[[metric]]
+      )
     ) +
     ggplot2::theme_minimal(base_size = 11) +
     ggplot2::theme(legend.position = "bottom")
+}
+
+# -----------------------------------------------------------------------------
+# plot_threeway_box()
+# Boxplots + jitter of the three devices on the SAME complete-case days used
+# in Friedman / three-rater ICC. Missing a device drops the whole day, so the
+# comparison is simultaneous rather than pairwise.
+# -----------------------------------------------------------------------------
+plot_threeway_box <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+  sub <- get_threeway_data(wide_df, metric, devices)
+  if (is.null(sub)) return(NULL)
+
+  long <- tidyr::pivot_longer(sub, -date, names_to = "device_key", values_to = "value") |>
+    dplyr::mutate(device = unname(DEVICE_LABELS[device_key]))
+
+  ggplot2::ggplot(long, ggplot2::aes(x = device, y = value, fill = device)) +
+    ggplot2::geom_boxplot(alpha = 0.7, outlier.shape = NA, width = 0.55) +
+    ggplot2::geom_jitter(width = 0.12, height = 0, size = 2, alpha = 0.7, shape = 21,
+                         ggplot2::aes(color = device)) +
+    ggplot2::scale_fill_manual(values = DEVICE_COLORS) +
+    ggplot2::scale_color_manual(values = DEVICE_COLORS) +
+    ggplot2::labs(
+      x = NULL, y = METRIC_LABELS[[metric]],
+      title = paste("Three-device complete-case days —", METRIC_LABELS[[metric]]),
+      subtitle = paste(nrow(sub), "days with Whoop, Oura, and Withings all present")
+    ) +
+    ggplot2::theme_minimal(base_size = 12) +
+    ggplot2::theme(legend.position = "none")
 }
 
 # -----------------------------------------------------------------------------

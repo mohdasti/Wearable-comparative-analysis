@@ -59,7 +59,9 @@ overlap_tbl   <- overlap_counts(overlap)                                # which 
 ww_stats      <- weekday_weekend_stats(long_df)                         # weekday vs weekend
 exec_summary  <- executive_summary(agreement)                           # one-line verdicts
 compliance    <- compliance_summary(long_df)                            # % days with data
-kendall_tbl   <- kendall_w_table(wide_df)                               # 3-way rank agreement
+threeway_tbl  <- run_all_threeway(wide_df)                              # simultaneous 3-device tests
+threeway_post <- run_all_threeway_posthoc(wide_df)                      # which device pairs differ
+kendall_tbl   <- kendall_w_table(wide_df)                               # 3-way rank agreement (subset of threeway_tbl)
 arch_df       <- sleep_architecture_wide(long_df)                       # sleep stages per night
 workouts      <- parse_whoop_workouts()                                 # Whoop activity log
 intraday_hr   <- load_withings_intraday_hr()                            # Withings HR time series
@@ -95,6 +97,10 @@ This document compares three wearable devices worn by the **same person** over *
 | **Bland–Altman plot** | A standard method-comparison chart. Points above zero mean device B reads higher than A that day. The solid line = average bias; dashed lines = 95% limits of agreement (LoA). |
 | **Deming regression** | A regression line that accounts for measurement error in *both* devices (not just one). Slope ≈ 1 and intercept ≈ 0 means no proportional or fixed bias. |
 | **Kendall's W** | Measures whether all three devices *rank* days similarly (e.g., all agree "June 28 was a good recovery day"). **1** = perfect rank agreement; **0** = none. |
+| **Three-rater ICC** | Intraclass correlation using *all three* devices on the same days (not two at a time). Near **1** = the three readings are interchangeable. |
+| **OCCC** | Overall concordance correlation — the three-device version of CCC. Near **1** = all three agree on both trend and level. |
+| **Friedman's test** | Asks whether the three devices sit at different *levels* (e.g., one always reads higher). A small p-value means they do **not** all share the same typical value. |
+| **RM-ANOVA** | Repeated-measures ANOVA — the parametric companion to Friedman. Same question (do means differ?), with a normality/sphericity assumption. |
 | **Wake date** | The calendar date we assign a night's sleep to — the morning you woke up (e.g., sleep starting June 20 at 1 am → assigned to June 20). |
 | **Compliance** | The percentage of days in the 33-day window where a device actually recorded a valid value. |
 | **QC flag** | A data point marked as suspicious (e.g., very low steps suggesting the device was not worn) but not automatically deleted. |
@@ -120,6 +126,7 @@ if (!is.null(exec_summary)) {
 
 - **Whoop ↔ Oura** agree strongly on all four headline metrics (Pearson r > 0.9).
 - **Withings RHR** looks similar on average (~70 bpm) but does not track day-to-day changes with Whoop/Oura when using average sleeping HR. Using **minimum sleeping HR** instead improves agreement — see the RHR section.
+- **Three-device tests** (ICC, Friedman, Kendall's W) evaluate Whoop, Oura, and Withings **on the same days at once**, not two at a time — see the dedicated section below. HRV cannot be tested this way because Withings HRV is missing.
 - **Sleep stages** (deep / REM / light) are available from all three devices; agreement is moderate (algorithms differ).
 - **Withings HRV** is missing from the 2026 export — only Whoop vs Oura HRV comparison is possible.
 - **Withings sleep data** stops after July 18, so three-way sleep comparisons cover fewer days.
@@ -299,7 +306,9 @@ patchwork::wrap_plots(ts_plots, ncol = 2)
 
 **What this section answers:** *When both devices record on the same day, how closely do their numbers match?*
 
-We compare devices **pairwise** (Whoop vs Oura, Whoop vs Withings, Oura vs Withings) on every day where both have data. The table below reports:
+We first compare devices **pairwise** (Whoop vs Oura, Whoop vs Withings, Oura vs Withings) on every day where those two have data. Pairwise tests can use different day sets for each pair. The **next section** tests all three devices together on the *same* days.
+
+The table below reports:
 
 | Column | Meaning |
 |--------|---------|
@@ -364,6 +373,119 @@ if (!is.null(rhr_rest_agree)) {
 p1 <- plot_paired_dumbbell(wide_df, "rhr")
 p2 <- plot_paired_dumbbell(wide_df, "rhr_rest")
 if (!is.null(p1) && !is.null(p2)) patchwork::wrap_plots(list(p1, p2), ncol = 1)
+```
+
+## Three-device tests (all methods together)
+
+**What this section answers:** *When Whoop, Oura, and Withings all recorded on the same day, do the three methods agree as a set — and do they sit at the same level?*
+
+The pairwise tables above compare two devices at a time, and each pair can use a different set of days. That can hide a three-way mismatch: Whoop and Oura may agree on 33 days, while Withings only overlaps 25 of them.
+
+Here we keep **only days where all three devices have a value**, then run tests that treat the three methods as one comparison:
+
+| Test | Question it answers | How to read it |
+|------|---------------------|----------------|
+| **Three-rater ICC(2,1)** | If we picked a day at random, would the three readings be interchangeable? | Near **1** = yes. Below **0.5** = poor. The 95% CI and p-value test whether ICC is greater than 0. |
+| **OCCC** | Same idea as Lin's CCC, but for three devices at once. | Near **1** = they track each other *and* sit at the same level. |
+| **Cronbach's α** | Internal consistency of the three readings. | Near **1** = they behave like repeated measures of the same thing. |
+| **Kendall's W** | Do all three *rank* days in the same order? | **1** = identical ranking; **0** = none. The p-value tests W > 0. |
+| **Friedman's test** | Do the three devices have the same typical value (median)? | Small p (e.g. < 0.05) = at least one device sits higher or lower than the others. |
+| **RM-ANOVA** | Same question as Friedman, using means. | Same reading as Friedman; more powerful if values are roughly normal. |
+
+**HRV is omitted** here: Withings has no 2026 HRV export, so a three-device HRV test is impossible.
+
+```{r threeway-agreement}
+#| code-summary: "Show code that runs simultaneous three-device agreement tests"
+fmt_p <- function(p) {
+  dplyr::case_when(
+    is.na(p) ~ NA_character_,
+    p < 0.001 ~ "<0.001",
+    TRUE ~ sprintf("%.3f", p)
+  )
+}
+
+if (!is.null(threeway_tbl) && nrow(threeway_tbl) > 0) {
+  knitr::kable(
+    threeway_tbl |>
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        icc = round(icc, 3),
+        icc_95 = sprintf("[%.2f, %.2f]", icc_lbound, icc_ubound),
+        icc_p = fmt_p(icc_p),
+        occc = round(occc, 3),
+        cronbach_alpha = round(cronbach_alpha, 3),
+        kendall_w = round(kendall_w, 3),
+        kendall_p = fmt_p(kendall_p)
+      ) |>
+      dplyr::select(
+        metric, n_days, icc, icc_95, icc_p, occc, cronbach_alpha,
+        kendall_w, kendall_p
+      ),
+    caption = "Three-device agreement on complete-case days (ICC, OCCC, Cronbach's α, Kendall's W)"
+  )
+}
+```
+
+**How to read the agreement table:** `n_days` is how many mornings all three devices recorded. ICC / OCCC / α / W all live on a 0–1 scale (higher = more interchangeable). A high Kendall's W with a low ICC means the devices *rank* days similarly but sit at different absolute levels (one reads systematically high).
+
+```{r threeway-location}
+#| code-summary: "Show code that tests whether the three devices sit at different levels"
+if (!is.null(threeway_tbl) && nrow(threeway_tbl) > 0) {
+  knitr::kable(
+    threeway_tbl |>
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        friedman_chi2 = round(friedman_chi2, 2),
+        differ = dplyr::if_else(
+          !is.na(friedman_p) & friedman_p < 0.05,
+          "Yes — at least one device differs",
+          "No significant level difference"
+        ),
+        friedman_p = fmt_p(friedman_p),
+        anova_f = round(anova_f, 2),
+        anova_p = fmt_p(anova_p)
+      ) |>
+      dplyr::select(metric, n_days, friedman_chi2, friedman_p, anova_f, anova_p, differ),
+    caption = "Do the three devices sit at the same level? Friedman rank test and repeated-measures ANOVA"
+  )
+}
+```
+
+When Friedman (or RM-ANOVA) is significant, the next table shows **which pair** differs. These are Wilcoxon signed-rank tests on the same complete-case days, Bonferroni-adjusted for the three pairs. `median_diff` is device B minus device A.
+
+```{r threeway-posthoc}
+#| code-summary: "Show code that runs Bonferroni Wilcoxon post-hoc tests"
+headline_threeway <- c("rhr", "rhr_rest", "sleep_min", "steps")
+if (!is.null(threeway_post) && nrow(threeway_post) > 0) {
+  post_show <- threeway_post |>
+    dplyr::filter(metric %in% headline_threeway)
+  knitr::kable(
+    post_show |>
+      dplyr::mutate(
+        metric = METRIC_LABELS[metric],
+        median_diff = round(median_diff, 2),
+        wilcox_p_raw = fmt_p(wilcox_p_raw),
+        wilcox_p_bonferroni = fmt_p(wilcox_p_bonferroni)
+      ),
+    caption = "Post-hoc: which device pair differs on complete-case days (Bonferroni-adjusted Wilcoxon)"
+  )
+}
+```
+
+**What the charts show:** Each row of dots is one day where **all three** devices recorded. A short gray line means the three readings were close that day; a long line means they disagreed. Boxplots on the right use the same days.
+
+```{r threeway-plots, fig.height=16}
+#| fig-cap: "Complete-case three-device spread (left) and boxplots (right) for RHR, like-for-like RHR, sleep, and steps. HRV is omitted because Withings has no HRV export."
+#| code-summary: "Show code that draws three-device complete-case plots"
+threeway_metrics <- c("rhr", "rhr_rest", "sleep_min", "steps")
+tw_plots <- lapply(threeway_metrics, function(m) {
+  left  <- plot_paired_dumbbell(wide_df, m, complete_only = TRUE)
+  right <- plot_threeway_box(wide_df, m)
+  if (is.null(left) || is.null(right)) return(NULL)
+  patchwork::wrap_plots(list(left, right), ncol = 2)
+})
+tw_plots <- Filter(Negate(is.null), tw_plots)
+if (length(tw_plots) > 0) patchwork::wrap_plots(tw_plots, ncol = 1)
 ```
 
 ### How to read the scatter and Bland–Altman plots
@@ -579,11 +701,11 @@ knitr::kable(
 )
 ```
 
-### Rank consistency (three-way)
+### Rank consistency (pairwise ranks on three-device days)
 
 **What this section answers:** *On days all three devices recorded a metric, do they agree on which days were "better" or "worse"?*
 
-Example: if Whoop, Oura, and Withings all rank June 28 as a high-HRV day and July 3 as a low-HRV day, rank consistency is high — even if the absolute numbers differ.
+Example: if Whoop, Oura, and Withings all rank June 28 as a high-HRV day and July 3 as a low-HRV day, rank consistency is high — even if the absolute numbers differ. This table is still pairwise (Whoop vs Oura, etc.) but **restricted to three-device days**. The simultaneous three-device tests (ICC, Friedman, Kendall's W) are in the **Three-device tests** section above.
 
 ```{r rank-consistency}
 #| code-summary: "Show code that computes rank correlations across three devices"
@@ -594,24 +716,7 @@ rank_all <- dplyr::bind_rows(rank_rhr, rank_sleep, rank_steps)
 if (!is.null(rank_all) && nrow(rank_all) > 0) {
   knitr::kable(
     rank_all |> dplyr::mutate(metric = METRIC_LABELS[metric], spearman = round(spearman, 3)),
-    caption = "Rank correlation between devices (Spearman)"
-  )
-}
-```
-
-### Kendall's W (three-way concordance)
-
-**What this section answers:** *Overall, do all three devices rank your days in the same order?*
-
-Kendall's W is a single number summarising three-way rank agreement. **1.0** = all three devices perfectly agree on the ordering of days; **0** = no agreement.
-
-```{r kendall-w}
-#| code-summary: "Show code that computes Kendall's W for each metric"
-if (!is.null(kendall_tbl) && nrow(kendall_tbl) > 0) {
-  knitr::kable(
-    kendall_tbl |>
-      dplyr::mutate(metric = METRIC_LABELS[metric], kendall_w = round(kendall_w, 3)),
-    caption = "Kendall's W — three-way ranking agreement (1 = perfect, 0 = none)"
+    caption = "Rank correlation between devices (Spearman) on three-device complete-case days"
   )
 }
 ```

@@ -1,6 +1,7 @@
 # =============================================================================
 # 05_analysis.R
-# Purpose: Statistical comparison functions — correlation, agreement, ICC, CCC.
+# Purpose: Statistical comparison functions — pairwise agreement plus
+#          simultaneous three-device tests (ICC, Friedman, OCCC, Kendall's W).
 # Each function is documented for readers new to R.
 # =============================================================================
 
@@ -310,37 +311,184 @@ rolling_correlation <- function(wide_df, metric, device_a, device_b, window = 7)
 }
 
 # -----------------------------------------------------------------------------
-# kendall_w()
-# Kendall's W (coefficient of concordance) on days where all three devices
-# recorded a metric. W near 1 = all three rank days similarly; near 0 = no
-# agreement in ranking. Only meaningful when all three devices have data.
+# get_threeway_data()
+# Days where ALL listed devices recorded the metric (complete-case matrix).
+# Pairwise tests can use days where only two devices overlap; three-way tests
+# require the same days for every device so the comparison is simultaneous.
+# Output: tibble with date plus one column per device, or NULL if too few days.
 # -----------------------------------------------------------------------------
-kendall_w <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+get_threeway_data <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
   cols <- vapply(devices, device_metric_col, character(1), metric = metric)
-  if (!all(cols %in% names(wide_df))) return(NA_real_)
+  if (!all(cols %in% names(wide_df))) return(NULL)
 
-  sub <- wide_df[, cols, drop = FALSE]
-  sub <- sub[stats::complete.cases(sub), , drop = FALSE]
-  if (nrow(sub) < 5) return(NA_real_)
-
-  mat <- as.matrix(sub)
-  tryCatch({
-    res <- irr::kendall(mat, correct = TRUE)
-    res$value
-  }, error = function(e) NA_real_)
+  sub <- wide_df[, c("date", cols), drop = FALSE]
+  names(sub) <- c("date", devices)
+  sub <- sub[stats::complete.cases(sub[, devices, drop = FALSE]), , drop = FALSE]
+  if (nrow(sub) < 5) return(NULL)
+  sub
 }
 
 # -----------------------------------------------------------------------------
-# kendall_w_table()
-# Kendall's W for every metric where all three devices have enough overlap.
+# occc_value()
+# Barnhart overall concordance correlation coefficient (OCCC) — the k-rater
+# generalization of Lin's CCC. Uses all devices in one number instead of
+# averaging pairwise CCCs. Near 1 = all devices agree on both trend and level.
+# Formula: Barnhart, Haber & Lin (2002), Biometrics.
 # -----------------------------------------------------------------------------
-kendall_w_table <- function(wide_df, metrics = ALL_METRICS) {
-  results <- lapply(metrics, function(m) {
-    w <- kendall_w(wide_df, m)
-    if (is.na(w)) return(NULL)
-    tibble::tibble(metric = m, kendall_w = w)
+occc_value <- function(mat) {
+  if (is.null(mat) || nrow(mat) < 3 || ncol(mat) < 2) return(NA_real_)
+  k <- ncol(mat)
+  mus <- colMeans(mat, na.rm = TRUE)
+  sds <- apply(mat, 2, stats::sd, na.rm = TRUE)
+  if (any(!is.finite(sds)) || any(sds == 0)) return(NA_real_)
+  cors <- stats::cor(mat, use = "complete.obs")
+
+  num <- 0
+  bias <- 0
+  for (j in seq_len(k - 1L)) {
+    for (l in (j + 1L):k) {
+      num <- num + cors[j, l] * sds[j] * sds[l]
+      bias <- bias + (mus[j] - mus[l])^2
+    }
+  }
+  den <- (k - 1) * sum(sds^2) + bias
+  if (!is.finite(den) || den == 0) return(NA_real_)
+  as.numeric(2 * num / den)
+}
+
+# -----------------------------------------------------------------------------
+# threeway_analysis()
+# Simultaneous three-device tests on complete-case days for one metric.
+#
+# Agreement (do the three devices track the same days?):
+#   - ICC(2,1) absolute agreement with 95% CI and F-test p-value
+#   - OCCC (overall concordance correlation)
+#   - Kendall's W and its chi-square p-value
+#   - Cronbach's alpha (internal consistency of the three readings)
+#
+# Location (do the three devices sit at different levels?):
+#   - Friedman rank test (non-parametric; no normality assumption)
+#   - Repeated-measures ANOVA (parametric companion; assumes sphericity)
+#
+# Returns NULL when a device is missing the metric (e.g. Withings HRV).
+# -----------------------------------------------------------------------------
+threeway_analysis <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+  sub <- get_threeway_data(wide_df, metric, devices)
+  if (is.null(sub)) return(NULL)
+
+  mat <- as.matrix(sub[, devices, drop = FALSE])
+  n <- nrow(mat)
+
+  icc_res <- tryCatch(
+    irr::icc(mat, model = "twoway", type = "agreement", unit = "single"),
+    error = function(e) NULL
+  )
+  kendall_res <- tryCatch(
+    irr::kendall(mat, correct = TRUE),
+    error = function(e) NULL
+  )
+  friedman_res <- tryCatch(
+    stats::friedman.test(mat),
+    error = function(e) NULL
+  )
+
+  long <- tidyr::pivot_longer(sub, -date, names_to = "device", values_to = "value")
+  long$date <- factor(long$date)
+  long$device <- factor(long$device, levels = devices)
+  anova_res <- tryCatch({
+    fit <- stats::aov(value ~ device + Error(date), data = long)
+    sm <- summary(fit)
+    # Device effect lives in the within-date stratum.
+    within <- sm[["Error: Within"]][[1]]
+    list(F = unname(within["device", "F value"]), p = unname(within["device", "Pr(>F)"]))
+  }, error = function(e) NULL)
+
+  alpha_res <- tryCatch({
+    psych::alpha(mat, check.keys = FALSE, warnings = FALSE)$total$raw_alpha
+  }, error = function(e) NA_real_)
+
+  tibble::tibble(
+    metric = metric,
+    n_days = n,
+    n_devices = ncol(mat),
+    icc = if (is.null(icc_res)) NA_real_ else icc_res$value,
+    icc_lbound = if (is.null(icc_res)) NA_real_ else icc_res$lbound,
+    icc_ubound = if (is.null(icc_res)) NA_real_ else icc_res$ubound,
+    icc_p = if (is.null(icc_res)) NA_real_ else icc_res$p.value,
+    occc = occc_value(mat),
+    cronbach_alpha = if (length(alpha_res) == 1) as.numeric(alpha_res) else NA_real_,
+    kendall_w = if (is.null(kendall_res)) NA_real_ else kendall_res$value,
+    kendall_p = if (is.null(kendall_res)) NA_real_ else kendall_res$p.value,
+    friedman_chi2 = if (is.null(friedman_res)) NA_real_ else unname(friedman_res$statistic),
+    friedman_p = if (is.null(friedman_res)) NA_real_ else friedman_res$p.value,
+    anova_f = if (is.null(anova_res)) NA_real_ else anova_res$F,
+    anova_p = if (is.null(anova_res)) NA_real_ else anova_res$p
+  )
+}
+
+# -----------------------------------------------------------------------------
+# threeway_posthoc()
+# If Friedman (or RM-ANOVA) finds a difference among the three devices, this
+# says WHICH pair differs. Wilcoxon signed-rank tests on the same complete-case
+# days, Bonferroni-adjusted for the three pairs.
+# -----------------------------------------------------------------------------
+threeway_posthoc <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+  sub <- get_threeway_data(wide_df, metric, devices)
+  if (is.null(sub)) return(NULL)
+
+  pairs <- utils::combn(devices, 2, simplify = FALSE)
+  n_pairs <- length(pairs)
+  rows <- lapply(pairs, function(p) {
+    wt <- stats::wilcox.test(sub[[p[1]]], sub[[p[2]]], paired = TRUE, exact = FALSE)
+    tibble::tibble(
+      metric = metric,
+      device_a = DEVICE_LABELS[[p[1]]],
+      device_b = DEVICE_LABELS[[p[2]]],
+      n_days = nrow(sub),
+      median_diff = stats::median(sub[[p[2]]] - sub[[p[1]]], na.rm = TRUE),
+      wilcox_p_raw = wt$p.value,
+      wilcox_p_bonferroni = min(1, wt$p.value * n_pairs)
+    )
   })
-  dplyr::bind_rows(results)
+  dplyr::bind_rows(rows)
+}
+
+# -----------------------------------------------------------------------------
+# run_all_threeway()
+# Three-device tests for every metric with enough complete-case overlap.
+# -----------------------------------------------------------------------------
+run_all_threeway <- function(wide_df, metrics = ALL_METRICS,
+                             devices = c("whoop", "oura", "withings")) {
+  results <- lapply(metrics, function(m) threeway_analysis(wide_df, m, devices))
+  out <- dplyr::bind_rows(results)
+  if (nrow(out) == 0) return(NULL)
+  out
+}
+
+run_all_threeway_posthoc <- function(wide_df, metrics = ALL_METRICS,
+                                     devices = c("whoop", "oura", "withings")) {
+  results <- lapply(metrics, function(m) threeway_posthoc(wide_df, m, devices))
+  out <- dplyr::bind_rows(results)
+  if (nrow(out) == 0) return(NULL)
+  out
+}
+
+# -----------------------------------------------------------------------------
+# kendall_w() / kendall_w_table()
+# Kept for backward compatibility; threeway_analysis() is the full three-device
+# test suite. W near 1 = all three rank days similarly; near 0 = no ranking
+# agreement. Only defined when all three devices have data on the same days.
+# -----------------------------------------------------------------------------
+kendall_w <- function(wide_df, metric, devices = c("whoop", "oura", "withings")) {
+  row <- threeway_analysis(wide_df, metric, devices)
+  if (is.null(row)) return(NA_real_)
+  row$kendall_w
+}
+
+kendall_w_table <- function(wide_df, metrics = ALL_METRICS) {
+  tbl <- run_all_threeway(wide_df, metrics = metrics)
+  if (is.null(tbl) || nrow(tbl) == 0) return(NULL)
+  tbl |> dplyr::select(metric, kendall_w, kendall_p, n_days)
 }
 
 # -----------------------------------------------------------------------------
